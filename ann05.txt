@@ -1,0 +1,24 @@
+Subject: [ANN] CLORB 0.5 - A Common Lisp implementation of CORBA
+
+I have put version 0.5 of CLORB on Source Forge. CLORB is an
+implementation of CORBA 2 in Common Lisp.
+
+<URL:http://sourceforge.net/projects/clorb/>
+
+
+New in 0.5:
+
+   * Valuetype (object by value) including Abstract interface.
+   * New idl parser
+   * Improved ports
+   * New stub and skeleton implementation
+
+Ports:
+
+   MCL 5        only tested with Max OS X native
+   OpenMCL      seems to work (Mac OS X)
+   SBCL         seems to work on Mac OS X and Debian GNU/Linux (i386)
+   CLISP        works again (2.32)
+
+
+//Lennart Staflin

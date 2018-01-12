@@ -1,0 +1,52 @@
+TODO                        -*- indented-text -*-
+ $Id: TODO,v 1.24 2005/11/10 13:52:41 lenst Exp $
+
+* Final Lisp Mapping
+
+-  marshal should signal CORBA:MARSHAL on type errors.
+
+- 3.4 (deftype corba:environment() 'corba:exception)
+
+- 3.5 typedefs Flags, Identifier? Are all names in CORBA package? YES
+
+- 3.9.1 (corba:funcall op obj z)
+Lots of variantions possible in operation name. 
+
+
+* IDL Compiler
+
+- Wide char / Wide string ?
+
+
+* Misc
+
+- DynAny interface (3.13)
+
+- POA need to keep track of executing requests. wait-for-completion
+  method .. does it make sense in a single threaded impl?
+
+- Portable interceptors
+
+
+
+* Future
+
+- Multi-Threading
+
+- IIOP 1.2
+
+- Connection management: The mapping from <host, port> to a network
+  stream could be done with a weak mapping (weak hash?) and perhaps
+  some finalization to close the stream. The CORBA:Object could
+  contain a field for the assigned network stream. The connection to
+  the server could then be closed when there is no more objects from
+  that server.
+
+* Maybe
+
+Remake pi support. Don't subclass but delegate. Remove
+create-client-request etc, and do make-instance directly, might allow
+clos optimizations. ORB could have a interceptor slot and delegate
+will-send-.. etc to that object. Will have to add extra slots to
+request objects.
+

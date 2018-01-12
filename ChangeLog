@@ -1,0 +1,1572 @@
+2006-06-09  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* Version 0.7
+
+2006-06-08  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-util.lisp (object-create-request): use static-error-handler
+
+	* clorb-request.lisp (client-request): use lazy synchronization
+	(client-request): added slot status-notify-callback
+	(status-notify): new generic function, and method for client-request
+	(*send-hook*): new hook
+	(request-funcall): corba:funcall will now use input-func that
+	returns result
+	(dii-input-func): return values
+
+	* clorb-orb.lisp (bg-run): handle case of missing adapter
+
+	* clorb-mt.lisp (synchronized-lazy): new class
+
+2006-05-19  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-io.lisp (io-descriptor-connected-p): spelling
+
+	* clorb-srv.lisp (poa-connection-handler): use new :server-p arg
+
+	* clorb-conn.lisp (make-associated-connection): added &key server-p
+
+	* clorb-io.lisp: removed *io-descriptions*, io-fix-broken,
+	class io-system-multiprocess and related methods
+	(io-system): added slot io-descriptions
+	(io-system-reset io-system): does the kill processes and close
+	streams stuff.
+	(io-system-add-descriptor): new
+	(io-system-delete-descriptor): new
+	(io-descriptor-destroy): added &optional soft - to check that no
+	writer is using the descriptor
+	(io-desciptor-connected-p): new
+	(io-broken-descriptor): added &optional activity to close the
+	socket if possible
+
+2006-05-18  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-sysdep.lisp (socket-close): new
+
+	* clorb-srv.lisp (connection-receive-request): check
+	shutdown-status, and ingnore request if connection is shuting down
+
+	* clorb-request.lisp (request-no-write): new
+
+	* clorb-io.lisp (io-descriptor-destroy): use socket-close
+	(%io-descriptor-close): new
+	(io-descriptor-close): new
+	(io-descriptor-set-write): if descriptor broken generate a :no-write event
+	(io-broken-descriptor): send no event
+	(io-write-broken-descriptor): new
+	(io-read-broken-descriptor): new
+	(io-poll-desc): use io-write-broken-descriptor or io-read-broken-descriptor
+	(io-desc-write): generate :write-ready event even if error
+	(io-mt-write): generate :write-ready event even if error
+
+	* clorb-iiop.lisp (server-close-connection-msg): return buffer
+	(connection-message-error): don't destroy descriptor
+
+	* clorb-conn.lisp (Connection): new slots write-request write-count
+	(connection-destroy): only close descriptor
+	(connection-shutdown): synchronization
+	(%add-client-request): new
+	(connection-send-buffer): take optional request
+	(connection-no-write): new
+	(process-event): new event :no-write
+
+2006-05-16  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* pns-server.lisp (setup-pns): use new set-boot-object
+
+	* clorb-srv.lisp (BOOT-OBJECT-MANAGER): added boot-objects slot
+	  and removed global var.
+	(create-default-poa): new fun
+	(set-boot-object): new gf; method for BOOT-OBJECT-MANAGER
+	  root-adapter clorb-orb
+	(root-adapter): new class, to be referenced from orb class
+	(create-root-adapter): new fun
+	(root-poa-of): new fun
+	(adapter-register-poa, adapter-unregister-poa): new poa registry
+	  in root-adapter object.
+	(poa-by-id): lookup poa in root-adapter
+	(default-dispatch-request): new fun
+	(dispatch-request): moved here, use pluggable function in
+	  root-adapter
+	(queued-dispatch): new fun
+	(bg-dispatcher): new fun
+	(start-dispatcher-process): new fun
+	(setup-server): setup new root-adapter
+	(connection-receive-request): new fun
+	(poa-request-handler): factored out connection-receive-request
+
+	* clorb-poa.lisp (next-poaid): new. moved some globals to slots in
+	  root-adapter. 
+	(register-poa, unregister-poa): dispatch to root-adapter
+	(poa-locate): added root-adapter as parameter
+
+	* clorb-pkgdcl.lisp ("NET.CDDR.CLORB"): export set-boot-object
+
+	* clorb-orb.lisp (clorb-orb): rename slot adaptor to adapter
+	(bg-run): call start-dispatcher-process
+
+	* test-client-request.lisp ("Client Request"): new accesor name
+
+	* support-test.lisp (test-object): new accesor name
+
+	* clorb-typecode-1.lisp (unmarshal-function-cache): handle symbol
+	  and corece it to typecode
+
+	* clorb-request.lisp (request-start-request): added buffer as
+	  return value
+	(request-send): use marshal-request-message
+	(request-locate-reply): added synchronization
+
+	* clorb-object.lisp (CORBA:PROXY): added synchronized
+	(CORBA:PROXY): renamed accessor %object-connection
+	(raw-profiles): added synchronization
+	(%object-profiles): new uncsync method
+	(object-profiles): now with synchronization
+	(effective-profile): new
+	(get-object-connection): refactored and added synchronization
+
+	* clorb-iiop.lisp (profile-giop-version): new
+	(profile-giop-key): new
+	(marshal-locate-request): new
+	(marshal-request-message): new
+	(connection-get-buffer): new
+	(connection-pool): new class
+	(%get-iiop-connection-holder): renamed (internal)
+	(get-connection-from-pool): new
+	(*iiop-connections*): now an instance of connection-pool
+	(get-iiop-connection): use get-connection-from-pool
+
+	* clorb-conn.lisp (connection-send-request): moved
+	(connection-error): call request-reply-exception
+
+	* clorb-iiop.lisp (get-response-reply): call connection-receive-reply
+	(get-response-locate-reply): call connection-receive-locate-reply
+
+	* clorb-conn.lisp (connection-receive-reply): new
+	(connection-receive-locate-reply): new
+
+2006-05-13  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* support-test.lisp (connection-write-ready test-connection):
+	  again from %connection-write-ready
+
+	* clorb-util.lisp (op:resolve): new
+
+	* clorb-request.lisp (request-wait-response): removed
+	  with-synchronization
+
+	* clorb-mt.lisp (synch-wait-on-condition): added with-synchronization
+
+	* clorb-conn.lisp (connection-send-buffer): call
+	  orb-condition-wait outside with-synchronization
+	(connection-write-ready): back to be the only function no
+	  %connection-write-ready.
+	
+
+2006-05-12  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-iiop.lisp (setup-outgoing-connection): careful
+
+	* clorb-conn.lisp (Connection): add synchronized
+	(Connection): added activity and shutdown-status slots
+	(connection-destroy): careful
+	(connection-shutdown): new
+	(%connection-write-ready): new unsychronized method
+	(connection-send-buffer): added synchronization
+	(connection-add-client-request): added synchronization
+	(connection-remove-client-request): added synchronization
+	(find-waiting-client-request): added synchronization
+	(connection-remove-server-request): added synchronization
+	(gc-connections): garb connections
+	(auto-gc-read-handler): new func
+	(connection-error): added synchronization
+	(connection-close): added synchronization
+	(connection-write-ready): added synchronization
+	(orb-condition-wait): new
+
+	* clorb-files.lisp (*base-files*): new file clorb-mt
+
+	* clorb.asd (:clorb): new file clorb-mt
+
+	* clorb-sysdep.lisp (listener-close): renamed
+	(socket-shutdown): new
+
+	* clorb-servant.lisp (server-request-systemexception-reply): call
+	  new connection-shutdown
+
+	* clorb-request.lisp (client-request): add synchronized
+	(request-reply): added synchronization
+	(request-reply-exception): new func
+	(request-wait-response): added synchronization
+
+	* clorb-orb.lisp (clorb-orb): add synchronized
+	(bg-run): new func
+
+	* clorb-object.lisp (print-object corba:proxy): print status of
+	  connection as bound or broken-conn
+
+	* clorb-macros.lisp (when-let): new macro
+
+	* clorb-io.lisp (print-object): method for io-descriptor
+	(io-reset): more careful with io-descriptor-*-process they
+	may be other stuff.
+	(io-descriptor-shutdown): new
+	(*io-mt-read-queue-garb*): used to initialize :max-handler in
+	execution-queue for io-system-mt-blocking-write read-queue.
+	(io-mt-read): keep reading if io-queue-event processing
+	initialized a new read.
+	(io-ready-for-read io-system-mt-blocking-write): if there is an
+	existing read process signal it to continue reading.
+	(io-system-mt-non-blocking-write): new class
+	(io-mt-write): write queue handler
+	(io-ready-for-write io-system-mt-non-blocking-write): enqueue desc
+
+	* clorb-mt.lisp: new file with the system independent
+	  multi-threading and synchronization stuff. Moved and cleaned upp
+	  some things from clorb-sysdep. The execution-queue and
+	  shared-queue moved.
+	  (synchronized): mixin for classes that need synchronization,
+	  both locking and waiting, notifying.
+
+2006-05-10  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-sysdep.lisp (with-synchronization): new macro
+	(shared-queue): new class
+
+	* clorb-orb.lisp (enqueue-work): fix spelling
+
+	* clorb-io.lisp (io-system-get-event): take optional non-blocking
+	  argument
+	(io-descriptor): added lock slot
+	(io-system-get-event): method for io-system calls
+	  io-system-driver if blocking
+	(io-create-descriptor): take keyword args, add sequence number
+	  to io descriptors
+	(initialize-instance io-system-mt-base): set event-queue to a
+	  shared-queue
+	
+
+	* clorb-conn.lisp (process-event): new func. factored from orb-work
+
+2006-05-09  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-sysdep.lisp: removed unix-select to clorb-openmcl
+
+	* clorb.asd (asdfsystem :clorb): new file clorb-openmcl
+	conditional on feature :openmcl
+
+	* clorb-files.lisp (*base-files*): new file clorb-openmcl
+	conditional on feature :openmcl
+
+	* clorb-openmcl.lisp (unix-select): moved to new file
+
+	* clorb-srv.lisp: renaming accessors for read-buffer
+	and write-buffer to read-buffer-of write-buffer-of.
+
+	* clorb-iiop.lisp: renaming accessors for read-buffer
+	and write-buffer to read-buffer-of write-buffer-of.
+	(connection-send-request): reorder connection-add-client-request
+	and connection-send-buffer
+
+	* clorb-io.lisp (io-system-blocking-write): new mixin class
+	(io-ready-for-write): method for io-system-blocking-write
+	(io-system-select-blocking-write): use io-system-blocking-write
+	(io-desc-write): option to not generate event
+	(io-system-mt-blocking-write): use io-system-blocking-write
+
+	* clorb-conn.lisp (Connection): renaming accessors for read-buffer
+	and write-buffer to read-buffer-of write-buffer-of.
+	(connection-send-buffer): handle connection-write-ready if
+	io-descriptor-set-write returns true.
+
+	* clorb-io.lisp (io-system-queue-event): new gf
+	(io-system-event-waiting-p): new gf
+	(io-system-get-event): new gf
+	(io-queue-event): dispatch to io-system-queue-event
+	(io-system): moved the event queue to a slot on io-system
+	(io-system-reset): new gf - allow io-system classes to do
+	additional reset actions
+	(io-reset): call io-system-reset
+	(io-system-mt-base): new base class - provides a lock an slot for
+	listener process.
+	(io-system-queue-event): synchronized method for io-system-mt-base
+	(io-system-get-event): synchronized method for io-system-mt-base
+	(io-system-reset): method for io-system-mt-base to kill listener
+	process
+	(io-start-bg-listen): start listener process if not already started
+	(io-system-multiprocess): subclass io-system-mt-base
+	(io-system-mt-blocking-write): subclass io-system-mt-base
+	(io-event-waiting-p): dispatch to io-system-event-waiting-p
+	(io-get-event): dispatch to io-system-get-event
+
+	* clorb-files.lisp (*base-files*): moved clorb-queue to base files
+
+	* clorb-queue.lisp (queue-empty-p): new func
+
+2006-05-08  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-util.lisp (gc-connections): new func
+
+	* clorb-sysdep.lisp (read-octets): +Digitool wait for input before
+	  read
+	(current-process): +openmcl
+	(start-process): +openmcl
+	(end-process): +openmcl
+	(process-running-p): +openmcl
+	(process-wait): +openmcl
+	(make-lock): new func
+	(execution-queue): new class
+
+	* clorb-srv.lisp (poa-connection-handler): set server-p for
+	  connection
+
+	* clorb-io.lisp (*io-system-default-class*): new var
+	(*io-listener*): renamed
+	(io-system-select-blocking-write): new io-system class
+	(io-poll-select): parameter no-write to ignore writing descriptors
+	(io-ready-for-write): method for io-system-select-blocking-write
+	that does a direct write
+	(io-system-mt-blocking-write): new io-system class
+	(io-mt-read): function used in read queue
+	(io-ready-for-read): method for io-system-mt-blocking-write, queue
+	descriptor
+	(io-ready-for-write): method for io-system-mt-blocking-write that
+	does a direct write
+	(io-init): new function to be called from ORB initialization
+
+	* clorb-conn.lisp (Connection): new slot sever-p
+
+	* clorb-value.lisp (all-feature-values): use accessor instead of
+	  slot-value
+
+	* clorb-marshal.lisp: more safety if clorb::more-safe is on *features*
+
+2006-05-07  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-sysdep.lisp: openmcl support for select. Similar to
+	SBCL/CMUCL support.
+	(unix-select): OpenMCL implementation.
+
+2006-05-06  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-idl.lisp (corba:idl): allow nil file and generate code
+	from given repository.
+
+	* clorb-target.lisp (package-prefix): method for base IRObject
+	(target-code-contained): deref any
+	(target-code): use map to allow non-list sequences in
+	op:supported_interfaces op:abstract_base_values etc.
+
+2006-04-26  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-value.lisp (corba:any-typecode, corba:any-value): methods
+	  for CORBA:ValueBase.
+
+	* test-value.lisp ("Value/any"): new test case for value as any
+
+2006-04-20  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-struct.lisp (compute-marshal-function): use
+	tc-feature-symbols and tc-member-types. Local macro for
+	marshalling n member struct. Special lambdas for 1-6 member
+	structs.
+
+	* ec-test.lisp: import clorb:obj
+
+	* clorb-pkgdcl.lisp ("NET.CDDR.CLORB"): exporting OBJ
+
+	* clorb-util.lisp (obj): New convenice function.
+
+2006-04-13  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* Makefile (clean-fasl): recreate the fasl dir
+
+	* support-test.lisp (test-connection): new slot
+	response-func-called to be set when response-func is called.
+	(connection-write-ready): set response-func-called
+	(validate test-connection): check response-func-called
+
+	* idlcomp/package.lisp: new file
+
+	* clorb-pkgdcl.lisp: remove "NET.CDDR.CLORB.IDLCOMP" package
+
+	* clorb-files.lisp (*idlcomp*): new package file
+
+2006-04-12  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* examples/vtest/vtest-server.lisp (is_same): implement
+
+	* examples/vtest/vtest.idl: added is_same operation
+
+	* idl/corba-misc.idl: added StringValue and WStringValue
+
+	* clorb-pkgdcl.lisp ("OMG.ORG/CORBA"): added "STRINGVALUE" "WSTRINGVALUE"
+
+	* clorb-misc.lisp (OMG.ORG/CORBA:STRINGVALUE)
+	(OMG.ORG/CORBA:WSTRINGVALUE): added
+
+	* clorb-target.lisp (target-code): corba:valueboxdef - newer
+	  generate the :type
+
+	* clorb-typecode-1.lisp (set-ifr-info): set skel-table property to nil
+
+	* clorb-value.lisp (value-typecode): new slots: keyword-symbols
+	  all-keyword-symbols
+	  (truncatable-value-p): new generic function
+	  (*exact-type-value-marshal-opt*): fixed spelling
+	  (marshal-value): use truncatable-value-p, to better handle boxed
+	  values.
+	  (tc-keyword-symbols): new
+	  (all-keyword-symbols): new
+	  (unmarshal-value-1): use all-keyword-symbols and
+	  all-member-types to better handle boxed values.
+	  (shared-initialize): method for value-box to accept
+	  :create-for-unmarshal key, allowing value-box instances to be
+	  made by normal value unmarshalling.
+	  (all-member-types, all-feature-symbols, all-keyword-symbols):
+	  methods for value_box-typecode.
+	  (define-value-box): always define class. Define object-id method.
+	  (compute-marshal-function, compute-unmarshal-function): method
+	  for value_box-typecode like the value-typecode
+
+	* test-value.lisp ("Value/boxed value"): also test marshaling with
+	  type ValueBase. Change boxing of strings.
+
+2006-04-08  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-util.lisp (op:to_name): new method.
+
+	* support-test.lisp (test-system-exception-message): new func.
+
+	* test-client-request.lisp ("_non_existent"): new test case.
+
+	* clorb-request.lisp (_non_existent): trap CORBA:OBJECT_NOT_EXIST
+	  and convert to a true result.
+
+2006-04-06  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* pns-server.lisp (next_one): bug fix in binding type, coerce to
+	list if this method is used.
+	(*null-binding*): holds a dummy binding returned by next_one when
+	no more bindings.
+
+2006-04-05  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* test-client-request.lisp: better testing for handling of
+	  TRANSIENT.
+
+	* clorb-sysdep.lisp (*clisp-buffered-streams*): experimental
+	(open-active-socket, accept-connection-on-socket): use
+	  *clisp-buffered-streams* to test if buffered streams would work in
+	  clisp (no currently it seems).
+
+	* clorb-pi-impl.lisp: removing the orb-initializer class, dosen't
+	  make sense. Clients will subclass the
+	  PortableInterceptor:ORBInitializer class.
+
+2006-03-16  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-request.lisp (request-reply): decode system exceptions,
+	  here it will be done once.
+	  (should-retry): return status, or nil
+	  (request-poll): system exceptions already decoded. return status
+	  not request.
+
+	* clorb-conn.lisp (connection-close): just checking
+
+2006-03-15  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-request.lisp (should-retry): New function: retries a
+	  request if suitable TRANSIENT exception.
+	(request-poll): decode system execptions, handle error status
+	  and do retry via should-retry.
+	(request-get-response): No longer decodes system exeptions or
+	  handle error status.
+
+	* clorb-idl.lisp (corba:idl): Bind *defining-repository* while
+	  evaluating generated code.
+
+	* clorb-typecode-1.lisp:
+	(*defining-repository*): set to a repository object while
+	evaluating IDL files.
+	(add-defining-repository): Called to add link to repository object
+	to symbols for IDL types.
+	(defining-repository): reader for defining repository for IDL type
+	symbol.
+	(set-ifr-info): call add-defining-repository
+
+2006-03-07  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-ifr.lisp: fix ordering of (defmethod moveto :before ..)
+
+	* clorb-files.lisp (*binary-folder*): include _thread for threaded
+	sbcl as the fasl is incompatible
+
+2006-03-06  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-util.lisp (op:id, op:type): new methods for Accessing
+	  Interface Repository information fot IDL-types.
+
+	* clorb-object.lisp (Module): cleanup
+
+	* clorb-orb.lisp, clorb-pkgdcl.lisp:
+	added franz compatible narrowing: op:_narrow on the orb object.
+
+2006-01-29  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-iop.lisp, clorb-pi-base.lisp, clorb-pkgdcl.lisp, idl/orb.idl, idl/pi.idl:
+	Remove the IOP_N module and package and add TaggedComponentSeq to IOP.
+	Ref: Issue 3935: IOP_N
+
+	* clorb-idlparser.lisp (<simple_type_spec>): resolve alias types
+	  before checking restrictions
+
+	* clorb-exceptions.lisp, clorb-struct.lisp, clorb-typecode-1.lisp, clorb-typecode-2.lisp:
+	remove keywords slot from base typecode and add it where needed
+	(struct, enum, exception).
+
+2006-01-29  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-iop.lisp, clorb-pi-base.lisp, clorb-pkgdcl.lisp, idl/orb.idl, idl/pi.idl:
+	Remove the IOP_N module and package and add TaggedComponentSeq to IOP.
+	Ref: Issue 3935: IOP_N
+
+	* clorb-idlparser.lisp (<simple_type_spec>): resolve alias types
+	  before checking restrictions
+
+	* clorb-exceptions.lisp, clorb-struct.lisp, clorb-typecode-1.lisp, clorb-typecode-2.lisp:
+	remove keywords slot from base typecode and add it where needed
+	(struct, enum, exception).
+
+2006-01-29  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-idlparser.lisp (<simple_type_spec>): resolve alias types
+	  before checking restrictions
+
+2006-01-18  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-macros2.lisp, clorb-object.lisp, clorb-supp.lisp, clorb-value.lisp, test-union.lisp:
+	Some LW CORBA compatibility: (op:narrow class-symbol proxy) - for
+	narrowing. Type code constants for all named IDL types. Named with a
+	_tc_ prefix as _tc_type_name. These symbols are not yet exported, but
+	should be in the future.
+
+2006-01-12  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-sysdep.lisp, devel.lisp: REPL friendliness for SBCL.
+
+	* clorb-io.lisp:
+	io-system-driver io-system-multiprocess, don't wait if polling
+
+2006-01-12  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-sysdep.lisp, devel.lisp: REPL friendliness for SBCL.
+
+	* clorb-io.lisp:
+	io-system-driver io-system-multiprocess, don't wait if polling
+
+2005-12-20  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-buffer.lisp, clorb-macros2.lisp: Cleanup
+
+	* clorb-marshal.lisp: Use string->octets in marshal-osequence.
+
+	* clorb-sysdep.lisp: octets <-> characters from Dmitri Hrapof
+
+2005-12-19  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* devel.lisp: remove acl special
+
+2005-12-10  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-macros.lisp, clorb-macros2.lisp, clorb-object.lisp, clorb-target.lisp, clorb-value.lisp, gen-package-decl.lisp:
+	Patch from Dmitri Hrapof: remove obsolete clisp read-time
+	conditionals.
+
+	* clorb-iiop.lisp: cleanup
+
+2005-12-10  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-macros.lisp, clorb-macros2.lisp, clorb-object.lisp, clorb-target.lisp, clorb-value.lisp, gen-package-decl.lisp:
+	Patch from Dmitri Hrapof: remove obsolete clisp read-time
+	conditionals.
+
+	* clorb-iiop.lisp: cleanup
+
+2005-11-20  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-idlcpp.lisp (parse-numeric-character): spelling
+
+	* redpas/lexer.lisp (alt-error, failed-match):
+	make error parent of the conditions
+
+	* clorb-sysdep.lisp (cpp-command-string): add -w -undef to cpp call
+
+2005-11-20  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-idlcpp.lisp (parse-numeric-character): spelling
+
+	* redpas/lexer.lisp (alt-error, failed-match): make error parent
+	of the conditions
+
+	* clorb-sysdep.lisp (cpp-command-string): add -w -undef to cpp call
+
+2005-11-10  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* test-srv.lisp, test-typecode.lisp: cleanup
+
+	* clorb-target.lisp, test-target.lisp:
+	Fix generated type of string and contained
+
+	* clorb-unmarshal.lisp: New handling of profiles (in IOR)
+
+	* test-idlcomp.lisp: more comment testing
+
+	* clorb-request.lisp, clorb-servant.lisp:
+	refactor to support interceptors
+
+	* clorb-pkgdcl.lisp: added symbol in CORBA
+
+	* clorb-pi-impl.lisp: separate request info classes
+
+	* clorb-ifr-info.lisp: ifr-kind will also look at the typecode.
+	more experimental stuff
+
+	* pns-server.lisp:
+	Don't store IOR for local contexts. Allows keeping old database when
+	chaning IOR/host/port.
+
+	* clorb-iiop.lisp, clorb-object.lisp, clorb-orb.lisp:
+	New handling of profiles (in IOR)
+
+	* clorb-iop.lisp, clorb-exceptions.lisp: cleanup
+
+2005-11-08  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-sysdep.lisp: no buffering for CLISP
+
+	* clorb-idllexer.lisp: cleanup
+
+	* clorb-any.lisp: print-object method for any
+
+2005-05-05  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-sysdep.lisp (select-listener): ignore if select-direct-input
+
+2005-05-05  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* Version 0.6
+
+2005-05-04  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-sysdep.lisp (select-listener): ignore if select-direct-input
+
+	* clorb-io.lisp (io-poll-select): use select-listener
+
+	* clorb-sysdep.lisp (select-listener): new func
+	Also cmu19 like cmu18
+
+2005-05-03  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-iiop.lisp (profile-connection): medtod for vector (multi
+	profile) to avoid error.
+
+2005-04-05  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* test-idllexer.lisp ("IDL Lexer"): new fixed point literals
+
+	* test-idlcomp.lisp ("idlcomp"): fixed point constant and fixed
+	point constant arithmetic
+
+	* clorb-idlparser.lisp (<const_dcl>): accept "const fixed" with
+	fixed literal made by make-idl-fixed and friends.
+	(<const_type>): new list of allowed types
+	(add, sub): handle fixed point arithmetic
+	(<number_literal>): added fixed point
+
+	* clorb-idllexer.lisp (idl-fixed-p): new func
+	(idl-fixed-values): new func
+	(make-idl-fixed): new func
+	(parse-fixed): return fixed repr made make make-idl-fixed
+
+2005-03-25  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* test-typecode.lisp ("Typecodes"): added testcases for checking
+	parameters to typecode creation functions
+
+	* clorb-orb.lisp (check-tc-id, check-tc-name)
+	(check-tc-member-names, check-tc-content-type): new functions
+	for checking parameters to typecode creation functions
+
+2005-03-23  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* examples/hello/idl.lisp: avoid logical pathnames
+
+	* clorb-sysdep.lisp (accept-connection-on-socket): fix bug when
+	called non blocking on sbcl
+
+	* clorb-request.lisp (client-request): added 'args' slot
+	(request-start-request): simplified interface
+	(do-static-call): added args parameter
+	(request-send): new request-start-request interface
+	(request-poll): new func
+	(request-wait-response): call request-poll
+	(request-get-response): move forward handling to request-poll
+	(compute-static-call, compute-static-set): use args parameter to
+	do-static-call
+	(poll_response): call request-poll
+
+	* clorb-iiop.lisp (locate): new request-start-request interface
+
+2005-03-11  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-idlparser.lisp (<literal>): only <number_literal> for all
+	the numeric literals
+	(<identifier>): handle _ escaped identifiers
+
+	* clorb-idllexer.lisp (hex-char-p, hex-char, hex-escape)
+	(oct-char, oct-escape, escaped-char, string-literal-1): new functions
+	(string-literal): parse escaped characters and adjacent strings
+	(char-literal): parse excaped character
+	(decimal-char-p, parse-fixed): new funcs
+	(number-token): parse octal, hex and fixed. make all floats
+	double-float
+
+2005-02-28  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-idlparser.lisp (<identifier>): better error reporting,
+	allow leading underscore and remove it from result.
+
+	* test-idlcomp.lisp ("idlcomp"): new test "escaping identifiers"
+
+2005-02-25  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-poa.lisp (PortableServer:POA): new slot executing-requests
+	(deletef): new macro
+	(poa-invoke): track executing requests in executing-requests slot
+
+2005-02-10  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-ifr.lisp (describe-contained): new method for constant-def
+
+2005-02-03  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-value.lisp (value_box-typecode): sharing alias-typecode
+	gives wrong result for compute-marshal-function.
+
+	* clorb-macros2.lisp (define-interface): added defined_in version
+	keyword arguments. And use set-ifr-info.
+
+2005-02-01  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-pkgdcl.lisp ("OMG.ORG/IOP"): new exported symbols due to
+	constants added to the package
+
+2005-01-31  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-iop.lisp: added some ComponentID constants
+
+	* clorb-typecode-1.lisp (set-ifr-description, ifr-description):
+	change name of property from ifr-desc to ifr-description
+
+2005-01-03  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* test-poa.lisp (define-test "Identity mapping"): new test
+
+	* clorb-poa.lisp (reference_to_id): fix use of obsolete function
+
+2004-12-27  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-files.lisp (*server-files*): new file clorb-queue
+
+2004-12-20  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-srv.lisp (poa-request-handler): use
+	connection-add-server-request
+	(send-response): use connection-remove-server-request
+
+	* clorb-ifr.lisp (op:destroy): defined for IRObject, Contained,
+	Container, Repository, Alias-def and Primitive-def.
+	(op:describe_contents): defined for container
+
+	* clorb-conn.lisp (connection-add-server-request): new func
+	(connection-remove-server-request): new func
+
+2004-12-05  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-marshal.lisp (marshal-add-encapsulation): restore buffer
+	start pos before marshalling the length, otherwise align might
+	croak
+
+2004-11-26  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-idl.lisp (corba:idl): added new keyword parameter
+	REPOSITORY, allows caller to populate existing repository.
+
+2004-09-17  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-poa.lisp: use new object-map class for Active Object Map
+	in POA. Updated all uses.
+
+	* clorb-files.lisp (*server-files*): new file: clorb-aom
+
+2004-09-16  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-objkey.lisp (to-object-id): new method for general sequence
+
+	* test-poa.lisp: new test cases
+
+	* clorb-srv.lisp (poa-cancelrequest-handler): set :canceled state
+	on requests
+
+	* clorb-poa.lisp (wait-for-completion): new place holder GF
+	(PORTABLESERVER:POAMANAGER): new slot, managed-poas, tracks the
+	POAs managed by the POAManager
+	(in-invocation-context): new func
+	(poamanager-new-state): also handle wait-for-completion and
+	etheralize-objects
+	(add-poa): new GF
+	(remove-poa): new GF
+	(start-etheralize): new func
+
+	* support-test.lisp (make-test-connection): new func
+	(setup-test-out): use new func
+	(setup-test-in): new func
+	(test-write-request): new func
+
+	* clorb-iiop.lisp: cleaning up some define-struct
+
+2004-06-09  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* luna/package.lisp: new exports
+
+	* support-test.lisp: (ensure-exception): moved to luna/testsuite.lisp
+
+	* luna/testsuite.lisp (ensure-values, ensure-exception): new macros
+
+	* test-poa.lisp ("POA Test"): fix
+
+	* test-orb.lisp ("Test ORB Pseudo object"): new orb-work interface
+
+	* test-client-request.lisp ("Client Request"): new orb-work interface
+
+	* devel.lisp (*the-orb*): init orb with port on CMUCL
+
+	* clorb-typecode-2.lisp (marshal-function-cache): create a
+	cache cell from a typecode.
+	(%jit-marshal): use marshal-function-cache
+
+	* clorb-typecode-1.lisp (old-with-cache-slot): renamed with-cache-slot
+
+	* clorb-target.lisp (target-code-contained): cleanup
+	(target-code): dispatch on container using GF
+	target-code-contained
+	(target-code-contained): method for servant operation, raises
+	CORBA:NO_IMPLEMENT.
+
+	* clorb-sysdep.lisp (passive-socket-port): shouldn't be called
+	with a null socket.
+	(socket-stream-closed-p): allow a null stream in some cases.
+	(cpp-command-string): moved here, added handling of preprocessor
+	defines.
+
+	* clorb-supp.lisp (*the-orb*): moved
+
+	* clorb-srv.lisp (poa-request-handler): track server-requests
+	from connection (being processed).
+	(send-response): track server-requests
+	(poa-cancelrequest-handler): preliminary implementation of cancel
+	request, don't send response for canceled requests.
+	(poa-locaterequest-handler): use send-locate-reply
+	(send-reply): new func
+	(send-locate-reply): new func
+
+	* clorb-servant.lisp (create-server-request): include orb
+	(server-request-respond): check for internal _locate request.
+
+	* clorb-request.lisp (request-start-request): take handler
+	function as parameter
+	(*call-hook*): new variable
+	(do-static-call): after request sent, call *call-hook* if set,
+	else normal response handling
+	(request-send): new request-start-request interface
+	(dii-output-func): use jit-marshal
+
+	* clorb-poa.lisp (poa-invoke): refactoring
+
+	* clorb-pkgdcl.lisp ("OMG.ORG/CORBA"): updated
+
+	* clorb-orb.lisp (clorb-orb): added work-queue slot
+	(enqueu-work): new work queue interface
+	(work_pending): new interface to io layer
+	(perform_work): new orb-work interface
+	(run): new orb-work interface
+
+	* clorb-options.lisp (*clorb-pathname-defaults*): need a read
+	time eval for the *compile-file-pathname* reference.
+
+	* clorb-objkey.lisp: cleanup
+
+	* clorb-macros.lisp (with-cache-slot): moved and simplified
+
+	* clorb-io.lisp (io-event-waiting-p, io-get-event): new event
+	queue interface.
+
+	* clorb-iiop.lisp (locate): use request-start-request
+
+	* clorb-ifr-export.lisp (local-translator, remote-translator):
+	use with-cache-slot macro.
+
+	* clorb-idlparser.lisp (load-repository): support for defines
+	(*default-idl-compiler*): default compiler defines preprocessor
+	symbol _CLORB.
+
+	* clorb-idllexer.lisp (using-idllex): support for defines
+
+	* clorb-idlcpp.lisp (*warn-unknown-pragma*): new flag, if true
+	warn about unknown pragmas from cpp.
+	(parse-cpp-line): use *warn-unknown-pragma* and recognize but
+	ignore GCC pragma.
+	(using-cpp-stream): support for defines
+
+	* clorb-idl.lisp (IDL-COMPILER): support for defines
+	(*default-exclude*): added modules IOP, GIOP and IIOP
+
+	* clorb-files.lisp (*base-files*): added clorb-misc file.
+
+	* clorb-conn.lisp (Connection): added server-request slot.
+	(orb-work): added work queue in the ORB object. Use new io-driver
+	interface.
+	(orb-wait): use new orb-work interface.
+
+	* clorb-buffer.lisp (the-orb): moved.
+
+2004-02-10  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* Version 0.5 Released
+
+2003-10-23  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* Version 0.4 Released
+
+2003-10-15  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-ifr.lisp (describe-contained): produce a
+	CORBA:InterfaceDescription not a full description.
+	(check-unique-name): new func.
+	(setf op:base_interfaces): use check-unique-name
+	(create_attribute): use check-unique-name
+	(create_operation): use check-unique-name
+
+2003-10-08  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* support-test.lisp (ensure-exception): added
+
+	* idef-read.lisp:
+	don't create the same interface multiple times, even if it is
+	multiple times in the idef
+
+	* clorb-target.lisp (target-type): ValueBase primitive
+
+	* clorb-orb.lisp (OMG.ORG/CORBA:VALUEMODIFIER): new type
+	(simple-value-members): factor of create_value_tc
+
+	* clorb-opdef.lisp: removed unused functions
+
+	* clorb-object.lisp (CORBA::ValueBase): new class
+	(CORBA::AbstractBase): new class
+	(_is_equivalent, _is_nil, _hash, _is_a): defined on class t. To
+	handle local objects.
+
+2003-10-07  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-macros.lisp (define-operation): added documentation key
+	parameter.
+
+	* clorb-typecode.lisp: Added constants for ValueModifier and
+	TC_ValueBase
+
+	* clorb-ifr.lisp: Implemented ValueDef, AbstraceInterfaceDef,
+	LocalInterfaceDef and NativeDef.
+
+1999-11-30  Lennart Staflin <lenst@lysator.liu.se>
+
+	* clorb-orb.lisp: Added support for -ORBPort init argument to
+	ORB_init.
+
+	* clorb-iiop.lisp (unmarshal-giop-header): cleanup error message
+
+	* clorb-io.lisp (io-driver): added cludge to work-around the
+	buffering in sbcl streams.
+
+2003-09-25  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-util.lisp (repository-facade): Creating a
+	repository-facade class, that can aggregate several interface
+	repositories. Currently this only implements the op:lookup_id
+	method.
+	(*internal-interface-repository*): containing an instance of
+	repository-facade. This should provide a way to search various
+	local interface repositories, like the idef repository and those
+	created by loading idl files.
+	(get-ns): cache the narrowing, and try narrowing to CosNamingExt
+	first.
+
+	* clorb-poa.lisp (_get_interface): use new
+	*internal-interface-repository*
+
+	* clorb-pkgdcl.lisp ("NET.CDDR.CLORB"): changed name, keeping old
+	name as nickname. New use list, with some conditional on clorb-dev.
+
+	* clorb-options.lisp (*clorb-pathname-defaults*): added.
+	Previously was in clorb-files.lisp, but that file is now in
+	another package.
+
+	* clorb-object.lisp (object-narrow): optionally allow narrowing
+	to fail silently, returning nil.
+
+	* clorb-iiop.lisp (+message-types+): changed from constant to
+	defparameter. (the reader will create a new object every time. so
+	it cant be constant :)
+
+	* clorb-idl.lisp (corba:idl): add repository to
+	*internal-interface-repository*.
+
+	* clorb-files.lisp: Put file in separate package net.cddr.clorb.system
+	Split out test related files, allowing loading LUNA (test framwork)
+	package before declaring main clorb package.
+
+	* clacl.lisp, clmcl.lisp, clopenmcl.lisp, clsbcl.lisp, test-util.lisp, examples/combat-account/account.lisp, examples/hello/loadup.lisp, luna/package.lisp:
+	*** empty log message ***
+
+	* clive.lisp, examples/dsi/clive.lisp: moved file
+
+2003-09-23  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-marshal.lisp (marshal-float, marshal-double,
+	marshal-longdouble): new funcs
+
+	* clorb-sysdep.lisp, clsbcl.lisp: support sbcl on mac os x
+
+2003-08-13  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-util.lisp (pathname-url): handle logical pathnames and
+	pathnames without type
+
+	* clorb-object.lisp (print-object): use proxy-id
+
+2002-06-25  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-basetypes.lisp (corba:exception): moved
+	(corba:userexception): moved
+
+2002-05-30  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* orb-structs.lisp, orb-stub.lisp, orb-idl.lisp, code-gen.lisp:
+	* ir-class.lisp, orb-export.lisp:
+	removing
+
+	* clorb-iir.lisp: simplify
+
+	* clorb-exceptions.lisp, clorb-iiop.lisp, clorb-object.lisp:
+	Exception handling
+
+	* idef-read.lisp: use CORBA:StructMember instead of make-struct
+
+	* clorb-unmarshal.lisp: added fun unmarshal-exception
+
+2002-05-29  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-servant.lisp: Move op:_this to clorb-poa
+
+2002-05-28  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-poa.lisp (_this): moved here from clorb-servant.lisp
+	(poa-has-policy): new fun. change to use this
+
+2002-05-24  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-opdef.lisp:
+	Moved ParameterDescription, ParameterMode to clorb-ifr-base.
+
+	* target.lisp:
+	Dispatch on the CORBA: classes, not on the local-ifr classes.
+
+	* local-ir.lisp:
+	New class hier based on the standard classes (i.e. CORBA:IORObject).
+
+	* idef-write.lisp:
+	Dispatch on the CORBA: classes, not on the local-ifr classes.
+
+	* idef-read.lisp: Unbouned strings should use PrimitiveDef.
+
+	* clorb-unmarshal.lisp:
+	Fixed macro. Use IOP package for service context.
+
+	* clorb-typecode.lisp: Some support for generated code.
+
+	* clorb-supp.lisp:
+	New fun ensure-corba-package to be used in generated code.
+
+	* clorb-poa.lisp: Make iiop-profiles for generated objrefs.
+
+	* clorb-orb.lisp: Added default initial reference.
+
+	* clorb-object.lisp: Removed opdef from CORBA:Request.
+
+	* clorb-marshal.lisp: Fixed objref marshalling to use iiop-profiles.
+
+	* clorb-macros.lisp: CORBA-class setters will call slot-updated gf.
+
+	* clorb-files.lisp:
+	Changed files. New fun to generate a package declaration from existing package.
+
+	* dii-example.lisp, dsi-example.lisp: package change
+
+	* test-suite.lisp:
+	Added debugging flag. Test suits can now have a variables section with
+	variables bound in every test case. Added a result object that allows
+	for aggregating several test suites.
+
+2002-05-24  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* test-suite.lisp (:clorb): added debugging flag. Test suits can
+	now have a variables section with variables bound in every test
+	case. Added a result object that allows for aggregating several
+	test suites.
+
+2002-03-21  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-unmarshal.lisp (iiop-profile): new struct
+	(unmarshal-iiop-profile-body): return struct, don't modify proxy obj
+	(unmarshal-ior): decode all IIOP profiles and store in profiles
+	field, defer selection of profile until object is "connected".
+
+	* clorb-iiop.lisp (get-object-connection): new
+	(connect-object): new
+	(request-send): use get-object-connection
+
+	* clorb-orb.lisp (string-to-object): changed to accept "corbaloc"
+	and "file" URLs. Several helper functions added.
+
+	* clorb-srv.lisp (initialize-poa): new for the new ORB
+	initialization mechanism.
+
+	* clorb-options.lisp (*name-service*, *interface-repository*): use
+	file:// urls as default.
+
+	* clorb-object.lisp (CORBA:Proxy): added field raw-profiles,
+	stores the raw encapsulations for the profiles (used to be
+	profiles). The profiles field now stores decoded IIOP profiles.
+	New field connection stores the connection object after it has
+	been assigned.
+	(object-narrow): copy raw-profiles
+
+2002-03-20  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-orb.lisp (*default-initial-references*): remove
+	(*orb-initializers*): new variable, list of functions to run when
+	initializing the orb.
+
+	* clorb-util.lisp (ns-name*): changed name from ns-name
+	(ns-name): changed name from ns-name1
+	(ns-name): namestring syntax now follows the CosNaming Stringified
+	Names syntax. That is "/" separates components and "." separates
+	id and kind.
+
+2001-07-09  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* local-ir.lisp (operation-description): include exception
+	descriptions not exceptiondef objects.
+
+2001-07-06  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* dumpir.lisp (dump-ir): use with-standard-io-syntax
+
+2001-07-02  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-srvreq.lisp: modified for new IO-system
+
+	* clorb-srv.lisp: Old adaptor class and methods removed. Support
+	for new IO-system.
+
+	* clorb-servant.lisp: remove marshal-ior method
+
+	* clorb-orb.lisp: moved orb-wait to clorb-iiop. Removed the
+	adaptor generics.
+
+	* clorb-macros.lisp (define-operation): new
+	(define-deferred): new
+
+	* clorb-trie.lisp (trie-get): fix type declaration
+
+	* clorb-object.lisp (request-funcall): request-invoke renamed to
+	request-funcall
+	(CORBA:NamedValue): moved here
+	(CORBA:Request): moved here
+
+	* clorb-iiop.lisp: New file. Connection handling, IIOP
+	request/response handling. IO event handling (orb-wait).
+
+	* clorb-client.lisp: all code moved to clorb-iiop
+
+	* clorb-any.lisp (any-value): add CORBA:struct, move CORBA:Object
+
+2001-07-01  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-request.lisp: Move to clorb-object
+
+	* clorb-object.lisp (CORBA:Request): Add connection slot
+
+2001-06-29  Lennart Staflin  <lennarts@manamind.no>
+
+	* clorb-marshal.lisp (marshal-ior): rewrite as a ordinary defun
+
+	* clorb-poa.lisp (object-key-id): remove
+
+2001-06-23  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-request.lisp (add_out_arg): OMGBUG
+	has name, how does this differ from add_named_out_arg
+
+2001-06-21  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-orb.lisp (string-to-object): removed orb from name and arglist
+	(object-to-string): removed orb from name and arglist
+
+2001-06-14  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* socket.lisp (wait-for-input-on-streams): put in the sleep in the
+	new clisp/mcl code
+
+2001-06-13  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-iir.lisp: removed some debugging code
+
+	* clorb-struct.lisp (*specialized-structs*): now a defvar
+
+	* clorb-orb.lisp (orb-wait): put the fallback handling in here
+
+	* clorb-srv.lisp (handle-socket): take flag if blocking allowed
+	(removed the srv-.. version of this)
+	removed the adaptor-fallback, moved handling to orb-wait
+
+	* socket.lisp (wait-for-input-on-streams): added support for clisp
+	(and untested for mcl)
+	(socket-stream-functional-p): clisp: detect eof also
+	(socket-stream-listen): clisp: use read-byte-lookahed
+
+2001-06-04  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-util.lisp (ns-name1): new syntax for name service names as
+	string: <id1>&<kind1>;<id2>&<kind2>;..;<idn>&<kindn>. Where
+	'&<kind>' is optional and '&&' stands for a singel '&' in the name.
+
+2001-05-17  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* idef-read.lisp (idef-read-part): added support for
+	define-constant syntax
+
+2001-05-15  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* idef-read.lisp (parse-type-in): added support for (string n) and
+	(wstring n) type specifications.
+
+	* local-ir.lisp (wstring-def): new class
+
+2001-02-13  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* local-ir.lisp (addto): addto now returns the object added.
+	(create_constant): new
+	(create_exception): new
+	(create_union): new
+	(create_enum): new
+	(create_alias): new
+	(create_interface): new
+	(constant-def): new class
+	(find-opinfo): new
+	(create_attribute): new
+	(create_operation): new
+
+	* clorb-srvreq.lisp (set-request-result): Moved here.
+
+	* clorb-servant.lisp (servant-invoke): use new "opinfo" triple
+	instead of old opdef. This to better handle getters and setters.
+
+	* clorb-iir.lisp (opdef-from-attrdef): include setter also
+
+	* clorb-exceptions.lisp (report-systemexception): Removed
+	conditional format string
+
+2001-02-13  Lennart Staflin  <lennarts@infostream.no>
+
+	* clorb-macros.lisp (define-method): fix test for docstring
+
+	* clorb-iir.lisp (is_a): method on interface to support mixing the
+	iir and local-ir objects.
+
+2000-08-03  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-pkgdcl.lisp ("OMG.ORG/PORTABLESERVER"): fixed name case.
+
+2000-07-21  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-poa.lisp: Added standard interface for Current object.
+
+2000-06-25  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* socket.lisp: new func.
+	Added some logging.
+
+	* clorb-srv.lisp: Moved some stuff to socket.lisp
+
+2000-06-25  lenst  <lenst@pc-lennarts>
+
+ 	* socket.lisp: Added socket accepting code for CMUCL.
+	Only blocking version though.
+
+	* local-ir.lisp: Oops. Need absolute_name as initarg for contained.
+
+	* clorb-srv.lisp, clorb-srvreq.lisp:
+	Remove double colon in format string
+
+2000-06-25  Lennart Staflin  <lenst@t2>
+
+	* clorb-marshal.lisp: Fixs signed/unsigned type declarations.
+
+	* clorb-exceptions.lisp: Change accessor to reader for conditions
+
+	* clorb-options.lisp: Added docstrings
+
+	* test-suite.lisp, test-suit.lisp: rename test-suit to test-suite
+
+	* ec-server.lisp, ns-server.lisp: Update for new interface
+
+	* clorb-sysdcl.lisp, clorb.system: New files..
+
+	* code-gen.lisp: Getting there...
+
+	* test-marshal.lisp: Move macro to own file
+
+	* local-ir.lisp: Getting there ...
+
+	* idef-macros.lisp:
+	Removed old macrology for creating interface definitions.
+	New macro idef-definitions uses the idef-read function.
+
+	* hello-client.lisp, hello-dynserver.lisp, hello-idl.lisp,
+	hello-server.lisp:
+	Some fixes to the Hello World example
+
+	* clorb-unmarshal.lisp:
+	When unmarshaling IORs, save all profiles and used specialized proxy
+	class if one has been registered.
+
+	* clorb-trie.lisp, clorb-struct.lisp:
+	Let ParameterDescription compute type code from TypeDef if type code
+	not set.
+
+	* clorb-exceptions.lisp:
+	Added :slots keyword arg to define-user-exception
+
+	* clorb-orb.lisp, clorb-srv.lisp, socket.lisp:
+	Changed the way sockets and streams are handled. Too avoid blocking on
+	reading from an uninteresting socket if the implementation don't
+	support all the functions we need.
+
+	* clorb-objkey.lisp:
+	Added  oid-to-string (oid),  string-to-oid (string)
+	from lisp mapping.
+	Also support new object-key format for persistent IOR. New magic
+	numbers (all start with ascii codes for C and L, various cases :).
+
+	* clorb-macros.lisp: Remove :id parameter from define-class macro.
+
+	* clorb-util.lisp, clorb-poa.lisp, clorb-servant.lisp, clorb-srvreq.lisp, clorb-iir.lisp, clorb-object.lisp, clorb-request.lisp:
+	Interface changes for Lisp mapping
+
+	* clorb-buffer.lisp: Removed unused function
+
+2000-06-14  Lennart Staflin  <lenst@t2>
+
+	* ec-server.lisp: Separate server and client test case
+
+	* ns-server.lisp:
+	Use poa-current to find the POA, not servant-default-POA.
+
+	* ns-server.lisp: * ns-server.lisp: use new define-servant.
+
+	* local-ir.lisp: use auto-servant as base not servant. Support for
+	using interface-def and operation-def instances in auto-servant
+	implementation: methods for find-opdef, opdef-inparam-typecodes,
+	opdef-outparam-typecodes.
+
+	* idef-macros.lisp (define-servant): new macro that creates an
+	auto-servant class for an interface that can be used almos as a
+	skeleton class generated by an IDL-compiler.
+
+	* ec-server.lisp: use new define-servant and remove the multiple
+	interface hack.
+
+	* clorb-srvreq.lisp: started writing support for the standard
+	interface to ServerRequest.
+
+	* clorb-servant.lisp: Major interface changes bring it closer to
+	the spec.
+	DynamicImplementation: new class for DSI.
+	op:_default_POA: method on servant as standard
+	class auto-servant: implements old servant behaviour.
+
+	* clorb-request.lisp: Change struct clorb::named-value into class
+	CORBA:NamedValue
+
+	* clorb-poamgr.lisp: Change operations on POAManager to be in the
+	op: package.
+
+	* clorb-poa.lisp: change old struct clorb::poa to class
+	PortableServer:POA with some changes of slot names and accessors
+	to be standard.
+
+	* clorb-opdef.lisp: made methods opdef-outparam-typecodes and
+	opdef-inparam-typecodes to allow different opdef implementations
+	to be used in servants.
+
+	* clorb-iir.lisp: * clorb-iir.lisp: (find-opdef) made this a method
+
+	* clorb-any.lisp: * clorb-any.lisp: make any-typecode setf-able.
+
+
+2000-06-14  Lennart Staflin  <lennarts@infotek.no>
+
+	* Installed patch from Eric Marsden "to make CLORB work on CLISP
+	2000-03-06". (Client only)
+
+	The main changes are to prefix certain functions with their
+	package (eg read-byte-sequence), and adding &allow-other-keys to
+	`initialize-instance' functions (otherwise CLISP seals the class
+	and doesn't accept any keyword arguments to `make-instance'). I
+	also changed `socket-connect' to specify the :element-type, and
+	had to fiddle with the ugly ~_ format hack.
+
+2000-06-14  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* ns-server.lisp: use new define-servant.
+	Use poa-current to find the POA, not servant-default-POA.
+
+	* local-ir.lisp: use auto-servant as base not servant. Support for
+ 	using interface-def and operation-def instances in auto-servant
+ 	implementation: methods for find-opdef, opdef-inparam-typecodes,
+ 	opdef-outparam-typecodes.
+
+	* ec-server.lisp: use new define-servant and remove the multiple
+	interface hack.
+
+	* idef-macros.lisp (define-servant): new macro that creates an
+	auto-servant class for an interface that can be used almos as a
+	skeleton class generated by an IDL-compiler.
+
+	* clorb-srvreq.lisp: started writing support for the standard
+	interface to ServerRequest.
+
+	* clorb-poamgr.lisp: Change operations on POAManager to be in the
+	op: package.
+
+	* clorb-poa.lisp: change old struct clorb::poa to class
+	PortableServer:POA with some changes of slot names and accessors
+	to be standard.
+
+	* clorb-opdef.lisp: made methods opdef-outparam-typecodes and
+	opdef-inparam-typecodes to allow different opdef implementations
+	to be used in servants.
+
+	* clorb-iir.lisp: (find-opdef) made this a method
+
+	* clorb-request.lisp: Change struct clorb::named-value into class
+	CORBA:NamedValue
+
+	* clorb-iir.lisp:
+
+	* clorb-any.lisp: make any-typecode setf-able.
+
+	* clorb-servant.lisp: Major interface changes bring it closer to
+	the spec.
+	DynamicImplementation: new class for DSI.
+	op:_default_POA: method on servant as standard
+	class auto-servant: implements old servant behaviour.
+
+2000-06-13  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-servant.lisp: Rename servant-this to op:_this
+
+2000-06-07  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-request.lisp: Some format to mess.
+
+2000-05-23  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-poamgr.lisp: Use new macro to define user exception
+
+	* clorb-pkgdcl.lisp:
+	CLISP socket import, plus some more export for features
+
+	* clorb-macros.lisp: Another attempt to deal with CLISP non ansi format
+
+	* clorb-exceptions.lisp: new defmacro define-user-exception
+
+2000-05-20  Lennart Staflin  <lennarts@infotek.no>
+
+	* clorb-macros.lisp (define-method): Don't use package directly in
+	generated code.
+
+2000-05-18  Lennart Staflin  <lenst@lysator.liu.se>
+
+       	* Installed patch from Daniel Barlow <dan@telent.net>
+	Support for CMUCL:
+
+	* clorb-util.lisp: ORBit fix.
+
+	* clorb-srvreq.lisp: Robustify.
+
+	* clorb.system, clorb-pkgdcl.lisp: Fixes for CMUCL.
+
+	* socket.lisp: new file with socket functions.
+
+	* clorb-orb.lisp: Use new socket functions.
+
+	* clorb-iir.lisp: Some message changes.
+
+	* clorb-sysdcl.lisp, clorb-srv.lisp, clorb-client.lisp:
+	Use new socket functions.
+
+2000-04-30  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-macros.lisp (clisp-clean-format-string): fixup format
+	strings for CLISP, also a shadow format with a macro to call this
+	function.
+
+	* clorb-marshal.lisp (marshal-number): don't use compiler macro
+	for clisp (does it support compiler macros?)
+
+	* clorb-request.lisp (corba-get-next-respons): rewrite loop to be
+	ansi compliant. Added orb as parameter.
+	(request-get-response): loop rewrite.
+
+2000-04-29  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* local-ir.lisp: remove lisp-symbol and package-for; this will
+	have to be handled by the code generator
+
+2000-04-26  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-servant.lisp: remove methods slot from servant
+
+2000-03-18  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-any.lisp (any-typecode): New actual typecodes according to
+	4.20.2.
+
+2000-03-17  Lennart Staflin  <lenst@lysator.liu.se>
+
+	* clorb-request.lisp (request-get-response): need to get client in
+	every loop iteration to handle forwards correctly.
+

@@ -1,0 +1,3159 @@
+
+bg-driver.lisp,53
+(defvar *work-pending* 6,72
+(defun bg-driver 9,102
+
+bg-handler.lisp,30
+(defun bg-event-handler 6,72
+
+cllw.lisp,22
+(defvar *orb* 10,229
+
+clmcl.lisp,405
+(defun clean-fasl 3,23
+(defun use-pentax-ifr 30,670
+(defun use-pentax-ns 33,791
+(defun use-mcl-ns 36,895
+(defun use-quad-mcl-ns 39,1003
+(defun use-jacorb 42,1118
+(defun use-lapps 45,1220
+(defun run 48,1327
+(defparameter *random-ior*59,1501
+(defun clorb::xir 66,1777
+(defclass local-target 73,2041
+(defvar *export-ifr* 99,2879
+(defun export-iors 101,2906
+(defun home-volume-pathname 113,3578
+
+clorb-any.lisp,741
+(defclass CORBA:ANY 5,46
+(defgeneric any-typecode 9,140
+(defgeneric any-value 11,173
+(defun corba:any 14,204
+(defmethod initialize-instance 21,412
+(defmethod print-object 26,615
+(defmethod any-typecode 34,913
+(defmethod any-value 37,986
+(defmethod (setf 40,1053
+(defmethod (setf 43,1142
+(defmethod any-typecode 49,1261
+(defun member-typecode 66,1849
+(defmethod any-typecode 86,2484
+(defmethod any-typecode 89,2579
+(defmethod any-typecode 92,2665
+(defmethod any-value 98,2745
+(defmethod any-value 101,2789
+(defmethod any-value 104,2833
+(defmethod any-value 107,2880
+(defmethod any-value 111,2934
+(defmethod any-value 114,2980
+(defun marshal-any 122,3084
+(defun unmarshal-any 127,3225
+(defun marshal-any-value 134,3423
+
+clorb-aom.lisp,309
+(defclass object-map 14,265
+(defmethod servant-active-p 22,488
+(defmethod servant-oid-list 25,608
+(defmethod add-activation 28,730
+(defmethod remove-activation 34,972
+(defmethod oid-servant 46,1492
+(defmethod servant-oid 49,1589
+(defmethod map-activations 58,1920
+(defmethod activation-count 75,2689
+
+clorb-basetypes.lisp,592
+(deftype corba:boolean 8,65
+(deftype corba:char 11,97
+(deftype corba:wchar 14,135
+(deftype corba:octet 18,201
+(deftype corba:string 21,248
+(deftype corba:wstring 24,285
+(deftype corba:short 28,354
+(deftype corba:ushort 31,400
+(deftype corba:long 34,449
+(deftype corba:ulong 37,494
+(deftype corba:longlong 40,542
+(deftype corba:ulonglong 43,591
+(deftype corba:float 46,643
+(deftype corba:double 52,815
+(deftype corba:longdouble 56,896
+(deftype corba:fixed 60,977
+(deftype fixed 63,1015
+(define-condition corba:exception 72,1256
+(define-condition corba:userexception 75,1317
+
+clorb-buffer.lisp,674
+(deftype buffer-index 5,50
+(defvar *empty-octets*10,162
+(defvar *chunking-level* 14,232
+(defvar *chunk-end* 17,302
+(defstruct buffer21,402
+(defmethod print-object 30,678
+(defmethod the-orb 38,1018
+(defun buffer-contents 42,1094
+(defun buffer-out-pos 45,1164
+(defun buffer-abs-pos 48,1237
+(defun buffer-rel-pos 51,1295
+(defun buffer-length 56,1444
+(defmacro with-in-chunking 60,1511
+(define-symbol-macro chunking-p 68,1763
+(defmacro without-chunking 70,1820
+(defmacro with-sub-buffer 81,2117
+(defun get-work-buffer 100,2908
+(defun buffer-record 109,3123
+(defmacro with-out-buffer 114,3256
+(defun start-in-chunk 142,4432
+(defmacro with-in-buffer 147,4624
+
+clorb-codec.lisp,272
+(defclass codec-impl 18,611
+(define-method decode 28,870
+(define-method decode_value 36,1092
+(define-method encode 42,1303
+(define-method encode_value 51,1540
+(defclass codecfactory-impl 62,1743
+(define-method create_codec 70,1961
+(defun set-codec-factory 81,2392
+
+clorb-conn.lisp,1294
+(defvar *request-id-seq* 5,63
+(defclass Connection 77,2155
+(defmethod print-object 96,3453
+(defmethod next-request-id 107,3719
+(defun make-associated-connection 113,3837
+(defun connection-destroy 120,4083
+(defun create-connection 126,4240
+(defun connection-working-p 139,4691
+(defun connection-init-read 144,4816
+(defun connection-shutdown 160,5429
+(defun %add-client-request 180,5981
+(defun connection-send-buffer 184,6077
+(defun connection-send-request 202,6748
+(defun find-waiting-client-request 206,6843
+(defun connection-receive-reply 216,7228
+(defun connection-receive-locate-reply 221,7443
+(defun connection-add-server-request 227,7641
+(defun connection-remove-server-request 231,7778
+(defun connection-add-fragment 237,7972
+(defun gc-connections 250,8390
+(defun auto-gc-read-handler 269,9103
+(defun connection-error 290,9595
+(defun connection-close 299,9909
+(defun connection-read-ready 310,10389
+(defmethod connection-write-ready 314,10477
+(defun connection-no-write 326,10879
+(defun connection-init-defragmentation 339,11330
+(defvar *new-connection-callback*353,11651
+(defvar *running-orb* 358,11739
+(defun orb-wait 364,11962
+(defun orb-condition-wait 370,12163
+(defun orb-run-queue 381,12639
+(defun process-event 386,12742
+(defun orb-work 411,13568
+
+clorb-dyntarget.lisp,363
+(defclass dynamic-1-stub-target 6,77
+(defclass dynamic-2-stub-target 10,131
+(defmethod target-code 16,187
+(defmethod target-code 25,591
+(defmethod target-code 51,1804
+(defmethod target-code 63,2335
+(defclass dynamic-sevant-target 77,2949
+(defmethod target-code 81,3003
+(defmethod target-invoke-dynamic 101,3916
+(defmethod target-invoke-dynamic 106,4016
+
+clorb-exceptions.lisp,948
+(defconstant CORBA::OMGVMCID 6,87
+(defconstant min-vmcid 7,128
+(define-enum CORBA:completion_status9,167
+(defparameter corba:tc_completion_status14,344
+(define-typecode except-typecode21,459
+(defun create-exception-tc 30,765
+(defgeneric exception-name 40,1009
+(defmethod any-typecode 43,1112
+(defmethod any-value 47,1244
+(defun exception-id 50,1303
+(define-condition corba:systemexception 57,1408
+(define-method minor 66,1777
+(define-method completed 69,1861
+(defun report-systemexception 72,1953
+(defun system-exception 85,2418
+(defun raise-system-exception 90,2635
+(defmethod shared-initialize 95,2783
+(defmethod shared-initialize 101,2992
+(define-condition unknown-user-exception 138,4375
+(defmethod all-fields 144,4603
+(defun id-exception-class 149,4784
+(defun exception-read 156,4899
+(defun unmarshal-systemexception 164,5147
+(defmethod compute-marshal-function 174,5536
+(defmethod compute-unmarshal-function 185,5896
+
+clorb-files.lisp,736
+(defpackage "NET.CDDR.CLORB.SYSTEM"3,57
+(defmacro def-load-opts 12,212
+(def-load-opts set-load-opts 30,1070
+(defparameter *base-files*41,1440
+(defparameter *server-files*79,2173
+(defparameter *redpas-files*89,2351
+(defparameter *luna-files*94,2443
+(defparameter *dev-post-files*99,2532
+(defparameter *portable-interceptor-files*102,2585
+(defparameter *x-files*106,2671
+(defparameter *idlcomp*117,2872
+(defparameter *my-idlparser*125,3081
+(defparameter *hello-world*129,3156
+(defvar *load-dates* 136,3308
+(defvar *source-pathname-defaults*137,3362
+(defvar *binary-folder*146,3658
+(defun dir-split 168,4499
+(defun compile-changed 176,4714
+(defun reload 224,6773
+(defun acl-defsys 244,7530
+(defun asdf-defsys 264,8220
+
+clorb-idl.lisp,163
+(defclass IDL-COMPILER 5,35
+(defgeneric load-repository 16,321
+(defvar *default-idl-compiler* 18,382
+(defvar *default-exclude* 20,419
+(defun corba:idl 22,486
+
+clorb-idlcpp.lisp,929
+(defgeneric idl-prefix 5,66
+(defgeneric package-prefix 8,218
+(defgeneric idl-source-position 12,394
+(defgeneric idl-repositoryid-pragmas 15,533
+(defclass PREPROCESSED-STREAM 18,595
+(defmethod idl-repositoryid-pragmas 28,966
+(defmethod idl-source-position 32,1104
+(defmethod idl-prefix 35,1196
+(defmethod (setf 38,1282
+(defmethod package-prefix 41,1394
+(defmethod (setf 44,1490
+(defmethod current-file 48,1613
+(defmethod (setf 51,1699
+(defmethod current-line 54,1811
+(defmethod (setf 57,1898
+(defmethod read-raw-line 61,2012
+(defmethod new-file-info 65,2137
+(defun read-cpp-line 77,2586
+(defun parse-string-literal 90,2814
+(defun parse-numeric-character 110,3646
+(defun parse-escape-sequence 122,4071
+(defun cpp-line-p 141,4653
+(defun whitespacep 146,4794
+(defvar *warn-unknown-pragma* 151,4876
+(defun parse-cpp-line 153,4910
+(defun read-cpp-continuation-lines 214,7561
+(defun using-cpp-stream 226,7923
+
+clorb-idllexer.lisp,833
+(defclass IDLLEX 10,207
+(defclass cppchar-lexer 15,293
+(defmethod next-token 23,428
+(defvar *current-cpp*)39,945
+(defun using-idllex 41,969
+(defmethod next-token 56,1430
+(defun idl-token 63,1651
+(defun whitespace 73,1856
+(defun idl-comment 91,2344
+(defun ident-start-char-p 108,2830
+(defun ident-char-p 112,2906
+(defun identifier-token 116,2977
+(defun hex-char-p 126,3233
+(defun hex-char 130,3307
+(defun hex-escape 135,3448
+(defun oct-char 141,3617
+(defun oct-escape 147,3802
+(defun escaped-char 154,4007
+(defun string-literal-1 176,4775
+(defun string-literal 184,4970
+(defun char-literal 193,5252
+(defun decimal-char-p 199,5357
+(defun idl-fixed-p 204,5433
+(defun idl-fixed-values 208,5504
+(defun make-idl-fixed 212,5598
+(defun parse-fixed 221,5874
+(defun number-token 236,6474
+(defun char-token 273,7990
+
+clorb-idlparser.lisp,2811
+(defvar *the-repository* 4,22
+(defvar *container* 5,49
+(defun convert-to-array 7,72
+(defun named-create 16,296
+(defun repo-id 22,534
+(defmacro parse-list 31,866
+(defun <specification> 46,1341
+(defun <definition> 51,1443
+(defun <scoped_name> 63,1643
+(defun <scoped_name>-lookup 70,1861
+(defun <module> 83,2264
+(defun id-adjustment 92,2575
+(defun <interface/value> 111,3404
+(defun <value>- 128,3970
+(defun <interface>- 163,5606
+(defun <value_element> 180,6337
+(defun <state_member> 185,6448
+(defun <init_dcl> 195,6952
+(defun <init_param_decl> 204,7337
+(defun <interface_inheritance_spec> 214,7626
+(defun <export> 218,7728
+(defun <op_dcl> 230,7933
+(defun <op_attribute> 242,8399
+(defun <op_type_spec> 246,8504
+(defun <parameter_dcls> 250,8638
+(defun <param_dcl> 257,8780
+(defun <param_attribute> 268,9140
+(defun <param_type_spec> 273,9291
+(defun <raises_expr> 278,9377
+(defun <context_expr> 285,9540
+(defun <attr_dcl> 296,9731
+(defun <except_dcl> 313,10233
+(defun <type_dcl> 327,10578
+(defun <type_declarator> 338,10884
+(defun <declarators> 348,11213
+(defun <declarator> 351,11274
+(defun <simple_declarator> 359,11499
+(defun <struct_type> 367,11564
+(defun <member> 374,11838
+(defun <union_type> 387,12239
+(defun <switch_type_spec> 396,12624
+(defun <switch_body> 400,12828
+(defun <case> 405,12969
+(defun <element_spec> 420,13686
+(defun <case_label> 427,13896
+(defun <enum_type> 437,14078
+(defun <literal> 454,14697
+(defun <boolean_literal> 463,14961
+(defun <const_dcl> 472,15089
+(defun <const_type> 490,15840
+(defun <const_exp> 510,16506
+(defun <positive_int_const> 513,16544
+(defun <primary_expr> 516,16593
+(defun <or_expr> 530,17300
+(defun <xor_expr> 537,17481
+(defun <and_expr> 543,17640
+(defun <shift_expr> 549,17809
+(defmethod add 557,18058
+(defmethod add 565,18366
+(defmethod sub 568,18403
+(defmethod sub 575,18691
+(defmethod mul 579,18729
+(defmethod mul 586,18982
+(defmethod div 591,19021
+(defmethod div 600,19346
+(defun <add_expr> 604,19384
+(defun <mult_expr> 611,19633
+(defun <unary_expr> 619,19966
+(defun <unary_operator> 627,20249
+(defun <type_spec> 634,20327
+(defun <simple_type_spec> 638,20410
+(defun <integer_type> 661,21340
+(defun <sequence_type> 665,21386
+(defun <string_type> 673,21661
+(defun <wide_string_type> 680,21933
+(defun <fixed_pt_type> 687,22213
+(defun <number_type> 695,22436
+(defun <base_type_spec> 710,23171
+(defun misc-type 717,23479
+(defun <constr_type_spec> 724,23767
+(defparameter *reserved-words*731,23895
+(defun <identifier> 739,24389
+(defun <number_literal> 756,25006
+(defun <character_literal> 759,25067
+(defun <string_literal> 762,25120
+(defun <wide_string_literal> 768,25263
+(defun <wide_character_literal> 772,25336
+(defclass MY-IDLPARSER 780,25402
+(defmethod load-repository 783,25447
+
+clorb-ifr-base.lisp,14719
+(DEFINE-ALIAS OMG.ORG/CORBA:IDENTIFIER72,4549
+(DEFINE-ALIAS OMG.ORG/CORBA:SCOPEDNAME78,4717
+(DEFINE-ALIAS OMG.ORG/CORBA:REPOSITORYID84,4885
+(DEFINE-ENUM OMG.ORG/CORBA:DEFINITIONKIND90,5059
+(DEFINE-ALIAS OMG.ORG/CORBA:VERSIONSPEC100,5597
+(DEFINE-ALIAS OMG.ORG/CORBA:INTERFACEDEFSEQ106,5768
+(DEFINE-ALIAS OMG.ORG/CORBA:VALUEDEFSEQ114,6012
+(DEFINE-ALIAS OMG.ORG/CORBA:ABSTRACTINTERFACEDEFSEQ120,6212
+(DEFINE-ALIAS OMG.ORG/CORBA:LOCALINTERFACEDEFSEQ128,6488
+(DEFINE-ALIAS OMG.ORG/CORBA:CONTAINEDSEQ136,6752
+(DEFINE-STRUCT OMG.ORG/CORBA:STRUCTMEMBER142,6956
+(DEFINE-ALIAS OMG.ORG/CORBA:STRUCTMEMBERSEQ149,7245
+(DEFINE-STRUCT OMG.ORG/CORBA:INITIALIZER157,7489
+(DEFINE-ALIAS OMG.ORG/CORBA:INITIALIZERSEQ163,7735
+(DEFINE-STRUCT OMG.ORG/CORBA:UNIONMEMBER169,7947
+(DEFINE-ALIAS OMG.ORG/CORBA:UNIONMEMBERSEQ176,8264
+(DEFINE-ALIAS OMG.ORG/CORBA:ENUMMEMBERSEQ182,8476
+(DEFINE-ENUM OMG.ORG/CORBA:PRIMITIVEKIND188,8684
+(DEFINE-STRUCT OMG.ORG/CORBA:MODULEDESCRIPTION197,9124
+(DEFINE-STRUCT OMG.ORG/CORBA:CONSTANTDESCRIPTION205,9522
+(DEFINE-STRUCT OMG.ORG/CORBA:TYPEDESCRIPTION214,10004
+(DEFINE-STRUCT OMG.ORG/CORBA:EXCEPTIONDESCRIPTION223,10443
+(DEFINE-ENUM OMG.ORG/CORBA:ATTRIBUTEMODE232,10897
+(DEFINE-STRUCT OMG.ORG/CORBA:ATTRIBUTEDESCRIPTION237,11051
+(DEFINE-ENUM OMG.ORG/CORBA:OPERATIONMODE247,11573
+(DEFINE-ENUM OMG.ORG/CORBA:PARAMETERMODE252,11721
+(DEFINE-STRUCT OMG.ORG/CORBA:PARAMETERDESCRIPTION257,11882
+(DEFINE-ALIAS OMG.ORG/CORBA:PARDESCRIPTIONSEQ265,12263
+(DEFINE-ALIAS OMG.ORG/CORBA:CONTEXTIDENTIFIER273,12521
+(DEFINE-ALIAS OMG.ORG/CORBA:CONTEXTIDSEQ279,12734
+(DEFINE-ALIAS OMG.ORG/CORBA:EXCEPTIONDEFSEQ287,12974
+(DEFINE-ALIAS OMG.ORG/CORBA:EXCDESCRIPTIONSEQ295,13218
+(DEFINE-STRUCT OMG.ORG/CORBA:OPERATIONDESCRIPTION303,13476
+(DEFINE-ALIAS OMG.ORG/CORBA:REPOSITORYIDSEQ316,14227
+(DEFINE-ALIAS OMG.ORG/CORBA:OPDESCRIPTIONSEQ324,14471
+(DEFINE-ALIAS OMG.ORG/CORBA:ATTRDESCRIPTIONSEQ332,14726
+(DEFINE-STRUCT OMG.ORG/CORBA:INTERFACEDESCRIPTION340,14987
+(DEFINE-ALIAS OMG.ORG/CORBA:VISIBILITY350,15488
+(DEFCONSTANT OMG.ORG/CORBA:PRIVATE_MEMBER 356,15654
+(DEFCONSTANT OMG.ORG/CORBA:PUBLIC_MEMBER 358,15708
+(DEFINE-STRUCT OMG.ORG/CORBA:VALUEMEMBER360,15761
+(DEFINE-ALIAS OMG.ORG/CORBA:VALUEMEMBERSEQ371,16321
+(DEFINE-STRUCT OMG.ORG/CORBA:VALUEDESCRIPTION377,16533
+(DEFINE-INTERFACE OMG.ORG/CORBA:IROBJECT 393,17359
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:IROBJECT/DEF_KIND399,17558
+(DEFINE-METHOD "DEF_KIND" 407,17810
+(DEFINE-OPERATION OMG.ORG/CORBA:IROBJECT/DESTROY410,17924
+(DEFINE-METHOD "DESTROY" 421,18197
+(DEFINE-INTERFACE OMG.ORG/CORBA:CONTAINED 424,18310
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:CONTAINED/ID430,18539
+(DEFINE-METHOD (SETF 438,18772
+(DEFINE-METHOD "ID" 441,18897
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:CONTAINED/NAME444,19001
+(DEFINE-METHOD (SETF 452,19238
+(DEFINE-METHOD "NAME" 455,19367
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:CONTAINED/VERSION458,19475
+(DEFINE-METHOD (SETF 466,19722
+(DEFINE-METHOD "VERSION" 469,19857
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:CONTAINED/DEFINED_IN472,19971
+(DEFINE-METHOD "DEFINED_IN" 480,20227
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:CONTAINED/ABSOLUTE_NAME483,20347
+(DEFINE-METHOD "ABSOLUTE_NAME" 491,20613
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:CONTAINED/CONTAINING_REPOSITORY494,20739
+(DEFINE-METHOD "CONTAINING_REPOSITORY" 502,21029
+(DEFINE-STRUCT OMG.ORG/CORBA:CONTAINED/DESCRIPTION505,21171
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINED/DESCRIBE511,21411
+(DEFINE-METHOD "DESCRIBE" 522,21723
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINED/MOVE525,21840
+(DEFINE-METHOD "MOVE" 541,22392
+(DEFINE-INTERFACE OMG.ORG/CORBA:CONTAINER 549,22652
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/LOOKUP555,22881
+(DEFINE-METHOD "LOOKUP" 567,23259
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CONTENTS570,23398
+(DEFINE-METHOD "CONTENTS" 583,23860
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/LOOKUP_NAME590,24105
+(DEFINE-METHOD "LOOKUP_NAME" 606,24745
+(DEFINE-STRUCT OMG.ORG/CORBA:CONTAINER/DESCRIPTION615,25087
+(DEFINE-ALIAS OMG.ORG/CORBA:CONTAINER/DESCRIPTIONSEQ622,25403
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/DESCRIBE_CONTENTS630,25673
+(DEFINE-METHOD "DESCRIBE_CONTENTS" 644,26243
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_MODULE653,26602
+(DEFINE-METHOD "CREATE_MODULE" 667,27154
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_CONSTANT671,27351
+(DEFINE-METHOD "CREATE_CONSTANT" 687,28042
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_STRUCT697,28349
+(DEFINE-METHOD "CREATE_STRUCT" 713,29003
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_UNION722,29283
+(DEFINE-METHOD "CREATE_UNION" 740,30037
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_ENUM750,30367
+(DEFINE-METHOD "CREATE_ENUM" 766,31011
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_ALIAS775,31285
+(DEFINE-METHOD "CREATE_ALIAS" 791,31933
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_INTERFACE800,32222
+(DEFINE-METHOD "CREATE_INTERFACE" 816,32896
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_VALUE825,33201
+(DEFINE-METHOD "CREATE_VALUE" 850,34378
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_VALUE_BOX867,34997
+(DEFINE-METHOD "CREATE_VALUE_BOX" 883,35664
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_EXCEPTION892,35973
+(DEFINE-METHOD "CREATE_EXCEPTION" 908,36639
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_NATIVE917,36928
+(DEFINE-METHOD "CREATE_NATIVE" 931,37480
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_ABSTRACT_INTERFACE935,37677
+(DEFINE-METHOD "CREATE_ABSTRACT_INTERFACE" 951,38394
+(DEFINE-OPERATION OMG.ORG/CORBA:CONTAINER/CREATE_LOCAL_INTERFACE961,38770
+(DEFINE-METHOD "CREATE_LOCAL_INTERFACE" 977,39467
+(DEFINE-INTERFACE OMG.ORG/CORBA:IDLTYPE 986,39790
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:IDLTYPE/TYPE992,40009
+(DEFINE-METHOD "TYPE" 1000,40224
+(DEFINE-INTERFACE OMG.ORG/CORBA:REPOSITORY 1003,40328
+(DEFINE-OPERATION OMG.ORG/CORBA:REPOSITORY/LOOKUP_ID1009,40564
+(DEFINE-METHOD "LOOKUP_ID" 1021,40954
+(DEFINE-OPERATION OMG.ORG/CORBA:REPOSITORY/GET_CANONICAL_TYPECODE1024,41097
+(DEFINE-METHOD "GET_CANONICAL_TYPECODE" 1035,41466
+(DEFINE-OPERATION OMG.ORG/CORBA:REPOSITORY/GET_PRIMITIVE1039,41662
+(DEFINE-METHOD "GET_PRIMITIVE" 1051,42063
+(DEFINE-OPERATION OMG.ORG/CORBA:REPOSITORY/CREATE_STRING1054,42204
+(DEFINE-METHOD "CREATE_STRING" 1065,42563
+(DEFINE-OPERATION OMG.ORG/CORBA:REPOSITORY/CREATE_WSTRING1068,42706
+(DEFINE-METHOD "CREATE_WSTRING" 1079,43069
+(DEFINE-OPERATION OMG.ORG/CORBA:REPOSITORY/CREATE_SEQUENCE1082,43214
+(DEFINE-METHOD "CREATE_SEQUENCE" 1095,43680
+(DEFINE-OPERATION OMG.ORG/CORBA:REPOSITORY/CREATE_ARRAY1099,43889
+(DEFINE-METHOD "CREATE_ARRAY" 1112,44344
+(DEFINE-OPERATION OMG.ORG/CORBA:REPOSITORY/CREATE_FIXED1116,44546
+(DEFINE-METHOD "CREATE_FIXED" 1128,44961
+(DEFINE-INTERFACE OMG.ORG/CORBA:MODULEDEF 1132,45149
+(DEFINE-INTERFACE OMG.ORG/CORBA:CONSTANTDEF 1139,45477
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:CONSTANTDEF/TYPE1145,45718
+(DEFINE-METHOD "TYPE" 1153,45945
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:CONSTANTDEF/TYPE_DEF1156,46057
+(DEFINE-METHOD (SETF 1164,46309
+(DEFINE-METHOD "TYPE_DEF" 1167,46450
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:CONSTANTDEF/VALUE1170,46570
+(DEFINE-METHOD (SETF 1178,46793
+(DEFINE-METHOD "VALUE" 1181,46928
+(DEFINE-INTERFACE OMG.ORG/CORBA:INTERFACEDEF 1184,47042
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:INTERFACEDEF/BASE_INTERFACES1193,47493
+(DEFINE-METHOD (SETF 1201,47777
+(DEFINE-METHOD "BASE_INTERFACES" 1206,48017
+(DEFINE-OPERATION OMG.ORG/CORBA:INTERFACEDEF/IS_A1209,48153
+(DEFINE-METHOD "IS_A" 1221,48519
+(DEFINE-STRUCT OMG.ORG/CORBA:INTERFACEDEF/FULLINTERFACEDESCRIPTION1224,48662
+(DEFINE-OPERATION OMG.ORG/CORBA:INTERFACEDEF/DESCRIBE_INTERFACE1237,49404
+(DEFINE-METHOD "DESCRIBE_INTERFACE" 1249,49783
+(DEFINE-OPERATION OMG.ORG/CORBA:INTERFACEDEF/CREATE_ATTRIBUTE1252,49926
+(DEFINE-METHOD "CREATE_ATTRIBUTE" 1269,50671
+(DEFINE-OPERATION OMG.ORG/CORBA:INTERFACEDEF/CREATE_OPERATION1279,50985
+(DEFINE-METHOD "CREATE_OPERATION" 1302,52040
+(DEFINE-INTERFACE OMG.ORG/CORBA:EXCEPTIONDEF 1316,52492
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:EXCEPTIONDEF/TYPE1323,52838
+(DEFINE-METHOD "TYPE" 1331,53068
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:EXCEPTIONDEF/MEMBERS1334,53182
+(DEFINE-METHOD (SETF 1342,53442
+(DEFINE-METHOD "MEMBERS" 1345,53583
+(DEFINE-INTERFACE OMG.ORG/CORBA:VALUEDEF 1348,53703
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:VALUEDEF/SUPPORTED_INTERFACES1357,54126
+(DEFINE-METHOD (SETF 1365,54413
+(DEFINE-METHOD "SUPPORTED_INTERFACES" 1370,54665
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:VALUEDEF/INITIALIZERS1373,54803
+(DEFINE-METHOD (SETF 1381,55065
+(DEFINE-METHOD "INITIALIZERS" 1385,55246
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:VALUEDEF/BASE_VALUE1388,55368
+(DEFINE-METHOD (SETF 1396,55618
+(DEFINE-METHOD "BASE_VALUE" 1399,55757
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:VALUEDEF/ABSTRACT_BASE_VALUES1402,55875
+(DEFINE-METHOD (SETF 1410,56158
+(DEFINE-METHOD "ABSTRACT_BASE_VALUES" 1415,56410
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:VALUEDEF/IS_ABSTRACT1418,56548
+(DEFINE-METHOD (SETF 1426,56784
+(DEFINE-METHOD "IS_ABSTRACT" 1429,56925
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:VALUEDEF/IS_CUSTOM1432,57045
+(DEFINE-METHOD (SETF 1440,57275
+(DEFINE-METHOD "IS_CUSTOM" 1443,57412
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:VALUEDEF/IS_TRUNCATABLE1446,57528
+(DEFINE-METHOD (SETF 1454,57773
+(DEFINE-METHOD "IS_TRUNCATABLE" 1458,57960
+(DEFINE-OPERATION OMG.ORG/CORBA:VALUEDEF/IS_A1461,58086
+(DEFINE-METHOD "IS_A" 1472,58414
+(DEFINE-STRUCT OMG.ORG/CORBA:VALUEDEF/FULLVALUEDESCRIPTION1475,58529
+(DEFINE-OPERATION OMG.ORG/CORBA:VALUEDEF/DESCRIBE_VALUE1496,59737
+(DEFINE-METHOD "DESCRIBE_VALUE" 1507,60072
+(DEFINE-OPERATION OMG.ORG/CORBA:VALUEDEF/CREATE_VALUE_MEMBER1510,60199
+(DEFINE-METHOD "CREATE_VALUE_MEMBER" 1527,60942
+(DEFINE-OPERATION OMG.ORG/CORBA:VALUEDEF/CREATE_ATTRIBUTE1537,61261
+(DEFINE-METHOD "CREATE_ATTRIBUTE" 1554,61994
+(DEFINE-OPERATION OMG.ORG/CORBA:VALUEDEF/CREATE_OPERATION1564,62300
+(DEFINE-METHOD "CREATE_OPERATION" 1587,63343
+(DEFINE-INTERFACE OMG.ORG/CORBA:PRIMITIVEDEF 1601,63787
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:PRIMITIVEDEF/KIND1607,64029
+(DEFINE-METHOD "KIND" 1615,64280
+(DEFINE-INTERFACE OMG.ORG/CORBA:STRINGDEF 1618,64394
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:STRINGDEF/BOUND1624,64621
+(DEFINE-METHOD (SETF 1632,64840
+(DEFINE-METHOD "BOUND" 1635,64971
+(DEFINE-INTERFACE OMG.ORG/CORBA:SEQUENCEDEF 1638,65081
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:SEQUENCEDEF/BOUND1644,65318
+(DEFINE-METHOD (SETF 1652,65543
+(DEFINE-METHOD "BOUND" 1655,65678
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:SEQUENCEDEF/ELEMENT_TYPE1658,65792
+(DEFINE-METHOD "ELEMENT_TYPE" 1666,66043
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:SEQUENCEDEF/ELEMENT_TYPE_DEF1669,66171
+(DEFINE-METHOD (SETF 1677,66447
+(DEFINE-METHOD "ELEMENT_TYPE_DEF" 1682,66689
+(DEFINE-INTERFACE OMG.ORG/CORBA:ARRAYDEF 1685,66825
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:ARRAYDEF/LENGTH1691,67047
+(DEFINE-METHOD (SETF 1699,67266
+(DEFINE-METHOD "LENGTH" 1702,67397
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:ARRAYDEF/ELEMENT_TYPE1705,67507
+(DEFINE-METHOD "ELEMENT_TYPE" 1713,67749
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:ARRAYDEF/ELEMENT_TYPE_DEF1716,67871
+(DEFINE-METHOD (SETF 1724,68138
+(DEFINE-METHOD "ELEMENT_TYPE_DEF" 1728,68331
+(DEFINE-INTERFACE OMG.ORG/CORBA:WSTRINGDEF 1731,68461
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:WSTRINGDEF/BOUND1737,68693
+(DEFINE-METHOD (SETF 1745,68915
+(DEFINE-METHOD "BOUND" 1748,69048
+(DEFINE-INTERFACE OMG.ORG/CORBA:FIXEDDEF 1751,69160
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:FIXEDDEF/DIGITS1757,69382
+(DEFINE-METHOD (SETF 1765,69602
+(DEFINE-METHOD "DIGITS" 1768,69733
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:FIXEDDEF/SCALE1771,69843
+(DEFINE-METHOD (SETF 1779,70059
+(DEFINE-METHOD "SCALE" 1782,70188
+(DEFINE-INTERFACE OMG.ORG/CORBA:TYPEDEFDEF 1785,70296
+(DEFINE-INTERFACE OMG.ORG/CORBA:ATTRIBUTEDEF 1792,70626
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:ATTRIBUTEDEF/TYPE1798,70872
+(DEFINE-METHOD "TYPE" 1806,71102
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:ATTRIBUTEDEF/TYPE_DEF1809,71216
+(DEFINE-METHOD (SETF 1817,71471
+(DEFINE-METHOD "TYPE_DEF" 1821,71648
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:ATTRIBUTEDEF/MODE1824,71770
+(DEFINE-METHOD (SETF 1832,72019
+(DEFINE-METHOD "MODE" 1835,72154
+(DEFINE-INTERFACE OMG.ORG/CORBA:OPERATIONDEF 1838,72268
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:OPERATIONDEF/RESULT1844,72514
+(DEFINE-METHOD "RESULT" 1852,72750
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:OPERATIONDEF/RESULT_DEF1855,72868
+(DEFINE-METHOD (SETF 1863,73129
+(DEFINE-METHOD "RESULT_DEF" 1867,73312
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:OPERATIONDEF/PARAMS1870,73438
+(DEFINE-METHOD (SETF 1878,73697
+(DEFINE-METHOD "PARAMS" 1881,73836
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:OPERATIONDEF/MODE1884,73954
+(DEFINE-METHOD (SETF 1892,74203
+(DEFINE-METHOD "MODE" 1895,74338
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:OPERATIONDEF/CONTEXTS1898,74452
+(DEFINE-METHOD (SETF 1906,74712
+(DEFINE-METHOD "CONTEXTS" 1910,74889
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:OPERATIONDEF/EXCEPTIONS1913,75011
+(DEFINE-METHOD (SETF 1921,75280
+(DEFINE-METHOD "EXCEPTIONS" 1925,75463
+(DEFINE-INTERFACE OMG.ORG/CORBA:VALUEMEMBERDEF 1928,75589
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:VALUEMEMBERDEF/TYPE1934,75845
+(DEFINE-METHOD "TYPE" 1942,76081
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:VALUEMEMBERDEF/TYPE_DEF1945,76199
+(DEFINE-METHOD (SETF 1953,76460
+(DEFINE-METHOD "TYPE_DEF" 1957,76641
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:VALUEMEMBERDEF/ACCESS1960,76767
+(DEFINE-METHOD (SETF 1968,77025
+(DEFINE-METHOD "ACCESS" 1972,77200
+(DEFINE-INTERFACE OMG.ORG/CORBA:STRUCTDEF 1975,77322
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:STRUCTDEF/MEMBERS1982,77652
+(DEFINE-METHOD (SETF 1990,77903
+(DEFINE-METHOD "MEMBERS" 1993,78038
+(DEFINE-INTERFACE OMG.ORG/CORBA:UNIONDEF 1996,78152
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:UNIONDEF/DISCRIMINATOR_TYPE2003,78476
+(DEFINE-METHOD "DISCRIMINATOR_TYPE" 2011,78736
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:UNIONDEF/DISCRIMINATOR_TYPE_DEF2014,78870
+(DEFINE-METHOD (SETF 2022,79155
+(DEFINE-METHOD "DISCRIMINATOR_TYPE_DEF" 2027,79415
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:UNIONDEF/MEMBERS2030,79557
+(DEFINE-METHOD (SETF 2038,79804
+(DEFINE-METHOD "MEMBERS" 2041,79937
+(DEFINE-INTERFACE OMG.ORG/CORBA:ENUMDEF 2044,80049
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:ENUMDEF/MEMBERS2050,80272
+(DEFINE-METHOD (SETF 2058,80515
+(DEFINE-METHOD "MEMBERS" 2061,80646
+(DEFINE-INTERFACE OMG.ORG/CORBA:ALIASDEF 2064,80756
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:ALIASDEF/ORIGINAL_TYPE_DEF2070,80984
+(DEFINE-METHOD (SETF 2078,81254
+(DEFINE-METHOD "ORIGINAL_TYPE_DEF" 2082,81450
+(DEFINE-INTERFACE OMG.ORG/CORBA:NATIVEDEF 2085,81582
+(DEFINE-INTERFACE OMG.ORG/CORBA:VALUEBOXDEF 2091,81815
+(DEFINE-ATTRIBUTE OMG.ORG/CORBA:VALUEBOXDEF/ORIGINAL_TYPE_DEF2097,82058
+(DEFINE-METHOD (SETF 2105,82337
+(DEFINE-METHOD "ORIGINAL_TYPE_DEF" 2110,82583
+(DEFINE-INTERFACE OMG.ORG/CORBA:ABSTRACTINTERFACEDEF 2113,82721
+(DEFINE-INTERFACE OMG.ORG/CORBA:LOCALINTERFACEDEF 2119,83013
+
+clorb-ifr-export.lisp,942
+(defclass OBJECT-INDEXER 11,155
+(defmethod object-index 22,360
+(defmethod index-object 29,586
+(defconstant +oid-radix+ 36,706
+(defun oid-integer 38,736
+(defun integer-oid 41,820
+(defgeneric translate 48,935
+(defclass TRANSLATOR 72,1726
+(defmethod objmap 75,1800
+(defmethod the-poa 76,1857
+(defclass LOCAL-TRANSLATOR 78,1917
+(defmethod translate 80,1962
+(defclass REMOTE-TRANSLATOR 83,2105
+(defmethod translate 85,2151
+(defclass SERVANT-WRAPPER 92,2394
+(define-method _default_poa 106,2709
+(define-method primary_interface 109,2781
+(define-method _is_a 113,2935
+(defmethod local-translator 117,3084
+(defmethod remote-translator 121,3235
+(defun make-remote 126,3390
+(defun make-local 129,3471
+(defun find-contained 133,3551
+(defun wrapper-opinfo 141,3797
+(define-method invoke 174,5306
+(defvar *ifr-export-servant* 228,7294
+(defvar *ifr-export-poa* 229,7328
+(defun export-ifr 231,7359
+(define-method _this 246,8025
+
+clorb-ifr-info.lisp,533
+(defun symbol-ifr-parent-id 4,22
+(defun ifr-version 8,147
+(defun ifr-kind 11,211
+(defmethod generate-ifr-description 29,737
+(defmethod generate-ifr-description 38,967
+(defmethod generate-ifr-description 60,1919
+(defclass desc-exceptiondef 103,3548
+(define-method op:type 115,3946
+(define-method op:members 117,4063
+(define-method op:id 132,4543
+(define-method op:name 134,4648
+(define-method op:version 136,4761
+(define-method op:describe146,5123
+(define-method op:def_kind 175,6131
+(define-method op:destroy 179,6248
+
+clorb-ifr.lisp,5714
+(defun register-ir-class 8,131
+(defgeneric moveto 15,232
+(defmacro define-ir-class 24,537
+(define-ir-class IRObject 38,1040
+(define-method op:destroy 44,1157
+(defclass IRTypeCode-Mixin 48,1209
+(defgeneric idltype-tc 51,1252
+(define-method type 55,1378
+(defmethod slot-updated 83,2596
+(define-ir-class IDLType 87,2685
+(define-ir-class Contained 95,2842
+(defmethod print-object 107,3352
+(defmethod (setf 111,3512
+(defmethod (setf 121,3920
+(define-method absolute_name 128,4173
+(defmethod slot-updated 137,4553
+(define-method describe 140,4643
+(define-method "MOVE" 145,4781
+(define-method op:destroy 154,5166
+(define-ir-class Container 165,5442
+(defmethod slot-updated 171,5613
+(defun addto 175,5712
+(defmethod moveto 187,6220
+(define-method contents 207,7054
+(define-method lookup_name215,7389
+(defgeneric containerp 230,8116
+(define-method lookup 235,8200
+(define-method lookup 239,8288
+(defun split-name 257,9027
+(define-method op:describe_contents 265,9212
+(define-method create_module 281,9860
+(define-method create_constant 293,10340
+(define-method create_struct 305,10834
+(define-method create_exception 321,11459
+(define-method create_union 338,12037
+(define-method create_enum 359,12875
+(define-method create_alias 372,13340
+(define-method create_interface 385,13791
+(define-method create_value_box 398,14331
+(define-method create_native 409,14789
+(define-method create_abstract_interface 419,15294
+(define-method create_local_interface 431,15918
+(define-method create_value 440,16221
+(define-method op:destroy 463,17318
+(define-ir-class Repository 472,17478
+(define-method absolute_name 482,17802
+(define-method containing_repository 485,17857
+(defmethod subject-id 488,17917
+(define-method lookup_id 493,18018
+(define-method get_canonical_typecode 499,18149
+(define-method get_primitive 515,18632
+(define-method create_string 549,20203
+(define-method create_wstring 555,20370
+(define-method create_sequence 563,20574
+(define-method create_array 574,20894
+(define-method create_fixed 583,21132
+(define-method op:destroy 589,21266
+(define-ir-class module-def 597,21431
+(defmethod describe-contained 601,21523
+(define-ir-class constant-def 613,21878
+(define-method type 619,22016
+(defmethod describe-contained 622,22089
+(define-ir-class interface-def 633,22367
+(defmethod idltype-tc 637,22510
+(define-method is_a 640,22614
+(define-method describe_interface 647,22861
+(defmethod describe-contained 660,23398
+(define-method contents 668,23679
+(defun check-unique-name 676,23957
+(define-method (setf 680,24123
+(define-method create_attribute 688,24377
+(define-method create_operation 703,24931
+(define-ir-class attribute-def 724,25763
+(define-method type 730,25903
+(defmethod describe-contained 733,25979
+(define-ir-class operation-def 751,26402
+(defun validate-operation-def 761,26696
+(defun validate-operation-def-change 770,27083
+(defmethod initialize-instance 777,27484
+(defmethod (setf 781,27687
+(defmethod (setf 784,27806
+(defmethod (setf 787,27931
+(defmethod (setf 790,28060
+(defmethod result 793,28197
+(defmethod op:params 796,28284
+(defmethod opdef-inparam-typecodes 801,28443
+(defmethod opdef-outparam-typecodes 807,28635
+(defun operation-description 820,28992
+(defmethod describe-contained 843,29692
+(define-ir-class typedef-def 848,29794
+(defmethod describe-contained 852,29887
+(define-ir-class alias-def 868,30307
+(defmethod idltype-tc 873,30424
+(define-method op:destroy 877,30568
+(define-ir-class struct-def 894,30961
+(defmethod op:members 899,31081
+(defmethod idltype-tc 905,31253
+(define-ir-class union-def 921,31728
+(define-method discriminator_type 927,31885
+(defmethod op:members 930,31983
+(defmethod idltype-tc 935,32176
+(define-ir-class enum-def 956,33006
+(defmethod idltype-tc 961,33110
+(define-ir-class exception-def 968,33345
+(defmethod op:members 974,33540
+(defmethod idltype-tc 980,33715
+(defmethod describe-contained 985,33876
+(defmethod moveto 1000,34301
+(defmethod moveto 1008,34555
+(defmethod moveto 1016,34810
+(define-ir-class primitive-def 1027,35089
+(defmethod print-object 1034,35249
+(define-method op:destroy 1038,35413
+(define-ir-class string-def 1046,35636
+(defmethod idltype-tc 1050,35741
+(define-ir-class wstring-def 1057,35895
+(defmethod idltype-tc 1062,36004
+(define-ir-class sequence-def 1071,36259
+(define-method element_type 1078,36511
+(defmethod idltype-tc 1081,36600
+(define-ir-class array-def 1090,36898
+(define-method element_type 1095,37035
+(defmethod idltype-tc 1098,37121
+(define-ir-class fixed-def 1106,37324
+(defmethod idltype-tc 1111,37452
+(define-ir-class valuebox-def 1119,37633
+(defmethod idltype-tc 1123,37758
+(define-ir-class AbstractInterface-Def 1136,38210
+(defmethod idltype-tc 1139,38328
+(define-method is_a 1142,38441
+(define-ir-class LocalInterface-Def 1156,38987
+(defmethod idltype-tc 1159,39096
+(define-method is_a 1162,39203
+(define-ir-class Native-Def 1172,39501
+(defmethod idltype-tc 1175,39584
+(define-ir-class ValueMember-Def 1184,39829
+(define-method "TYPE" 1190,40010
+(defmethod describe-contained 1193,40088
+(define-ir-class Value-Def 1221,40878
+(defmethod idltype-tc 1231,41197
+(define-method contents 1242,41736
+(define-method initializers 1253,42245
+(defun check-only-one-non-abstract 1258,42430
+(define-method (setf 1265,42689
+(defmethod initialize-instance 1273,42975
+(defmethod moveto 1276,43113
+(defmethod describe-contained 1285,43429
+(defmethod subject-id 1308,44236
+(define-method "DESCRIBE_VALUE" 1313,44322
+(define-method is_a 1349,45644
+(define-method create_value_member 1365,46253
+(define-method create_attribute 1379,46798
+(define-method create_operation 1393,47342
+
+clorb-iiop.lisp,2650
+(defconstant +iiop-header-size+ 6,67
+(define-enum GIOP:MsgType_1_011,124
+(DEFINE-ENUM GIOP:MSGTYPE_1_117,341
+(DEFINE-STRUCT GIOP:VERSION23,569
+(DEFINE-STRUCT GIOP:MESSAGEHEADER_1_029,745
+(DEFINE-STRUCT GIOP:MESSAGEHEADER_1_138,1142
+(DEFINE-STRUCT GIOP:LOCATEREQUESTHEADER47,1525
+(define-enum GIOP:LocateStatusType53,1766
+(DEFINE-STRUCT GIOP:LOCATEREPLYHEADER58,1937
+(DEFINE-STRUCT GIOP:CANCELREQUESTHEADER64,2181
+(DEFINE-STRUCT GIOP:REQUESTHEADER_1_069,2350
+(DEFINE-STRUCT GIOP:REQUESTHEADER_1_179,2843
+(define-enum GIOP:REPLYSTATUSTYPE91,3433
+(DEFINE-STRUCT GIOP:REPLYHEADER97,3650
+(define-alias GIOP:Principal104,3941
+(defun make-giop-version 115,4129
+(defun giop-version-major 121,4297
+(defun giop-version-minor 125,4417
+(defconstant giop-1-0 128,4531
+(defconstant giop-1-1 129,4564
+(define-symbol-macro message-types136,4632
+(defun marshal-giop-header 141,4790
+(defun marshal-giop-set-message-length 159,5536
+(defun marshal-service-context 167,5734
+(defun unmarshal-service-context 174,6046
+(DEFINE-STRUCT IIOP:VERSION184,6268
+(DEFINE-STRUCT IIOP:PROFILEBODY_1_0190,6444
+(DEFINE-STRUCT IIOP:PROFILEBODY_1_1198,6778
+(defun make-iiop-version 210,7225
+(defun iiop-version-major 216,7391
+(defun iiop-version-minor 217,7442
+(defstruct IIOP-PROFILE225,7521
+(defmethod profile-short-desc 233,7665
+(defmethod profile-equal 239,7875
+(defmethod profile-hash 244,8171
+(defmethod profile-component 249,8373
+(defmethod decode-ior-profile 252,8487
+(defun unmarshal-iiop-componets 256,8608
+(defun marshal-iiop-components 270,9189
+(defun unmarshal-iiop-profile-body 284,9701
+(defmethod encode-profile 296,10102
+(defmethod profile-giop-version 317,10818
+(defmethod profile-giop-key 321,10966
+(defun marshal-locate-request 329,11090
+(defun marshal-request-message 336,11324
+(defun connection-get-buffer 354,12037
+(defun connection-start-request 358,12129
+(defun connection-reply 379,12896
+(defun server-close-connection-msg 403,13905
+(defun connection-message-error 411,14147
+(defun unmarshal-giop-header 424,14491
+(defun get-fragment 445,15265
+(defun get-fragment-last 450,15433
+(defun get-response-0 459,15728
+(defun get-response-reply 489,16856
+(defun get-response-locate-reply 499,17226
+(defun setup-outgoing-connection 513,17578
+(defclass connection-pool 522,17753
+(defun %get-iiop-connection-holder 532,18028
+(defun get-connection-from-pool 547,18529
+(defvar *iiop-connections* 588,20002
+(defun get-iiop-connection 591,20065
+(defmethod profile-connection 601,20331
+(defmethod profile-connection 606,20520
+(defun locate 614,20679
+(defun get-attribute 631,21331
+(defun set-attribute 636,21502
+
+clorb-iir.lisp,777
+(defstruct INTERFACE8,78
+(define-slot-dumper interface)13,129
+(defmethod find-opdef 16,162
+(define-method is_a 25,490
+(defun print-interface 31,666
+(defmethod print-object 37,863
+(defvar *repository*53,1151
+(defvar *typecode-repository*56,1208
+(defun add-interface 59,1274
+(defun get-interface 64,1380
+(defun known-interface 70,1558
+(defun known-idl-type 73,1616
+(defun add-typecode-with-id 79,1796
+(defun get-typecode 83,1976
+(defun simplify-type 90,2146
+(defparameter *object-interface*111,3029
+(defun get-ir 130,3665
+(defun ir-lookup-id 134,3760
+(defun opdef-from-attrdef 151,4240
+(defun opdef-from-ir 168,4945
+(defun ir-contents 187,5853
+(defun interface-from-def-cached 203,6444
+(defun interface-from-def 208,6628
+(defun typecode-from-def 222,7143
+
+clorb-io.lisp,3196
+(defparameter *io-background-write-treshold* 27,758
+(defvar *io-system-default-class* 29,809
+(defvar *io-system* 31,878
+(defvar *io-listener* 33,904
+(defgeneric io-system-queue-event 40,1011
+(defgeneric io-system-event-waiting-p 41,1061
+(defgeneric io-system-get-event 42,1109
+(defun io-queue-event 45,1176
+(defstruct io-descriptor52,1290
+(defmethod lock 75,1852
+(defun io-describe-descriptor 78,1919
+(defmethod print-object 93,2488
+(defun make-octet-stream 116,3296
+(defun make-shortcut-stream 140,4092
+(defun io-shortcut-write 148,4368
+(defun io-shortcut-read 151,4476
+(defun io-descriptor-shortcut-connect 155,4583
+(defclass io-system 170,5078
+(defmethod io-system-queue-event 180,5310
+(defmethod io-system-get-event 183,5402
+(defmethod io-system-event-waiting-p 189,5632
+(defun io-system-switch 193,5738
+(defgeneric io-ready-for-read 198,5837
+(defgeneric io-ready-for-write 202,5956
+(defgeneric io-system-reset 212,6306
+(defgeneric io-system-add-descriptor 228,6918
+(defgeneric io-system-delete-descriptor 234,7112
+(defvar *last-io-port* 243,7272
+(defun io-reset 245,7301
+(defun io-create-listener 257,7563
+(defvar *seq-io-desc* 265,7841
+(defun io-create-descriptor 267,7867
+(defun io-descriptor-associate-connection 278,8251
+(defun %io-descriptor-close 282,8354
+(defun io-descriptor-destroy 289,8576
+(defun io-descriptor-close 308,9368
+(defun io-descriptor-shutdown 314,9514
+(defun io-descriptor-connected-p 319,9643
+(defvar *host-translations* 328,9802
+(defvar *io-loopback-p* 332,9929
+(defun io-descriptor-connect 337,10065
+(defun io-descriptor-working-p 351,10603
+(defun io-descriptor-read-ready 363,10891
+(defun io-descriptor-set-read 369,11057
+(defun io-descriptor-write-ready 385,11434
+(defun io-descriptor-set-write 391,11604
+(defun io-listen 412,12270
+(defun io-bg-listen 421,12565
+(defun io-poll-shortcut 429,12639
+(defclass io-system-blocking-write 463,14029
+(defun io-broken-descriptor 467,14075
+(defun io-read-broken-descriptor 484,14763
+(defun io-write-broken-descriptor 489,14885
+(defmethod io-ready-for-write 494,15015
+(defclass io-system-select 517,15851
+(defun io-poll-desc 521,15898
+(defun io-poll-select 557,17596
+(defmethod io-system-driver 576,18370
+(defmethod io-ready-for-write 580,18469
+(defmethod io-ready-for-read 585,18609
+(defclass io-system-select-blocking-write 594,18791
+(defmethod io-system-driver 599,18928
+(defclass io-system-mt-base 607,19076
+(defmethod initialize-instance 613,19323
+(defmethod io-start-bg-listen 617,19458
+(defmethod io-system-queue-event 623,19650
+(defmethod io-system-get-event 628,19857
+(defmethod io-system-driver 635,20085
+(defmethod io-system-reset 639,20176
+(defmethod io-system-add-descriptor 645,20343
+(defmethod io-system-delete-descriptor 649,20466
+(defvar *io-mt-read-queue-garb* 658,20645
+(defclass io-system-mt-blocking-write 663,20764
+(defun io-mt-read 674,21160
+(defmethod io-ready-for-read 695,21919
+(defclass io-system-mt-non-blocking-write 708,22307
+(defun io-mt-write 716,22601
+(defmethod io-ready-for-write 731,23164
+(defun io-init 742,23396
+(defun io-event-waiting-p 751,23521
+(defun io-get-event 754,23594
+(defun io-driver 757,23690
+
+clorb-iop.lisp,2623
+(defconstant iop:unknownexceptioninfo 4,22
+(defconstant iop:forwarded_identity 6,72
+(defconstant iop:invocation_policies 8,120
+(defconstant iop:sendingcontextruntime 10,169
+(defconstant iop:bi_dir_iiop 12,220
+(defconstant iop:logicalthreadid 14,261
+(defconstant iop:chainbypassinfo 16,306
+(defconstant iop:chainbypasscheck 18,351
+(defconstant iop:codesets 20,397
+(defconstant iop:transactionservice 22,435
+(DEFINE-ALIAS IOP:SERVICECONTEXTLIST24,483
+(DEFINE-STRUCT IOP:SERVICECONTEXT30,684
+(DEFINE-ALIAS IOP:SERVICEID36,912
+(DEFINE-ALIAS IOP:MULTIPLECOMPONENTPROFILE42,1043
+(DEFINE-STRUCT IOP:TAGGEDCOMPONENT48,1263
+(DEFINE-ALIAS IOP:TAGGEDCOMPONENTSEQ54,1499
+(DEFINE-ALIAS IOP:COMPONENTID61,1702
+(DEFCONSTANT OMG.ORG/IOP:TAG_ORB_TYPE 68,1856
+(DEFCONSTANT OMG.ORG/IOP:TAG_CODE_SETS 69,1905
+(DEFCONSTANT OMG.ORG/IOP:TAG_POLICIES 70,1955
+(DEFCONSTANT OMG.ORG/IOP:TAG_ALTERNATE_IIOP_ADDRESS 71,2004
+(DEFCONSTANT OMG.ORG/IOP:TAG_ASSOCIATION_OPTIONS 72,2067
+(DEFCONSTANT OMG.ORG/IOP:TAG_SEC_NAME 73,2128
+(DEFCONSTANT OMG.ORG/IOP:TAG_SPKM_1_SEC_MECH 74,2178
+(DEFCONSTANT OMG.ORG/IOP:TAG_SPKM_2_SEC_MECH 75,2235
+(DEFCONSTANT OMG.ORG/IOP:TAG_KERBEROSV5_SEC_MECH 76,2292
+(DEFCONSTANT OMG.ORG/IOP:TAG_CSI_ECMA_SECRET_SEC_MECH 77,2353
+(DEFCONSTANT OMG.ORG/IOP:TAG_CSI_ECMA_HYBRID_SEC_MECH 78,2419
+(DEFCONSTANT OMG.ORG/IOP:TAG_SSL_SEC_TRANS 79,2485
+(DEFCONSTANT OMG.ORG/IOP:TAG_CSI_ECMA_PUBLIC_SEC_MECH 80,2540
+(DEFCONSTANT OMG.ORG/IOP:TAG_GENERIC_SEC_MECH 81,2606
+(DEFCONSTANT OMG.ORG/IOP:TAG_JAVA_CODEBASE 82,2664
+(DEFCONSTANT OMG.ORG/IOP:TAG_COMPLETE_OBJECT_KEY 83,2719
+(DEFCONSTANT OMG.ORG/IOP:TAG_ENDPOINT_ID_POSITION 84,2779
+(DEFCONSTANT OMG.ORG/IOP:TAG_LOCATION_POLICY 85,2840
+(DEFCONSTANT OMG.ORG/IOP:TAG_DCE_STRING_BINDING 86,2897
+(DEFCONSTANT OMG.ORG/IOP:TAG_DCE_BINDING_NAME 87,2958
+(DEFCONSTANT OMG.ORG/IOP:TAG_DCE_NO_PIPES 88,3017
+(DEFCONSTANT OMG.ORG/IOP:TAG_DCE_SEC_MECH 89,3072
+(DEFCONSTANT OMG.ORG/IOP:TAG_FT_GROUP 90,3127
+(DEFINE-STRUCT IOP:IOR93,3179
+(DEFINE-STRUCT IOP:TAGGEDPROFILE100,3392
+(defconstant iop:tag_internet_iop 107,3619
+(defconstant iop:tag_multiple_components 108,3664
+(DEFINE-ALIAS IOP:PROFILEID111,3718
+(DEFINE-ALIAS IOP:ENCODINGFORMAT118,3866
+(DEFCONSTANT IOP:ENCODING_CDR_ENCAPS 124,4028
+(DEFINE-STRUCT IOP:ENCODING126,4077
+(DEFINE-INTERFACE IOP:CODEC 133,4326
+(DEFINE-USER-EXCEPTION IOP:CODEC/INVALIDTYPEFORENCODING137,4413
+(DEFINE-USER-EXCEPTION IOP:CODEC/FORMATMISMATCH144,4612
+(DEFINE-USER-EXCEPTION IOP:CODEC/TYPEMISMATCH151,4787
+(DEFINE-INTERFACE IOP:CODECFACTORY 165,5207
+(DEFINE-USER-EXCEPTION IOP:CODECFACTORY/UNKNOWNENCODING169,5315
+
+clorb-macros.lisp,627
+(defmacro doseq 8,85
+(defun format 21,330
+(defun clisp-clean-format-string 25,450
+(defmacro define-slot-dumper 37,831
+(defmacro dbgt 45,1004
+(defmacro debug-macro 51,1110
+(defun opname-helper 66,1674
+(defmacro define-method 81,2107
+(define-method foo 110,3134
+(define-method (setf 112,3191
+(defmacro define-feature 116,3263
+(defmacro define-deferred 128,3733
+(defstruct ATTSPEC137,3939
+(defun attspec-parse 141,3995
+(defmethod slot-updated 158,4557
+(defun attribute-ops 160,4593
+(defmacro define-corba-class 178,5172
+(defmacro with-cache-slot 203,6022
+(defmacro deletef 215,6291
+(defmacro when-let 230,6736
+
+clorb-macros2.lisp,493
+(DEFINE-ALIAS OMG.ORG/CORBA:REPOSITORYID19,282
+(defmacro define-alias 26,455
+(defmacro define-enum 45,1089
+(defmacro define-struct 59,1628
+(defmacro define-union 99,3215
+(define-union omg.org/root::filter 146,5294
+(defmacro define-user-exception 155,5491
+(defmacro static-call 192,6989
+(defmacro %jit-call 208,7556
+(defmacro %jit-get 212,7697
+(defmacro %jit-set 216,7818
+(defmacro define-interface 224,7971
+(defmacro define-operation 243,8756
+(defmacro define-attribute 254,9286
+
+clorb-marshal.lisp,1028
+(defun marshal-void 9,128
+(defun marshal-octet 14,198
+(defun marshal-bool 19,350
+(defmacro %marshal-number 23,420
+(defun marshal-short 40,1053
+(defun marshal-ushort 45,1205
+(defun marshal-ulong 50,1376
+(defun marshal-long 55,1528
+(defun marshal-longlong 60,1678
+(defun marshal-ulonglong 63,1750
+(defun marshal-char 66,1823
+(defun float-as-ieee-integer 69,1901
+(defun marshal-float 83,2471
+(defun marshal-double 88,2649
+(defun marshal-longdouble 93,2839
+(defun single-float-bits 101,3061
+(defun double-float-high-bits 115,3688
+(defun double-float-low-bits 129,4321
+(defun marshal-string 143,4942
+(defun marshal-osequence 152,5155
+(defun marshal-sequence 164,5446
+(defun marshal-make-encapsulation 168,5568
+(defun marshal-add-encapsulation 174,5757
+(defvar *marshal-typecode-record* 198,6545
+(defvar *typecode-params*)200,6585
+(defun marshal-typecode 202,6613
+(defun marshal-spec 220,7308
+(defun marshal-tagged-component 247,8341
+(defmethod marshal-object 256,8571
+(defmethod marshal-object 260,8678
+
+clorb-misc.lisp,783
+(DEFINE-ALIAS OMG.ORG/CORBA:ANYSEQ5,60
+(DEFINE-ALIAS OMG.ORG/CORBA:BOOLEANSEQ11,224
+(DEFINE-ALIAS OMG.ORG/CORBA:CHARSEQ17,404
+(DEFINE-ALIAS OMG.ORG/CORBA:WCHARSEQ23,572
+(DEFINE-ALIAS OMG.ORG/CORBA:OCTETSEQ29,744
+(DEFINE-ALIAS OMG.ORG/CORBA:SHORTSEQ35,916
+(DEFINE-ALIAS OMG.ORG/CORBA:USHORTSEQ41,1088
+(DEFINE-ALIAS OMG.ORG/CORBA:LONGSEQ47,1264
+(DEFINE-ALIAS OMG.ORG/CORBA:ULONGSEQ53,1432
+(DEFINE-ALIAS OMG.ORG/CORBA:LONGLONGSEQ59,1604
+(DEFINE-ALIAS OMG.ORG/CORBA:ULONGLONGSEQ65,1788
+(DEFINE-ALIAS OMG.ORG/CORBA:FLOATSEQ71,1976
+(DEFINE-ALIAS OMG.ORG/CORBA:DOUBLESEQ77,2148
+(DEFINE-ALIAS OMG.ORG/CORBA:STRINGSEQ83,2324
+(DEFINE-ALIAS OMG.ORG/CORBA:WSTRINGSEQ89,2500
+(DEFINE-VALUE-BOX OMG.ORG/CORBA:STRINGVALUE95,2680
+(DEFINE-VALUE-BOX OMG.ORG/CORBA:WSTRINGVALUE101,2848
+
+clorb-mt.lisp,602
+(defgeneric lock 6,100
+(defgeneric waitqueue 10,192
+(defclass synchronized 15,309
+(defclass synchronized-lazy 19,461
+(defmethod waitqueue 22,539
+(defmacro with-synchronization 28,694
+(defun synch-locked-wait 34,841
+(defun synch-notify 40,1007
+(defun synch-wait-on-condition 46,1189
+(defclass shared-queue 58,1463
+(defmethod enqueue 62,1548
+(defmethod dequeue 69,1679
+(defclass execution-queue 83,1977
+(defmacro with-execution-queue 96,2806
+(defmethod next-process-name 108,3282
+(defun eq-main 113,3420
+(defun eq-exec 149,4632
+(defmethod enqueue 155,4742
+(defun garb-threads 173,5398
+
+clorb-object.lisp,1917
+(defgeneric profile-connection 8,113
+(defconstant arg_in 51,1340
+(defconstant arg_out 52,1363
+(defconstant arg_inout 53,1387
+(define-corba-class CORBA:NamedValue 56,1415
+(defun corba:namedvalue 62,1534
+(defgeneric object-is-a 69,1722
+(defgeneric object-id 72,1787
+(define-feature "_THIS"75,1821
+(define-method "_THIS" 78,1915
+(define-interface CORBA:Object 85,2033
+(define-method _is_nil 92,2148
+(define-method _is_nil 95,2188
+(DEFINE-OPERATION CORBA::Object/_is_a101,2287
+(define-method _is_a 112,2568
+(define-method _is_a 116,2711
+(define-method _non_existent 123,2866
+(DEFINE-OPERATION CORBA::Object/_non_existent127,2914
+(define-method _is_equivalent 143,3278
+(defmethod any-value 150,3369
+(defclass CORBA:PROXY 158,3441
+(defgeneric profile-short-desc 170,3964
+(defmethod print-object 174,4074
+(defmethod (setf 192,4836
+(defgeneric encode-profile 198,5014
+(defmethod raw-profiles 200,5057
+(defmethod %object-profiles 209,5329
+(defmethod object-profiles 217,5625
+(defmethod effective-profile 222,5731
+(defmethod marshal-object 227,5865
+(defgeneric profile-component 234,6114
+(defmethod object-component 236,6160
+(defun %existing-connection 241,6309
+(defun %forward-connection 247,6490
+(defun %select-profile-and-connect 260,7031
+(defun get-object-connection 270,7419
+(defgeneric profile-equal 279,7696
+(define-method _is_equivalent 282,7807
+(define-method _hash 292,8114
+(defgeneric profile-hash 296,8191
+(define-method _hash 298,8228
+(define-method _create_request 314,8654
+(define-method _create_request 319,8893
+(defvar *proxy-classes*340,9696
+(defun find-proxy-class 343,9758
+(defun register-proxy-class 346,9833
+(defun object-narrow 349,9918
+(defun nobject-narrow 362,10403
+(define-method op::narrow 377,10858
+(defun auto-narrow 382,10955
+(defmethod no-applicable-method 398,11532
+(defclass CORBA:ValueBase 410,11835
+(defclass CORBA:AbstractBase 417,11893
+
+clorb-objkey.lisp,569
+(defconstant +transient-ior-magic+ 27,648
+(defconstant +persistent-ior-magic1+ 28,693
+(defconstant +persistent-ior-magic2+ 29,738
+(defvar *instance-id* 31,784
+(defun decode-object-key-from-buffer 33,851
+(defun decode-object-key 69,2238
+(defgeneric to-object-id 75,2403
+(defmethod to-object-id 80,2607
+(defmethod to-object-id 83,2684
+(defmethod to-object-id 87,2763
+(defmethod to-object-id 91,2834
+(defun object-id-to-integer 95,2921
+(defun make-object-key 99,3029
+(defun portableserver:oid-to-string 132,4146
+(defun portableserver:string-to-oid 135,4222
+
+clorb-openmcl.lisp,26
+(defun unix-select 9,170
+
+clorb-options.lisp,224
+(defvar *clorb-pathname-defaults*3,22
+(defvar *default-include-directories*13,457
+(defparameter *log-level* 19,682
+(defparameter *explicit-any* 21,712
+(defparameter *principal* 25,872
+(defvar *service-context* 29,1003
+
+clorb-orb.lisp,4869
+(defvar *orb-class* 5,63
+(defvar *orb-initializers* 8,160
+(deftype CORBA:ORBId 11,194
+(defclass CORBA:TYPECODEFACTORY 18,267
+(defclass CORBA:ORB 21,309
+(defclass clorb-orb 24,339
+(defmethod the-orb 44,1028
+(defmethod create-client-request 48,1074
+(defmethod create-objref 53,1217
+(defmethod enqueue-work 69,1743
+(defmethod add-pending-client-request 74,1866
+(defmethod remove-pending-request 77,1992
+(defmethod has-pending-request 87,2356
+(defun set-initial-reference 94,2532
+(defun refresh-initial-references 104,2901
+(defmethod has-received-exception 112,3072
+(defmethod has-received-reply 118,3305
+(defmethod has-received-other 122,3429
+(defmethod will-send-request 127,3606
+(defmethod has-received-request-header 134,3826
+(defmethod has-received-request 138,3942
+(defmethod will-send-exception 142,4051
+(defmethod will-send-reply 146,4159
+(defmethod will-send-other 150,4263
+(define-user-exception CORBA:ORB/InvalidName158,4427
+(define-method shutdown 163,4577
+(define-method string_to_object 170,4786
+(define-method object_to_string 174,4913
+(define-method list_initial_references 189,5261
+(define-method resolve_initial_references 196,5459
+(define-method register_initial_reference 222,6420
+(define-method work_pending 238,6848
+(define-method perform_work 246,7021
+(defun poll 252,7138
+(define-method run 260,7287
+(defun bg-run 275,7665
+(define-method create_list 299,8389
+(define-method create_operation_list 309,8779
+(define-method get_default_context 324,9250
+(define-method op::send_multiple_requests_oneway 333,9460
+(define-method op::send_multiple_requests_deferred 341,9676
+(define-method op::poll_next_response 347,9835
+(define-method op::get_next_response 357,10170
+(define-method register_value_factory 397,11385
+(define-method unregister_value_factory 405,11632
+(define-method lookup_value_factory 412,11821
+(defun CORBA:ORB_init 421,12015
+(defmethod create-orb-init-info 439,12639
+(defun process-orb-args 444,12741
+(defun process-opt-initial-reference 474,14115
+(defun parse-arg-integer 481,14400
+(define-method "PRE_INIT" 492,14614
+(define-method "POST_INIT" 495,14697
+(define-method "PRE_INIT" 499,14776
+(define-method "POST_INIT" 502,14869
+(defun string-to-object 512,15014
+(defun parse-file-url 542,16207
+(defun parse-http-url 562,16921
+(defun corbaloc-to-object 578,17493
+(defun corbaname-to-object 597,18242
+(defun split-url 607,18600
+(defun string-starts-with 614,18782
+(defun parse-corbaloc 619,18925
+(defun parse-obj-addr 640,19617
+(defun decode-hex-string 668,20612
+(defun decode-objkey-string 679,21019
+(defun decode-objkey-vector 696,21593
+(defun parse-iiop-version 715,22263
+(define-method op::_narrow 730,22596
+(define-corba-class CORBA:Current 738,22726
+(DEFINE-INTERFACE OMG.ORG/CORBA:CURRENT 740,22771
+(DEFINE-ALIAS OMG.ORG/CORBA:POLICYTYPE750,22976
+(DEFINE-INTERFACE OMG.ORG/CORBA:POLICY 756,23142
+(define-corba-class policy-impl 761,23325
+(define-method "DESTROY" 764,23423
+(define-method "COPY" 766,23470
+(DEFINE-METHOD "DESTROY" 770,23522
+(DEFINE-METHOD "COPY" 773,23668
+(DEFINE-METHOD "POLICY_TYPE" 779,23911
+(DEFINE-ALIAS OMG.ORG/CORBA:POLICYLIST783,24063
+(defconstant omg.org/corba:secconstruction 789,24258
+(defconstant omg.org/corba:unsupported_policy_value 790,24313
+(defconstant omg.org/corba:bad_policy_value 791,24376
+(defconstant omg.org/corba:bad_policy_type 792,24431
+(defconstant omg.org/corba:unsupported_policy 793,24485
+(defconstant omg.org/corba:bad_policy 794,24542
+(DEFINE-ALIAS OMG.ORG/CORBA:POLICYERRORCODE796,24592
+(DEFINE-USER-EXCEPTION OMG.ORG/CORBA:POLICYERROR802,24773
+(defgeneric create-policy 808,24962
+(define-method create_policy 810,25003
+(defmethod create-policy 813,25094
+(defun check-tc-id 826,25388
+(defun check-tc-name 835,25712
+(defun check-tc-member-names 845,26116
+(defun check-tc-content-type 852,26339
+(define-method "CREATE_RECURSIVE_TC" 860,26578
+(defun fix-recursive-tc 863,26682
+(define-method "CREATE_ARRAY_TC" 883,27234
+(DEFINE-METHOD "CREATE_SEQUENCE_TC" 890,27506
+(define-method "CREATE_FIXED_TC" 894,27674
+(define-method "CREATE_WSTRING_TC" 897,27785
+(define-method "CREATE_STRING_TC" 900,27886
+(define-method "CREATE_INTERFACE_TC" 905,27987
+(define-method "CREATE_EXCEPTION_TC" 910,28157
+(define-method "CREATE_STRUCT_TC" 915,28367
+(defun simple-struct-members 920,28571
+(define-method "CREATE_UNION_TC" 928,28814
+(define-method "CREATE_ALIAS_TC" 948,29764
+(define-method "CREATE_ENUM_TC" 954,29979
+(define-method "CREATE_ABSTRACT_INTERFACE_TC" 961,30205
+(define-method "CREATE_NATIVE_TC" 967,30421
+(define-method "CREATE_VALUE_BOX_TC" 972,30566
+(DEFINE-ALIAS OMG.ORG/CORBA:VALUEMODIFIER979,30833
+(define-method "CREATE_VALUE_TC" 985,31008
+(defun simple-value-members 993,31326
+(define-method "CREATE_LOCAL_INTERFACE_TC" 1003,31626
+(defmethod the-orb 1015,31886
+
+clorb-pi-base.lisp,4856
+(DEFINE-STRUCT OMG.ORG/DYNAMIC:PARAMETER6,61
+(DEFINE-ALIAS OMG.ORG/DYNAMIC:PARAMETERLIST12,281
+(DEFINE-ALIAS OMG.ORG/DYNAMIC:CONTEXTLIST18,494
+(DEFINE-ALIAS OMG.ORG/DYNAMIC:EXCEPTIONLIST24,691
+(DEFINE-ALIAS OMG.ORG/DYNAMIC:REQUESTCONTEXT30,885
+(DEFINE-ALIAS OMG.ORG/PORTABLEINTERCEPTOR:REPLYSTATUS36,1091
+(DEFCONSTANT OMG.ORG/PORTABLEINTERCEPTOR:SUCCESSFUL 42,1288
+(DEFCONSTANT OMG.ORG/PORTABLEINTERCEPTOR:SYSTEM_EXCEPTION 44,1352
+(DEFCONSTANT OMG.ORG/PORTABLEINTERCEPTOR:USER_EXCEPTION 46,1422
+(DEFCONSTANT OMG.ORG/PORTABLEINTERCEPTOR:LOCATION_FORWARD 48,1490
+(DEFCONSTANT OMG.ORG/PORTABLEINTERCEPTOR:TRANSPORT_RETRY 50,1560
+(DEFINE-STRUCT OMG.ORG/PORTABLEINTERCEPTOR:PARAMETER52,1629
+(DEFINE-ALIAS OMG.ORG/PORTABLEINTERCEPTOR:PARAMETERLIST58,1873
+(DEFINE-ALIAS OMG.ORG/PORTABLEINTERCEPTOR:CONTEXTLIST66,2150
+(DEFINE-ALIAS OMG.ORG/PORTABLEINTERCEPTOR:EXCEPTIONLIST72,2371
+(DEFINE-ALIAS OMG.ORG/PORTABLEINTERCEPTOR:REQUESTCONTEXT78,2589
+(DEFINE-ALIAS OMG.ORG/PORTABLEINTERCEPTOR:SLOTID84,2819
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLEINTERCEPTOR:INVALIDSLOT90,3001
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLEINTERCEPTOR:FORWARDREQUEST97,3211
+(DEFCLASS OMG.ORG/PORTABLEINTERCEPTOR:INTERCEPTOR 104,3464
+(DEFINE-METHOD "NAME" 106,3523
+(DEFINE-METHOD "DESTROY" 109,3634
+(DEFCLASS OMG.ORG/PORTABLEINTERCEPTOR:REQUESTINFO 113,3769
+(DEFINE-METHOD "REQUEST_ID" 115,3828
+(DEFINE-METHOD "OPERATION" 118,3945
+(DEFINE-METHOD "ARGUMENTS" 121,4061
+(DEFINE-METHOD "EXCEPTIONS" 124,4177
+(DEFINE-METHOD "CONTEXTS" 127,4294
+(DEFINE-METHOD "OPERATION_CONTEXT" 130,4409
+(DEFINE-METHOD "RESULT" 134,4570
+(DEFINE-METHOD "RESPONSE_EXPECTED" 137,4683
+(DEFINE-METHOD "REPLY_STATUS" 141,4844
+(DEFINE-METHOD "FORWARD_REFERENCE" 144,4963
+(DEFINE-METHOD "GET_SLOT" 148,5124
+(DEFINE-METHOD "GET_REQUEST_SERVICE_CONTEXT" 152,5268
+(DEFINE-METHOD "GET_REPLY_SERVICE_CONTEXT" 158,5524
+(DEFCLASS OMG.ORG/PORTABLEINTERCEPTOR:IORINFO 164,5774
+(DEFINE-METHOD "GET_EFFECTIVE_POLICY" 166,5829
+(DEFINE-METHOD "ADD_IOR_COMPONENT" 172,6064
+(DEFINE-METHOD "ADD_IOR_COMPONENT_TO_PROFILE" 177,6267
+(DEFCLASS OMG.ORG/PORTABLEINTERCEPTOR:POLICYFACTORY 183,6564
+(DEFINE-METHOD "CREATE_POLICY" 185,6625
+(DEFCLASS OMG.ORG/PORTABLEINTERCEPTOR:ORBINITINFO 191,6859
+(DEFINE-ALIAS OMG.ORG/PORTABLEINTERCEPTOR:ORBINITINFO/OBJECTID193,6918
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLEINTERCEPTOR:ORBINITINFO/DUPLICATENAME199,7132
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLEINTERCEPTOR:ORBINITINFO/INVALIDNAME206,7422
+(DEFINE-METHOD "ARGUMENTS" 213,7675
+(DEFINE-METHOD "ORB_ID" 216,7791
+(DEFINE-METHOD "CODEC_FACTORY" 219,7904
+(DEFINE-METHOD "REGISTER_INITIAL_REFERENCE" 222,8024
+(DEFINE-METHOD "RESOLVE_INITIAL_REFERENCES" 228,8287
+(DEFINE-METHOD "ADD_CLIENT_REQUEST_INTERCEPTOR" 234,8540
+(DEFINE-METHOD "ADD_SERVER_REQUEST_INTERCEPTOR" 240,8823
+(DEFINE-METHOD "ADD_IOR_INTERCEPTOR" 246,9106
+(DEFINE-METHOD "ALLOCATE_SLOT_ID" 252,9356
+(DEFINE-METHOD "REGISTER_POLICY_FACTORY" 257,9536
+(DEFCLASS OMG.ORG/PORTABLEINTERCEPTOR:ORBINITIALIZER 263,9816
+(DEFINE-METHOD "PRE_INIT" 265,9878
+(DEFINE-METHOD "POST_INIT" 270,10056
+(DEFCLASS OMG.ORG/PORTABLEINTERCEPTOR:CLIENTREQUESTINFO 275,10236
+(DEFINE-METHOD "TARGET" 278,10342
+(DEFINE-METHOD "EFFECTIVE_TARGET" 281,10461
+(DEFINE-METHOD "EFFECTIVE_PROFILE" 285,10626
+(DEFINE-METHOD "RECEIVED_EXCEPTION" 289,10793
+(DEFINE-METHOD "RECEIVED_EXCEPTION_ID" 293,10962
+(DEFINE-METHOD "GET_EFFECTIVE_COMPONENT" 297,11137
+(DEFINE-METHOD "GET_EFFECTIVE_COMPONENTS" 303,11387
+(DEFINE-METHOD "GET_REQUEST_POLICY" 309,11640
+(DEFINE-METHOD "ADD_REQUEST_SERVICE_CONTEXT" 315,11879
+(DEFCLASS OMG.ORG/PORTABLEINTERCEPTOR:SERVERREQUESTINFO 321,12185
+(DEFINE-METHOD "SENDING_EXCEPTION" 324,12291
+(DEFINE-METHOD "OBJECT_ID" 328,12458
+(DEFINE-METHOD "ADAPTER_ID" 332,12609
+(DEFINE-METHOD "TARGET_MOST_DERIVED_INTERFACE" 336,12762
+(DEFINE-METHOD "GET_SERVER_POLICY" 340,12953
+(DEFINE-METHOD "SET_SLOT" 346,13189
+(DEFINE-METHOD "TARGET_IS_A" 351,13378
+(DEFINE-METHOD "ADD_REPLY_SERVICE_CONTEXT" 357,13592
+(DEFCLASS OMG.ORG/PORTABLEINTERCEPTOR:CLIENTREQUESTINTERCEPTOR 363,13892
+(DEFINE-METHOD "SEND_REQUEST" 366,14005
+(DEFINE-METHOD "SEND_POLL" 372,14229
+(DEFINE-METHOD "RECEIVE_REPLY" 378,14444
+(DEFINE-METHOD "RECEIVE_EXCEPTION" 384,14671
+(DEFINE-METHOD "RECEIVE_OTHER" 390,14910
+(DEFCLASS OMG.ORG/PORTABLEINTERCEPTOR:SERVERREQUESTINTERCEPTOR 396,15137
+(DEFINE-METHOD "RECEIVE_REQUEST_SERVICE_CONTEXTS" 399,15250
+(DEFINE-METHOD "RECEIVE_REQUEST" 405,15534
+(DEFINE-METHOD "SEND_REPLY" 411,15767
+(DEFINE-METHOD "SEND_EXCEPTION" 417,15985
+(DEFINE-METHOD "SEND_OTHER" 423,16215
+(DEFCLASS OMG.ORG/PORTABLEINTERCEPTOR:CURRENT 429,16433
+(DEFINE-METHOD "GET_SLOT" 431,16509
+(DEFINE-METHOD "SET_SLOT" 435,16649
+(DEFCLASS OMG.ORG/PORTABLEINTERCEPTOR:IORINTERCEPTOR 440,16828
+(DEFINE-METHOD "ESTABLISH_COMPONENTS" 443,16931
+
+clorb-pi-impl.lisp,3602
+(defclass pi-orb 19,398
+(define-corba-class orb-init-info 36,953
+(defmethod create-orb-init-info 43,1190
+(define-method register_initial_reference 54,1461
+(define-method resolve_initial_references 64,1799
+(defun PortableInterceptor:register_orb_initializer 80,2270
+(defclass base-request-info 105,3247
+(defun get-service-context 111,3349
+(define-method "REQUEST_ID" 118,3566
+(define-method "OPERATION" 124,3701
+(define-method "ARGUMENTS" 130,3858
+(define-method "EXCEPTIONS" 137,4104
+(define-method "CONTEXTS" 143,4261
+(define-method "OPERATION_CONTEXT" 149,4432
+(define-method "RESULT" 155,4581
+(define-method "RESPONSE_EXPECTED" 161,4725
+(define-method "SYNC_SCOPE" 167,4889
+(define-method "GET_SLOT" 178,5141
+(define-method "GET_REQUEST_SERVICE_CONTEXT" 186,5366
+(define-method "GET_REPLY_SERVICE_CONTEXT" 193,5606
+(defclass pi-request 207,5831
+(defgeneric request-info 211,5930
+(defclass pi-client-request 214,5971
+(defclass pi-server-request 217,6034
+(defmethod request-info 222,6099
+(defmethod request-info 226,6247
+(defgeneric run-interceptors 231,6396
+(defgeneric rerun-interceptors 232,6447
+(defgeneric pop-interceptors 233,6495
+(defmethod run-interceptors 235,6542
+(defmethod rerun-interceptors 241,6781
+(defmethod pop-interceptors 245,6942
+(defmethod rerun-interceptors 251,7155
+(defclass client-request-info 258,7281
+(define-method "REPLY_STATUS" 265,7427
+(define-method "FORWARD_REFERENCE" 282,8089
+(define-method "TARGET" 290,8233
+(define-method "EFFECTIVE_TARGET" 293,8327
+(define-method "EFFECTIVE_PROFILE" 298,8547
+(define-method "RECEIVED_EXCEPTION" 316,9318
+(define-method "RECEIVED_EXCEPTION_ID" 325,9679
+(define-method "GET_EFFECTIVE_COMPONENT" 329,9794
+(define-method "GET_EFFECTIVE_COMPONENTS" 333,9942
+(define-method "GET_REQUEST_POLICY" 337,10091
+(defmacro %add-service-context 342,10275
+(define-method "ADD_REQUEST_SERVICE_CONTEXT" 355,10826
+(defclass server-request-info 365,11128
+(define-method "REPLY_STATUS" 372,11274
+(define-method "FORWARD_REFERENCE" 376,11383
+(define-method "SENDING_EXCEPTION" 382,11515
+(define-method "OBJECT_ID" 385,11622
+(define-method "ADAPTER_ID" 388,11727
+(define-method "TARGET_MOST_DERIVED_INTERFACE" 391,11833
+(define-method "GET_SERVER_POLICY" 394,11958
+(define-method "SET_SLOT" 398,12104
+(define-method "TARGET_IS_A" 402,12249
+(define-method "ADD_REPLY_SERVICE_CONTEXT" 406,12385
+(defmethod create-client-request 416,12683
+(defmethod create-server-request 420,12825
+(defmethod will-send-request 425,12968
+(defmethod has-received-exception 430,13158
+(defmethod has-received-reply 434,13304
+(defmethod has-received-other 438,13442
+(defmethod has-received-request-header 442,13580
+(defmethod has-received-request 447,13800
+(defmethod will-send-exception 451,13944
+(defmethod will-send-reply 460,14268
+(defmethod will-send-other 464,14400
+(define-method "ADD_CLIENT_REQUEST_INTERCEPTOR" 476,14704
+(define-method add_server_request_interceptor 486,15158
+(defclass my-client-interceptor 505,15786
+(define-method name 508,15893
+(defun args-except 511,15972
+(define-method "SEND_REQUEST" 516,16119
+(define-method "RECEIVE_REPLY" 534,16683
+(define-method "RECEIVE_EXCEPTION" 541,16913
+(define-method "RECEIVE_OTHER" 548,17162
+(defclass my-server-interceptor 558,17557
+(define-method RECEIVE_REQUEST_SERVICE_CONTEXTS 561,17664
+(define-method RECEIVE_REQUEST 566,17879
+(define-method SEND_REPLY 571,18051
+(define-method SEND_EXCEPTION 583,18344
+(define-method SEND_OTHER 586,18449
+(defvar *my-client-interceptor* 591,18548
+(defvar *my-server-interceptor* 594,18691
+
+clorb-pkgdcl.lisp,501
+(defpackage "OMG.ORG/CORBA"3,23
+(defpackage "OMG.ORG/IOP"108,6387
+(defpackage "OMG.ORG/GIOP"130,7655
+(defpackage "OMG.ORG/IIOP"139,7984
+(defpackage "OMG.ORG/FEATURES"145,8105
+(defpackage "OMG.ORG/ROOT"244,14148
+(defpackage "OMG.ORG/PORTABLESERVER"247,14186
+(defpackage "OMG.ORG/DYNAMIC"271,15843
+(defpackage "OMG.ORG/PORTABLEINTERCEPTOR"277,15999
+(defpackage "NET.CDDR.CLORB.INTERNALS"292,16678
+(defpackage "NET.CDDR.CLORB"304,17096
+(defpackage "NET.CDDR.CLORB.PERSISTENT-NAMING"337,18263
+
+clorb-poa-base.lisp,2691
+(DEFINE-ALIAS OMG.ORG/PORTABLESERVER:OBJECTID9,134
+(DEFINE-ALIAS OMG.ORG/PORTABLESERVER:POALIST15,320
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:FORWARDREQUEST20,446
+(DEFINE-ENUM OMG.ORG/PORTABLESERVER:REQUESTPROCESSINGPOLICYVALUE26,645
+(DEFINE-ENUM OMG.ORG/PORTABLESERVER:SERVANTRETENTIONPOLICYVALUE32,913
+(DEFINE-ENUM OMG.ORG/PORTABLESERVER:IMPLICITACTIVATIONPOLICYVALUE37,1116
+(DEFINE-ENUM OMG.ORG/PORTABLESERVER:IDASSIGNMENTPOLICYVALUE42,1350
+(DEFINE-ENUM OMG.ORG/PORTABLESERVER:IDUNIQUENESSPOLICYVALUE47,1541
+(DEFINE-ENUM OMG.ORG/PORTABLESERVER:LIFESPANPOLICYVALUE52,1736
+(DEFINE-ENUM OMG.ORG/PORTABLESERVER:THREADPOLICYVALUE57,1918
+(DEFINE-INTERFACE OMG.ORG/PORTABLESERVER:REQUESTPROCESSINGPOLICY 65,2111
+(DEFINE-METHOD "VALUE" 72,2451
+(DEFINE-INTERFACE OMG.ORG/PORTABLESERVER:SERVANTRETENTIONPOLICY 79,2680
+(DEFINE-METHOD "VALUE" 86,3015
+(DEFINE-INTERFACE OMG.ORG/PORTABLESERVER:IMPLICITACTIVATIONPOLICY(93,3242
+(DEFINE-METHOD "VALUE" 100,3586
+(DEFINE-INTERFACE OMG.ORG/PORTABLESERVER:IDASSIGNMENTPOLICY 107,3817
+(DEFINE-METHOD "VALUE" 113,4123
+(DEFINE-INTERFACE OMG.ORG/PORTABLESERVER:IDUNIQUENESSPOLICY 119,4317
+(DEFINE-METHOD "VALUE" 125,4623
+(DEFINE-INTERFACE OMG.ORG/PORTABLESERVER:LIFESPANPOLICY 131,4817
+(DEFINE-METHOD "VALUE" 137,5103
+(DEFINE-INTERFACE OMG.ORG/PORTABLESERVER:THREADPOLICY 143,5289
+(DEFINE-METHOD "VALUE" 149,5565
+(defconstant omg.org/portableserver:request_processing_policy_id 157,5749
+(defconstant omg.org/portableserver:servant_retention_policy_id 159,5827
+(defconstant omg.org/portableserver:implicit_activation_policy_id 161,5904
+(defconstant omg.org/portableserver:id_assignment_policy_id 163,5983
+(defconstant omg.org/portableserver:id_uniqueness_policy_id 165,6056
+(defconstant omg.org/portableserver:lifespan_policy_id 167,6129
+(defconstant omg.org/portableserver:thread_policy_id 169,6197
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:POA/WRONGPOLICY176,6268
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:POA/WRONGADAPTER181,6421
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:POA/SERVANTNOTACTIVE186,6577
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:POA/SERVANTALREADYACTIVE191,6745
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:POA/OBJECTNOTACTIVE196,6925
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:POA/OBJECTALREADYACTIVE201,7090
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:POA/NOSERVANT206,7267
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:POA/INVALIDPOLICY211,7414
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:POA/ADAPTERNONEXISTENT216,7605
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:POA/ADAPTERALREADYEXISTS221,7779
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:CURRENT/NOCONTEXT227,7960
+
+clorb-poa.lisp,4275
+(defvar *poa-current* 7,84
+(defclass PORTABLESERVER:SERVANTMANAGER 14,209
+(defclass PORTABLESERVER:SERVANTACTIVATOR 18,308
+(define-method incarnate 23,474
+(define-method etherealize 28,617
+(defclass PORTABLESERVER:SERVANTLOCATOR 35,914
+(deftype PortableServer:ServantLocator/cookie 37,991
+(define-method preinvoke 39,1044
+(define-method postinvoke 44,1223
+(DEFINE-INTERFACE PortableServer:AdapterActivator 53,1449
+(define-method unknown_adapter 57,1591
+(define-corba-class PortableServer:POA 64,1773
+(defmethod print-object 87,2889
+(defmethod destroy-in-progres-p 93,3111
+(defmethod (setf 95,3216
+(defmethod destroyed-p 98,3355
+(defun poa-name 102,3444
+(defun poa-effective-state 110,3714
+(defun check-live-poa 115,3885
+(defmethod wait-for-completion 119,3995
+(defmethod poa-new-state 128,4345
+(defun make-poa-current 144,4832
+(defun poa-current-poa 145,4899
+(defun poa-current-object-id 146,4955
+(defun poa-current-servant 147,5018
+(DEFINE-INTERFACE PortableServer:Current 149,5080
+(define-method get_POA 153,5202
+(define-method get_object_id 157,5364
+(define-method get_servant 166,5607
+(define-method _poa 174,5863
+(define-method _orb 178,6022
+(define-method _object_id 182,6190
+(defclass PORTABLESERVER:POAMANAGER 189,6389
+(DEFINE-ENUM OMG.ORG/PORTABLESERVER:POAMANAGER/STATE196,6611
+(DEFINE-USER-EXCEPTION OMG.ORG/PORTABLESERVER:POAMANAGER/ADAPTERINACTIVE203,6825
+(defun in-invocation-context 209,7005
+(defun poamanager-new-state 218,7291
+(defmethod add-poa 239,8039
+(defmethod remove-poa 242,8128
+(define-method activate 248,8297
+(define-method hold_requests 254,8485
+(define-method discard_requests 260,8721
+(define-method deactivate 268,9015
+(define-method get_state 274,9246
+(defmethod print-object 279,9356
+(defmethod adapter 290,9633
+(defgeneric next-poaid 293,9694
+(defun register-poa 299,9849
+(defun unregister-poa 302,9920
+(defun canonical-policy-list 309,10030
+(defun create-poa 335,11046
+(define-method create_POA 362,11961
+(defun find-requested-poa 369,12228
+(define-method find_POA 385,12956
+(defun poa-has-policy 390,13166
+(defun start-etherealize 445,15616
+(define-method op:destroy 463,16412
+(defun check-policy 491,17466
+(define-method get_servant_manager 498,17656
+(define-method set_servant_manager 506,17898
+(define-method get_servant 520,18447
+(define-method set_servant 530,18767
+(defun generate-id 540,19122
+(define-method activate_object 546,19312
+(define-method activate_object_with_id 550,19464
+(define-method deactivate_object 562,19950
+(define-method create_reference 583,20784
+(define-method create_reference_with_id 590,21035
+(defun in-servant-invocation-context 612,21894
+(define-method servant_to_id 622,22235
+(define-method servant_to_reference 643,23145
+(define-method reference_to_servant 650,23461
+(define-method reference_to_id 657,23716
+(define-method id_to_servant 676,24442
+(define-method id_to_reference 688,24889
+(define-method "CREATE_REQUEST_PROCESSING_POLICY" 698,25235
+(define-method "CREATE_SERVANT_RETENTION_POLICY" 702,25428
+(define-method "CREATE_IMPLICIT_ACTIVATION_POLICY" 705,25596
+(define-method "CREATE_ID_ASSIGNMENT_POLICY" 709,25791
+(define-method "CREATE_ID_UNIQUENESS_POLICY" 713,25974
+(define-method "CREATE_LIFESPAN_POLICY" 716,26134
+(define-method "CREATE_THREAD_POLICY" 720,26307
+(defun current-primary-interface 729,26665
+(define-method _this 734,26853
+(define-method _is_a 746,27408
+(define-method _get_interface 750,27623
+(defun get-servant 764,28108
+(defun poa-invoke 790,29474
+(defun poa-locate 817,30648
+(defun poa-dispatch-1 832,31236
+(defun poa-dispatch 851,31948
+(defclass POLICY-VALUE-MIXIN 861,32188
+(define-method value 864,32261
+(defclass REQUESTPROCESSINGPOLICY-IMPL 867,32337
+(defmethod create-policy 870,32443
+(defclass SERVANTRETENTIONPOLICY-IMPL 876,32741
+(defmethod create-policy 879,32845
+(defclass IMPLICITACTIVATIONPOLICY-IMPL 885,33140
+(defmethod create-policy 888,33248
+(defclass IDASSIGNMENTPOLICY-IMPL 894,33549
+(defmethod create-policy 897,33645
+(defclass IDUNIQUENESSPOLICY-IMPL 903,33928
+(defmethod create-policy 906,34024
+(defclass LIFESPANPOLICY-IMPL 911,34306
+(defmethod create-policy 914,34394
+(defclass THREADPOLICY-IMPL 919,34663
+(defmethod create-policy 922,34747
+
+clorb-queue.lisp,143
+(defmacro deqf 11,277
+(define-modify-macro enqf 29,932
+(defun enq-func 30,977
+(defun queue-memeber-p 41,1234
+(defun queue-empty-p 51,1492
+
+clorb-request.lisp,1991
+(defclass CORBA:Request 9,86
+(defclass client-request 16,145
+(defmethod initialize-instance 85,2327
+(defmethod status-notify 91,2553
+(defgeneric create-client-request 95,2649
+(define-method target 98,2707
+(define-method operation 101,2773
+(define-method ctx 104,2845
+(define-method result 107,2934
+(define-method set_return_type 110,3011
+(define-method return_value 113,3139
+(define-method arguments 124,3577
+(defmethod dynamic-arguments 128,3656
+(defmethod dynamic-result 145,4438
+(defun add-arg 149,4516
+(define-method add_in_arg 162,4958
+(define-method add_named_in_arg 165,5036
+(define-method add_inout_arg 168,5126
+(define-method add_named_inout_arg 171,5210
+(define-method add_out_arg 174,5306
+(define-method add_named_out_arg 177,5407
+(defun add-exception 180,5499
+(defun request-create 186,5637
+(defun request-start-request 198,5943
+(defun static-error-handler 213,6542
+(defvar *call-hook* 217,6605
+(defun do-static-call 219,6631
+(defun request-invoke 240,7335
+(defvar *send-hook* 245,7416
+(defun request-send 247,7442
+(define-method send_oneway 268,8281
+(define-method send_deferred 277,8533
+(defun request-locate-reply 289,8800
+(defun request-reply 296,8982
+(defun request-reply-exception 311,9500
+(defun request-no-write 320,9759
+(defun should-retry 325,9910
+(defun request-poll 338,10383
+(defun request-wait-response 363,11131
+(defun request-handle-error 373,11443
+(defun request-get-response 379,11617
+(define-method op::get_response 422,13521
+(define-method poll_response 443,14148
+(define-method op::invoke 454,14462
+(defun request-funcall 460,14575
+(defun dii-output-func 468,14752
+(defun dii-input-func 477,15039
+(defun dii-error-handler 492,15574
+(defun symbol-op-info 500,15667
+(defun symbol-attr-info 509,15905
+(defun compute-static-call 516,16057
+(defun ignore2 544,17490
+(defun compute-static-get 547,17538
+(defun compute-static-set 562,18042
+(define-method _non_existent 581,18673
+(define-method _is_a 588,18832
+
+clorb-servant.lisp,1733
+(defgeneric servant-invoke 8,103
+(defgeneric primary-interface 11,243
+(defclass CORBA:ServerRequest 18,316
+(defclass server-request 25,396
+(defmethod create-server-request 63,2583
+(defun set-request-args 68,2725
+(defun set-request-result 74,2938
+(defun set-request-forward 79,3137
+(defun dsi-request-p 84,3244
+(defun arguments-set-p 87,3307
+(defun exception-set-p 90,3371
+(defmethod set-request-exception 93,3430
+(defmethod response-expected 96,3529
+(defmethod dynamic-arguments 100,3619
+(defmethod dynamic-result 125,4831
+(defun get-request-response 138,5296
+(defun compute-result-marshal 159,6014
+(defun check-valid-exception 175,6659
+(defun marshal-systemexception 182,6924
+(defun server-request-respond 188,7180
+(defun server-request-systemexception-reply 223,8972
+(defun discard-request 234,9417
+(define-method operation 252,9898
+(define-method ctx 256,9977
+(define-method arguments 260,10029
+(define-method set_result 276,10628
+(define-method set_exception 283,10849
+(defvar *skel-version* 298,11222
+(defun handle-servant-exception 302,11290
+(defun compute-skel-operation 311,11615
+(defun compute-skel-get-attribute 333,12771
+(defun compute-skel-set-attribute 343,13115
+(defun standard-skel-operations 354,13547
+(defun compute-iface-skel 379,14688
+(defun get-skel-table 401,15602
+(defclass PORTABLESERVER:SERVANT 425,16273
+(define-method _default_POA 427,16326
+(define-method _non_existent 430,16404
+(defmethod primary-interface 433,16476
+(defmethod servant-invoke 437,16601
+(defclass PORTABLESERVER:DYNAMICIMPLEMENTATION 447,16937
+(define-method invoke 455,17149
+(define-method primary_interface 459,17300
+(defmethod servant-invoke 463,17468
+(defmethod primary-interface 468,17721
+
+clorb-srv.lisp,1286
+(defclass BOOT-OBJECT-MANAGER 9,102
+(defun create-default-poa 13,272
+(define-method incarnate 22,565
+(defmethod set-boot-object 34,1005
+(defclass root-adapter 42,1152
+(defmethod set-boot-object 59,1883
+(defmethod set-boot-object 62,2022
+(defun create-root-adapter 66,2130
+(defmethod root-poa-of 76,2453
+(defmethod root-poa-of 78,2519
+(defmethod next-poaid 82,2593
+(defmethod adapter-register-poa 85,2669
+(defmethod adapter-unregister-poa 88,2792
+(defmethod poa-by-id 91,2906
+(defun default-dispatch-request 99,3028
+(defun dispatch-request 108,3347
+(defun queued-dispatch 114,3515
+(defun bg-dispatcher 117,3619
+(defun start-dispatcher-process 123,3800
+(defun setup-server 136,4111
+(defun root-poa 146,4388
+(defun setup-incoming-connection 152,4520
+(defun setup-shortcut 156,4638
+(defun shortcut-off 164,4844
+(defun poa-connection-handler 168,4899
+(defun get-fragment-request 173,5049
+(defun poa-message-handler 179,5226
+(defun poa-request-handler 216,6808
+(defun connection-receive-request 230,7408
+(defun poa-cancelrequest-handler 251,8418
+(defun poa-locaterequest-handler 265,8931
+(defun poa-closeconnection-handler 280,9512
+(defun poa-messageerror-handler 286,9667
+(defun initialize-poa 292,9762
+(defun main-loop 302,10103
+(defun recover 306,10185
+
+clorb-struct.lisp,712
+(defclass CORBA:STRUCT 5,72
+(define-typecode struct-typecode9,106
+(defun create-struct-tc 19,435
+(defmethod any-typecode 28,708
+(defmethod any-value 31,809
+(defgeneric type-id 35,866
+(defgeneric fields 39,991
+(defmethod raw-fields 41,1021
+(defmethod struct-get 45,1145
+(defmethod struct-get 48,1257
+(defclass GENERIC-STRUCT 55,1378
+(defmethod fields 59,1538
+(defmethod type-id 64,1672
+(defmethod any-typecode 67,1762
+(defun make-generic-struct 71,1850
+(defmethod struct-get 76,1970
+(defmethod struct-get 79,2070
+(defun make-struct 87,2207
+(defmethod print-object 99,2638
+(defun map-struct 118,3380
+(defmethod compute-unmarshal-function 131,3669
+(defmethod compute-marshal-function 155,4607
+
+clorb-supp.lisp,308
+(defvar *the-orb* 10,200
+(defvar *log-output* 16,239
+(defun mess 18,264
+(defun stroid 30,555
+(defun kwote 45,807
+(defun mklist 50,885
+(defun repeated 55,977
+(defun feature 62,1100
+(defun key 67,1268
+(defun prefixed-name 73,1407
+(defun tc-constant-name 80,1694
+(defun ensure-corba-package 87,1896
+
+clorb-sysdep.lisp,1879
+(defmacro %sysdep 52,1634
+(defvar *repl-friendly* 63,1899
+(defun make-repl-happy 65,1929
+(defun make-repl-friendly 88,2866
+(defclass MCL-LISTENER-SOCKET 111,3354
+(defvar *clisp-buffered-streams* 117,3504
+(defun open-passive-socket 124,3719
+(defun passive-socket-host 171,5222
+(defun passive-socket-port 207,6032
+(defparameter *connect-timeout* 245,6732
+(defun open-active-socket 247,6770
+(defun socket-peer 296,8615
+(defun accept-connection-on-socket 326,9663
+(defun socket-stream-closed-p 429,13704
+(defun socket-stream-listen 443,14102
+(defun listener-close 459,14423
+(defun socket-close 473,14648
+(defun socket-shutdown 482,14802
+(defun http-get-ior 495,15000
+(defmacro %add-fd 544,16177
+(defmacro %socket-file-descriptor 555,16524
+(defmacro %stream-fd 564,16867
+(defmacro %unix-select 572,17113
+(defun select-add-listener 578,17314
+(defun select-listener 598,17740
+(defun select-add-stream 612,18061
+(defun select-wait 668,19786
+(defun select-do-result 717,21284
+(deftype octets 755,22559
+(deftype index 756,22607
+(defun read-octets 759,22665
+(defun read-octets-no-hang 775,23289
+(defun write-octets 811,24461
+(defun write-octets-no-hang 820,24754
+(defun current-process 835,25069
+(defun start-process 842,25247
+(defun end-process 856,25673
+(defun process-running-p 867,26047
+(defun process-wait-with-timeout 879,26485
+(defun process-wait 889,26792
+(defun make-lock 901,27084
+(defmacro with-lock 913,27410
+(defclass mcl-waitqueue 927,27723
+(defun make-waitqueue 931,27804
+(defun wq-locked-wait 940,28004
+(defun wq-notify 960,28624
+(defun wq-locked-wait-on-condition 971,28929
+(defun shell-to-stream 990,29354
+(defun shell-to-string 1004,29824
+(defun external-namestring 1043,31043
+(defun cpp-command-string 1054,31401
+(defun home-volume-prefix 1064,31774
+(defun string->octets 1079,32186
+(defun octets->string 1088,32423
+
+clorb-target.lisp,3341
+(defgeneric target-typecode 7,75
+(defgeneric target-code 11,202
+(defgeneric target-type 15,302
+(defclass code-target 23,422
+(defun param-symbol 34,751
+(defun make-target-symbol 37,856
+(defun scoped-symbol-name 49,1287
+(defgeneric scoped-subsymbol-name 52,1371
+(defun concatenate-name 71,2355
+(defmethod package-prefix 74,2435
+(defgeneric scoped-target-symbol 78,2492
+(defun scoped-target-symbol-in 89,2914
+(defun make-progn 97,3244
+(defun make-progn* 109,3706
+(defun make-target-ensure-package 112,3754
+(defun make-always-eval 120,4147
+(defun target-base-list 125,4251
+(defun target-class-symbol 132,4478
+(defun target-proxy-class-symbol 140,4832
+(defun target-servant-class-symbol 143,4926
+(defun setter-name 147,5025
+(defun getter-name 150,5090
+(defmethod target-type 157,5183
+(defmethod target-type 180,5855
+(defmethod target-type 184,5953
+(defmethod target-type 188,6051
+(defmethod target-type 193,6201
+(defmethod target-type 198,6302
+(defmethod target-typecode 205,6426
+(defmethod target-typecode 230,7207
+(defmethod target-typecode 235,7349
+(defmethod target-typecode 241,7525
+(defmethod target-typecode 246,7681
+(defmethod target-typecode 249,7794
+(defmethod target-typecode 252,7910
+(defmethod target-code 260,8102
+(defmethod target-code 265,8195
+(defmethod target-sort-key 276,8722
+(defmethod target-sort-key 280,8886
+(defgeneric target-code-contained 287,9059
+(defmethod target-code-contained 289,9118
+(defclass ifr-info-target 296,9219
+(defmethod target-code-contained 299,9266
+(defmethod target-code-contained 321,10301
+(defclass stub-target 337,10853
+(defclass static-stub-target 341,10913
+(defmethod target-code 346,10965
+(defmethod target-code 350,11084
+(defun enum-constant-p 358,11407
+(defmethod target-code 366,11739
+(defmethod target-code 372,11943
+(defun in-param-list 389,12694
+(defmethod target-code 395,12828
+(defmethod target-code 398,12955
+(defmethod target-code-contained 402,13083
+(defmethod target-code-contained 416,13675
+(defmethod target-code 429,14296
+(defmethod target-code 453,15424
+(defmethod target-code 460,15645
+(defmethod target-code 474,16235
+(defmethod target-code 505,17511
+(defmethod target-code 533,18595
+(defmethod target-code 536,18676
+(defmethod target-code 545,19018
+(defmethod target-marshal 564,19754
+(defmethod target-marshal 567,19884
+(defmethod target-marshal 570,20039
+(defmethod target-marshal 589,20771
+(defmethod target-unmarshal 596,20921
+(defmethod target-unmarshal 599,21046
+(defmethod target-unmarshal 617,21754
+(defmethod target-unmarshal 620,21887
+(defclass servant-target 628,22046
+(defmethod target-code 632,22093
+(defun servant-attribute-declaration 644,22609
+(defmethod target-code 653,22871
+(defmethod target-code-contained 656,23003
+(defmethod target-code 666,23420
+(defmethod target-code 685,24012
+(defmethod target-code-contained 692,24289
+(defmethod target-code-contained 701,24749
+(defmethod target-code-contained 715,25435
+(defmethod target-code-contained 720,25644
+(defclass all-target 729,25886
+(defparameter *stub-code-ignored-packages*733,25951
+(defmethod target-ensure-packages 738,26086
+(defun pprint-def-and-keys 751,26549
+(defun pprint-apply-keys 767,27029
+(defun pprint-def2-and-keys 780,27417
+(defun struct-name-p 799,27956
+(defvar *target-pprint-dispatch*804,28057
+
+clorb-trie.lisp,211
+(defun make-trie 17,487
+(defun trie-get 20,526
+(defun trie-set 32,797
+(defun trie-remove 44,1121
+(defun maptrie 56,1566
+(defun maptrie2 65,1925
+(defmethod dict-count 79,2470
+(defparameter a-trie 86,2613
+
+clorb-typecode-1.lisp,2330
+(defparameter tckind6,39
+(deftype corba:tckind 18,538
+(defclass CORBA:TYPECODE 22,605
+(defmethod print-object 29,769
+(defun make-typecode 53,1564
+(defun typecode-kind 61,1836
+(defun typecode-params 64,1905
+(defun (setf 67,1970
+(defgeneric compact-params 70,2054
+(defun typecode-smash 73,2143
+(defun map-typecode 87,2663
+(defgeneric tc-members 101,3108
+(defgeneric tc-unalias 103,3138
+(defgeneric compute-marshal-function 112,3269
+(defgeneric compute-unmarshal-function 116,3415
+(defun marshal-function 121,3566
+(defun unmarshal-function 125,3669
+(defun marshal 130,3779
+(defun unmarshal 133,3857
+(defun marshal-function-cache 137,3932
+(defmacro %jit-marshal 146,4183
+(defun unmarshal-function-cache 151,4320
+(defmacro %jit-unmarshal 162,4628
+(define-method equal 170,4799
+(define-method equal 176,5015
+(define-method equal 179,5063
+(define-method equal 182,5116
+(define-method equal 185,5179
+(defun tcp-equal 188,5240
+(define-method kind 192,5328
+(define-feature get_compact_typecode)195,5393
+(define-feature id)197,5432
+(define-feature name)199,5453
+(define-feature member_count)201,5476
+(define-feature member_name)203,5507
+(define-feature member_type)205,5537
+(define-feature member_label)207,5567
+(define-feature member_visibility)209,5598
+(define-feature discriminator_type)211,5634
+(define-feature default_index)213,5671
+(define-feature length)215,5703
+(define-feature content_type)217,5728
+(define-feature fixed_digits)219,5759
+(define-feature fixed_scale)221,5790
+(define-feature type_modifier)223,5820
+(define-feature concrete_base_type)225,5852
+(defun make-compact-params 231,5923
+(defmacro tcp-elt 250,6890
+(defmacro define-typecode 260,7167
+(defgeneric unset-extra-slots 299,8974
+(defun symbol-typecode 306,9090
+(defmacro %symbol-typecode 326,9852
+(defun set-symbol-typecode 330,9939
+(defvar *ifr-id-symbol*338,10243
+(defun symbol-ifr-id 342,10380
+(defun ifr-id-symbol 346,10497
+(defun typecode-symbol 350,10622
+(defun set-symbol-ifr-id 353,10681
+(defun set-symbol-id/typecode 357,10798
+(defun set-ifr-description 365,11028
+(defgeneric generate-ifr-description 368,11115
+(defun ifr-description 370,11166
+(defun set-ifr-info 380,11496
+(defvar *defining-repository* 414,12537
+(defun add-defining-repository 416,12573
+(defun defining-repository 420,12713
+
+clorb-typecode-2.lisp,3466
+(define-typecode null-typecode8,57
+(define-typecode void-typecode14,188
+(define-typecode short-typecode20,318
+(define-typecode long-typecode26,454
+(define-typecode ushort-typecode32,584
+(define-typecode ulong-typecode38,724
+(define-typecode float-typecode44,859
+(define-typecode double-typecode50,994
+(define-typecode boolean-typecode56,1134
+(define-typecode longlong-typecode62,1273
+(define-typecode ulonglong-typecode68,1423
+(define-typecode longdouble-typecode74,1578
+(define-typecode wchar-typecode80,1738
+(define-typecode char-typecode84,1817
+(define-typecode octet-typecode90,1947
+(define-typecode any-typecode96,2082
+(define-typecode typecode-typecode102,2207
+(define-typecode named-typecode112,2395
+(define-typecode native-typecode119,2504
+(define-typecode local_interface-typecode126,2666
+(define-typecode fixed-typecode136,2860
+(defmethod compute-marshal-function 142,2997
+(defmethod compute-unmarshal-function 166,4055
+(define-typecode sequence-typecode188,4733
+(defmethod compute-marshal-function 194,4871
+(defmethod compute-unmarshal-function 213,5593
+(define-typecode string-typecode228,6002
+(define-typecode wstring-typecode235,6164
+(defmethod compute-marshal-function 242,6299
+(define-typecode array-typecode254,6612
+(defmethod compute-marshal-function 260,6744
+(defmethod compute-unmarshal-function 269,7115
+(define-typecode objref-typecode283,7495
+(defmethod compute-unmarshal-function 292,7754
+(define-typecode enum-typecode301,7913
+(defmethod compute-marshal-function 312,8160
+(defmethod compute-unmarshal-function 331,8752
+(define-typecode alias-typecode341,8962
+(defmethod tc-unalias 348,9149
+(defmethod compute-marshal-function 351,9231
+(defmethod compute-unmarshal-function 354,9333
+(define-condition corba:typecode/bounds 362,9495
+(define-condition corba:typecode/badkind 365,9583
+(defmacro ignore-badkind 368,9652
+(define-method get_compact_typecode 373,9749
+(defmethod tc-members 380,9931
+(define-method id 384,10012
+(define-method name 387,10088
+(define-method member_count 390,10166
+(define-method member_name 393,10245
+(define-method member_type 397,10363
+(define-method member_label 401,10481
+(define-method member_visibility 405,10600
+(define-method discriminator_type 409,10724
+(define-method default_index 412,10816
+(define-method length 415,10903
+(define-method content_type 418,10983
+(define-method fixed_digits 421,11069
+(define-method fixed_scale 424,11155
+(define-method type_modifier 427,11240
+(define-method concrete_base_type 430,11327
+(define-feature equivalent)438,11424
+(define-method equivalent 440,11453
+(defun create-array-tc 482,13431
+(defun create-sequence-tc 485,13520
+(defun make-sequence-typecode 487,13620
+(defun create-fixed-tc 490,13731
+(defun create-wstring-tc 493,13812
+(defun create-string-tc 496,13887
+(defun create-interface-tc 499,13960
+(defun create-alias-tc 502,14036
+(defun create-enum-tc 505,14125
+(defun create-value-box-tc 508,14227
+(defun create-native-tc 511,14324
+(defun create-abstract-interface-tc 514,14397
+(defun create-local-interface-tc 517,14494
+(DEFCONSTANT OMG.ORG/CORBA:VM_TRUNCATABLE 522,14613
+(DEFCONSTANT OMG.ORG/CORBA:VM_ABSTRACT 523,14666
+(DEFCONSTANT OMG.ORG/CORBA:VM_CUSTOM 524,14716
+(DEFCONSTANT OMG.ORG/CORBA:VM_NONE 525,14764
+(defun tc-member-names 531,14833
+(defun tc-keywords 535,14936
+(defun tc-feature-symbols 540,15042
+(defun tc-member-types 547,15306
+(defun arbritary-value 553,15466
+
+clorb-union.lisp,379
+(defclass CORBA:UNION 5,67
+(define-typecode union-typecode14,237
+(defun create-union-tc 22,543
+(defmethod any-typecode 43,1364
+(defmethod any-value 46,1458
+(defun corba:union 50,1570
+(define-method default 62,2013
+(define-method (setf 63,2075
+(defun typecode-values-do 67,2168
+(defmethod compute-unmarshal-function 80,2614
+(defmethod compute-marshal-function 101,3459
+
+clorb-unmarshal.lisp,1025
+(defun unmarshal-void 5,37
+(defun unmarshal-octet 11,171
+(defun unmarshal-char 18,345
+(defun unmarshal-bool 21,417
+(defmacro %unmarshal-number 25,485
+(defun unmarshal-ushort 52,1610
+(defun unmarshal-short 57,1732
+(defun unmarshal-ulong 62,1850
+(defun unmarshal-long 68,2002
+(defun unmarshal-longlong 71,2068
+(defun unmarshal-ulonglong 74,2139
+(defun ieee-integer-to-float 78,2213
+(defun unmarshal-float 91,2745
+(defun unmarshal-double 96,2917
+(defun unmarshal-longdouble 101,3101
+(defmacro unmarshal-sequence-m 109,3302
+(defun unmarshal-sequence 120,3708
+(defun unmarshal-string 124,3879
+(defun unmarshal-osequence 137,4301
+(defmacro with-encapsulation 159,5021
+(defun unmarshal-encapsulation 164,5207
+(defvar *indirection-record* 173,5488
+(defun unmarshal-typecode 175,5523
+(defun unmarshal-spec 205,7071
+(defun unmarshal-tagged-component 245,8720
+(defgeneric decode-ior-profile 250,8830
+(defgeneric create-objref 251,8875
+(defun unmarshal-object 253,8932
+(defmethod decode-ior-profile 268,9549
+
+clorb-util.lisp,1382
+(define-method op::id 8,103
+(define-method op::type 11,180
+(defclass repository-facade 17,301
+(defvar *internal-interface-repository* 27,565
+(defun map-repositories 29,642
+(define-method lookup_id 38,986
+(defmethod add-repository 47,1208
+(defmethod add-idl-repository 50,1344
+(defun pathname-url 57,1513
+(defun corba:funcall 67,1778
+(defun invoke 71,1880
+(defun object-interface 75,1955
+(define-method _get_interface 98,2735
+(define-method _get_interface 102,2907
+(define-method _get_value_def 110,3164
+(defun analyze-operation-name 117,3385
+(defmethod create-operation-list 142,4167
+(defmethod create-operation-list 154,4584
+(defun lookup-in-memory 167,5014
+(defvar *description-cache*172,5180
+(defun add-cache-entry 175,5244
+(defun lookup-in-cache-entry 178,5362
+(defun lookup-in-cache 183,5569
+(defun lookup-in-interface-def 187,5694
+(defun lookup-idef-in-rir 193,5859
+(defun lookup-object-operation 202,6126
+(defun object-create-request 212,6486
+(defun ns-name* 262,8537
+(defun ns-name 265,8590
+(define-method op:to_name 296,9686
+(defvar *pre-narrowed-ns* 300,9742
+(defvar *narrowed-ns* 301,9773
+(defun get-ns 303,9801
+(defmethod orb-resolve 314,10254
+(defun resolve 319,10419
+(define-method op:resolve 322,10491
+(defun rebind 325,10552
+(defun obj 334,10668
+(defun dump-connections 344,10849
+(defun /desc 359,11511
+(defun /con 361,11599
+
+clorb-value.lisp,2698
+(define-typecode value-typecode7,36
+(defun create-value-tc 22,717
+(defmacro define-value 39,1337
+(defun truncatable-interfaces 79,3311
+(defmethod corba:any-typecode 90,3585
+(defmethod corba:any-value 93,3689
+(defconstant min-value-tag 100,3774
+(defconstant max-value-tag 101,3813
+(defconstant value-flag-url 102,3852
+(defconstant value-flag-repoid 103,3891
+(defconstant value-flag-repoids 104,3930
+(defconstant value-flag-chunking 105,3969
+(defun marshal-record 112,4039
+(defun marshal-string-record 126,4521
+(defun marshal-string-sequence 130,4619
+(defvar *unmarshal-record-register*)135,4774
+(defun unmarshal-record-register 138,4813
+(defun unmarshal-chunk-tag 142,4899
+(defconstant signed-indirection-tag 152,5216
+(defconstant unsigned-indirection-tag 153,5256
+(defun unmarshal-record 155,5307
+(defun unmarshal-string-record 192,6905
+(defun unmarshal-list 195,6995
+(defun unmarshal-string-record-list 198,7103
+(defun unmarshal-string-record-list-record 201,7202
+(defvar *chunk-tail* 209,7340
+(defvar *chunk-start* 211,7367
+(defun start-chunk 213,7395
+(defun end-chunk 219,7514
+(defun marshal-value-header 232,7872
+(defmethod all-member-types 246,8384
+(defmethod all-member-types 250,8449
+(defmethod all-feature-symbols 255,8635
+(defmethod all-feature-symbols 259,8703
+(defun all-feature-values 264,8901
+(defgeneric truncatable-value-p 270,9065
+(defun marshal-multiple 276,9217
+(defun marshal-value-state 282,9346
+(defparameter *exact-type-value-marshal-opt* 298,10010
+(defun marshal-value 303,10149
+(defmethod compute-marshal-function 325,11331
+(defvar *value-factory-registry* 334,11529
+(defun lookup-value-factory 336,11596
+(defmethod tc-keyword-symbols 345,11698
+(defmethod all-keyword-symbols 349,11852
+(defmethod all-keyword-symbols 353,11920
+(defun unmarshal-value-header 360,12120
+(defun unmarshal-value-state 380,13025
+(defun unmarshal-value 425,14753
+(defun unmarshal-value-1 430,14908
+(defmethod compute-unmarshal-function 458,16104
+(define-typecode value_box-typecode468,16281
+(defclass value-box 476,16477
+(define-method data 480,16579
+(define-method (setf 483,16636
+(defmethod print-object 487,16716
+(defmethod shared-initialize 493,16904
+(defmethod all-member-types 501,17210
+(defmethod all-feature-symbols 504,17296
+(defmethod all-keyword-symbols 507,17369
+(defmethod box-data 511,17440
+(defmacro define-value-box 514,17478
+(defmethod compute-marshal-function 530,18117
+(defmethod compute-unmarshal-function 536,18275
+(define-typecode abstract_interface-typecode546,18451
+(defmacro define-abstract-interface 553,18637
+(defmethod compute-marshal-function 572,19474
+(defmethod compute-unmarshal-function 589,20038
+
+cosevent-idl.lisp,83
+(DEFINE-MODULE "CosEventChannelAdmin" 5,62
+(DEFINE-MODULE "CosEventComm" 61,2364
+
+cosnaming-stub.lisp,2737
+(DEFINE-ALIAS COSNAMING:ISTRING25,1197
+(DEFINE-STRUCT COSNAMING:NAMECOMPONENT31,1356
+(DEFINE-ALIAS COSNAMING:NAME37,1584
+(DEFINE-ENUM COSNAMING:BINDINGTYPE43,1764
+(DEFINE-STRUCT COSNAMING:BINDING48,1903
+(DEFINE-ALIAS COSNAMING:BINDINGLIST54,2132
+(DEFINE-INTERFACE COSNAMING:BINDINGITERATOR 60,2327
+(DEFINE-OPERATION COSNAMING:BINDINGITERATOR/NEXT_ONE66,2553
+(DEFINE-METHOD "NEXT_ONE" 77,2901
+(DEFINE-OPERATION COSNAMING:BINDINGITERATOR/NEXT_N80,3022
+(DEFINE-METHOD "NEXT_N" 92,3430
+(DEFINE-OPERATION COSNAMING:BINDINGITERATOR/DESTROY95,3567
+(DEFINE-METHOD "DESTROY" 106,3857
+(DEFINE-INTERFACE COSNAMING:NAMINGCONTEXT 109,3976
+(DEFINE-ENUM COSNAMING:NAMINGCONTEXT/NOTFOUNDREASON115,4192
+(DEFINE-USER-EXCEPTION COSNAMING:NAMINGCONTEXT/NOTFOUND120,4389
+(DEFINE-USER-EXCEPTION COSNAMING:NAMINGCONTEXT/CANNOTPROCEED128,4720
+(DEFINE-USER-EXCEPTION COSNAMING:NAMINGCONTEXT/INVALIDNAME136,5051
+(DEFINE-USER-EXCEPTION COSNAMING:NAMINGCONTEXT/ALREADYBOUND143,5264
+(DEFINE-USER-EXCEPTION COSNAMING:NAMINGCONTEXT/NOTEMPTY150,5480
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXT/BIND157,5684
+(DEFINE-METHOD "BIND" 172,6254
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXT/REBIND175,6379
+(DEFINE-METHOD "REBIND" 189,6902
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXT/BIND_CONTEXT192,7031
+(DEFINE-METHOD "BIND_CONTEXT" 207,7643
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXT/REBIND_CONTEXT210,7782
+(DEFINE-METHOD "REBIND_CONTEXT" 224,8347
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXT/RESOLVE227,8490
+(DEFINE-METHOD "RESOLVE" 240,8961
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXT/UNBIND243,9082
+(DEFINE-METHOD "UNBIND" 256,9548
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXT/NEW_CONTEXT259,9667
+(DEFINE-METHOD "NEW_CONTEXT" 270,9984
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXT/BIND_NEW_CONTEXT273,10107
+(DEFINE-METHOD "BIND_NEW_CONTEXT" 287,10677
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXT/DESTROY290,10816
+(DEFINE-METHOD "DESTROY" 301,11131
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXT/LIST304,11246
+(DEFINE-METHOD "LIST" 317,11717
+(DEFINE-INTERFACE COSNAMING:NAMINGCONTEXTEXT 320,11846
+(DEFINE-ALIAS COSNAMING:NAMINGCONTEXTEXT/STRINGNAME326,12104
+(DEFINE-ALIAS COSNAMING:NAMINGCONTEXTEXT/ADDRESS332,12306
+(DEFINE-ALIAS COSNAMING:NAMINGCONTEXTEXT/URLSTRING338,12499
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXTEXT/TO_STRING344,12698
+(DEFINE-METHOD "TO_STRING" 355,13114
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXTEXT/TO_NAME358,13245
+(DEFINE-METHOD "TO_NAME" 370,13672
+(DEFINE-USER-EXCEPTION COSNAMING:NAMINGCONTEXTEXT/INVALIDADDRESS373,13801
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXTEXT/TO_URL380,14032
+(DEFINE-METHOD "TO_URL" 395,14640
+(DEFINE-OPERATION COSNAMING:NAMINGCONTEXTEXT/RESOLVE_STR398,14779
+(DEFINE-METHOD "RESOLVE_STR" 413,15363
+
+describe-repo.lisp,27
+(defun describe-repo 3,21
+
+devel.lisp,101
+(define-symbol-macro inpc 30,650
+(define-symbol-macro clorb::inpu 31,697
+(defvar *the-orb*48,1114
+
+dmitri-repl-friendly.lisp,98
+(defvar *repl-friendly* 16,339
+(defun make-repl-happy 18,369
+(defun make-repl-friendly 41,1353
+
+download-ir.lisp,51
+(defun ir-add-all 3,21
+(defun download-ir 26,863
+
+dumpir.lisp,95
+(defun dump-ir 3,21
+(defun save-ir 16,537
+(defun save-ir-fasl 23,700
+(defun load-ir 28,840
+
+ec-test.lisp,165
+(defvar *channel*23,542
+(defvar *supplier*26,618
+(defclass my-consumer 29,696
+(corba:define-method disconnect_pull_consumer 32,761
+(defvar *my-consumer* 36,870
+
+gen-package-decl.lisp,32
+(defun gen-package-decl 20,409
+
+idef-macros.lisp,213
+(defvar *idef-repository*8,98
+(defun lookup-name 13,227
+(defmethod gen-idef 16,297
+(defmacro idef-definitions 22,402
+(defmacro idef-code 25,486
+(defmacro define-servant 40,989
+(defmacro require-idl 55,1471
+
+idef-read.lisp,883
+(defvar *idef-read-agenda* 3,21
+(defvar *idef-current-prefix* 4,53
+(defun idef-read 6,89
+(defun idef-read-contents 15,379
+(defmethod idef-read-part 22,579
+(defmethod idef-read-part 29,820
+(defmethod idef-read-part 41,1304
+(defmethod idef-read-part 48,1494
+(defmethod idef-read-part 62,2023
+(defmethod idef-read-part 91,3251
+(defmethod idef-read-part 100,3573
+(defmethod idef-read-part 126,4667
+(defmethod idef-read-part 141,5335
+(defmethod idef-read-part 155,5927
+(defmethod idef-read-part 176,7049
+(defmethod idef-read-part 192,7686
+(defmethod idef-read-part 205,8217
+(defun create-contained 217,8753
+(defun repo-path 238,9522
+(defun primitive-kind 245,9705
+(defun parse-type-in 269,10722
+(define-method defined_in 303,12348
+(defun lookup-name-in 306,12405
+(defun eval-expr-in 315,12686
+(defun << 332,13197
+(defun >> 335,13231
+(defun parse-name 339,13290
+
+idef-write.lisp,613
+(defvar *idef-write-container* 3,21
+(defvar *idef-write-default-prefix* 7,164
+(defmethod gen-iref 11,208
+(defmethod gen-iref 33,756
+(defmethod gen-iref 39,909
+(defmethod gen-iref 43,1038
+(defmethod default-repoid 47,1159
+(defun contained-id-info 60,1578
+(defmethod gen-idef 68,1813
+(defmethod gen-idef 74,1991
+(defmethod gen-idef 82,2224
+(defmethod gen-idef 95,2671
+(defmethod gen-idef 105,3080
+(defmethod gen-idef 111,3303
+(defmethod gen-idef 120,3593
+(defmethod gen-idef 125,3745
+(defmethod gen-idef 140,4312
+(defmethod gen-idef 149,4629
+(defun idef-write 154,4817
+(defun idef-file 170,5285
+
+iir-export.lisp,222
+(defclass IIRX-INTERFACE 3,21
+(defclass IIRX-OPERATION 6,102
+(define-method contents 9,183
+(define-method _get_result 21,500
+(define-method _get_params 24,579
+(defun get-iirx 28,659
+(define-method _interface 36,888
+
+make-proxies.lisp,52
+(defun %invoke 3,21
+(defun make-all-proxies 9,163
+
+ns-server.lisp,1462
+(defparameter +naming-context-id+8,70
+(defparameter +name-component-id+10,149
+(defparameter +binding-id+12,228
+(define-servant naming-context-servant 18,330
+(define-servant binding-iterator-servant 22,429
+(defclass NAMING-CONTEXT 29,594
+(defmethod print-object 33,738
+(defmethod describe-object 38,951
+(defconstant +missing-node+ 48,1231
+(defconstant +not-context+ 49,1262
+(defconstant +not-object+ 50,1292
+(defun not-found 52,1322
+(defun already-bound 57,1490
+(define-method new_context 61,1609
+(define-method bind_context 64,1708
+(define-method bind_new_context 67,1792
+(define-method bind 72,1923
+(define-method rebind 75,1998
+(define-method rebind_context 78,2079
+(define-method resolve 81,2166
+(define-method list 92,2540
+(defun ns-step 110,3153
+(defun ns-bind 131,3900
+(define-method unbind 151,4618
+(defclass BINDING-ITERATOR 164,4978
+(define-method next_one 168,5108
+(define-method next_n 177,5463
+(define-method destroy 186,5806
+(defvar *ns-servant* 194,6006
+(defun name 196,6033
+(defun example1 202,6203
+(defun root-ns 213,6550
+(defun setup-ns 220,6744
+(defun run-ns 226,6992
+(defclass PNS-MANAGER 236,7161
+(defclass PNS-CONTEXT 243,7417
+(define-method new_context 245,7461
+(defun save-context 254,7782
+(defun load-context 272,8483
+(define-method incarnate 287,9071
+(defun pns-save 296,9400
+(define-method etherealize 302,9620
+(defun setup-pns 311,10007
+(defun save-all 319,10330
+(defun reset-pns 326,10565
+
+oe-stub.lisp,8835
+(DEFINE-USER-EXCEPTION COSEVENTCOMM:DISCONNECTED90,5136
+(DEFINE-INTERFACE COSEVENTCOMM:PUSHCONSUMER 97,5320
+(DEFINE-CORBA-CLASS COSEVENTCOMM:PUSHCONSUMER-SERVANT105,5618
+(DEFINE-OPERATION COSEVENTCOMM:PUSHCONSUMER/PUSH110,5809
+(DEFINE-METHOD "PUSH"121,6152
+(DEFMETHOD OMG.ORG/FEATURES:PUSH125,6305
+(DEFINE-OPERATION COSEVENTCOMM:PUSHCONSUMER/DISCONNECT_PUSH_CONSUMER130,6508
+(DEFINE-METHOD "DISCONNECT_PUSH_CONSUMER"141,6849
+(DEFMETHOD OMG.ORG/FEATURES:DISCONNECT_PUSH_CONSUMER146,7056
+(DEFINE-INTERFACE COSEVENTCOMM:PUSHSUPPLIER 151,7279
+(DEFINE-CORBA-CLASS COSEVENTCOMM:PUSHSUPPLIER-SERVANT159,7577
+(DEFINE-OPERATION COSEVENTCOMM:PUSHSUPPLIER/DISCONNECT_PUSH_SUPPLIER164,7768
+(DEFINE-METHOD "DISCONNECT_PUSH_SUPPLIER"175,8109
+(DEFMETHOD OMG.ORG/FEATURES:DISCONNECT_PUSH_SUPPLIER180,8316
+(DEFINE-INTERFACE COSEVENTCOMM:PULLSUPPLIER 185,8539
+(DEFINE-CORBA-CLASS COSEVENTCOMM:PULLSUPPLIER-SERVANT193,8837
+(DEFINE-OPERATION COSEVENTCOMM:PULLSUPPLIER/PULL198,9028
+(DEFINE-METHOD "PULL"209,9332
+(DEFMETHOD OMG.ORG/FEATURES:PULL213,9473
+(DEFINE-OPERATION COSEVENTCOMM:PULLSUPPLIER/TRY_PULL218,9676
+(DEFINE-METHOD "TRY_PULL"229,10040
+(DEFMETHOD OMG.ORG/FEATURES:TRY_PULL233,10189
+(DEFINE-OPERATION COSEVENTCOMM:PULLSUPPLIER/DISCONNECT_PULL_SUPPLIER238,10396
+(DEFINE-METHOD "DISCONNECT_PULL_SUPPLIER"249,10737
+(DEFMETHOD OMG.ORG/FEATURES:DISCONNECT_PULL_SUPPLIER254,10944
+(DEFINE-INTERFACE COSEVENTCOMM:PULLCONSUMER 259,11167
+(DEFINE-CORBA-CLASS COSEVENTCOMM:PULLCONSUMER-SERVANT267,11465
+(DEFINE-OPERATION COSEVENTCOMM:PULLCONSUMER/DISCONNECT_PULL_CONSUMER272,11656
+(DEFINE-METHOD "DISCONNECT_PULL_CONSUMER"283,11997
+(DEFMETHOD OMG.ORG/FEATURES:DISCONNECT_PULL_CONSUMER288,12204
+(DEFINE-USER-EXCEPTION COSEVENTCHANNELADMIN:ALREADYCONNECTED293,12427
+(DEFINE-USER-EXCEPTION COSEVENTCHANNELADMIN:TYPEERROR300,12647
+(DEFINE-INTERFACE COSEVENTCHANNELADMIN:CONSUMERADMIN 307,12846
+(DEFINE-CORBA-CLASS COSEVENTCHANNELADMIN:CONSUMERADMIN-SERVANT316,13166
+(DEFINE-OPERATION COSEVENTCHANNELADMIN:CONSUMERADMIN/OBTAIN_PUSH_SUPPLIER322,13396
+(DEFINE-METHOD "OBTAIN_PUSH_SUPPLIER"333,13788
+(DEFMETHOD OMG.ORG/FEATURES:OBTAIN_PUSH_SUPPLIER339,14011
+(DEFINE-OPERATION COSEVENTCHANNELADMIN:CONSUMERADMIN/OBTAIN_PULL_SUPPLIER344,14239
+(DEFINE-METHOD "OBTAIN_PULL_SUPPLIER"355,14631
+(DEFMETHOD OMG.ORG/FEATURES:OBTAIN_PULL_SUPPLIER361,14854
+(DEFINE-INTERFACE COSEVENTCHANNELADMIN:SUPPLIERADMIN 366,15082
+(DEFINE-CORBA-CLASS COSEVENTCHANNELADMIN:SUPPLIERADMIN-SERVANT375,15402
+(DEFINE-OPERATION COSEVENTCHANNELADMIN:SUPPLIERADMIN/OBTAIN_PUSH_CONSUMER381,15632
+(DEFINE-METHOD "OBTAIN_PUSH_CONSUMER"392,16024
+(DEFMETHOD OMG.ORG/FEATURES:OBTAIN_PUSH_CONSUMER398,16247
+(DEFINE-OPERATION COSEVENTCHANNELADMIN:SUPPLIERADMIN/OBTAIN_PULL_CONSUMER403,16475
+(DEFINE-METHOD "OBTAIN_PULL_CONSUMER"414,16867
+(DEFMETHOD OMG.ORG/FEATURES:OBTAIN_PULL_CONSUMER420,17090
+(DEFINE-INTERFACE COSEVENTCHANNELADMIN:EVENTCHANNEL 425,17318
+(DEFINE-CORBA-CLASS COSEVENTCHANNELADMIN:EVENTCHANNEL-SERVANT434,17633
+(DEFINE-OPERATION COSEVENTCHANNELADMIN:EVENTCHANNEL/FOR_CONSUMERS440,17861
+(DEFINE-METHOD "FOR_CONSUMERS"451,18225
+(DEFMETHOD OMG.ORG/FEATURES:FOR_CONSUMERS455,18400
+(DEFINE-OPERATION COSEVENTCHANNELADMIN:EVENTCHANNEL/FOR_SUPPLIERS460,18620
+(DEFINE-METHOD "FOR_SUPPLIERS"471,18984
+(DEFMETHOD OMG.ORG/FEATURES:FOR_SUPPLIERS475,19159
+(DEFINE-OPERATION COSEVENTCHANNELADMIN:EVENTCHANNEL/DESTROY480,19379
+(DEFINE-METHOD "DESTROY"491,19693
+(DEFMETHOD OMG.ORG/FEATURES:DESTROY495,19856
+(DEFINE-INTERFACE COSEVENTCHANNELADMIN:PROXYPUSHCONSUMER 500,20070
+(DEFINE-CORBA-CLASS COSEVENTCHANNELADMIN:PROXYPUSHCONSUMER-SERVANT509,20441
+(DEFINE-OPERATION COSEVENTCHANNELADMIN:PROXYPUSHCONSUMER/CONNECT_PUSH_SUPPLIER515,20682
+(DEFINE-METHOD "CONNECT_PUSH_SUPPLIER"527,21176
+(DEFMETHOD OMG.ORG/FEATURES:CONNECT_PUSH_SUPPLIER535,21471
+(DEFINE-INTERFACE COSEVENTCHANNELADMIN:PROXYPULLSUPPLIER 540,21704
+(DEFINE-CORBA-CLASS COSEVENTCHANNELADMIN:PROXYPULLSUPPLIER-SERVANT549,22075
+(DEFINE-OPERATION COSEVENTCHANNELADMIN:PROXYPULLSUPPLIER/CONNECT_PULL_CONSUMER555,22316
+(DEFINE-METHOD "CONNECT_PULL_CONSUMER"567,22810
+(DEFMETHOD OMG.ORG/FEATURES:CONNECT_PULL_CONSUMER575,23105
+(DEFINE-INTERFACE COSEVENTCHANNELADMIN:PROXYPULLCONSUMER 580,23338
+(DEFINE-CORBA-CLASS COSEVENTCHANNELADMIN:PROXYPULLCONSUMER-SERVANT589,23709
+(DEFINE-OPERATION COSEVENTCHANNELADMIN:PROXYPULLCONSUMER/CONNECT_PULL_SUPPLIER595,23950
+(DEFINE-METHOD "CONNECT_PULL_SUPPLIER"608,24490
+(DEFMETHOD OMG.ORG/FEATURES:CONNECT_PULL_SUPPLIER616,24785
+(DEFINE-INTERFACE COSEVENTCHANNELADMIN:PROXYPUSHSUPPLIER 621,25018
+(DEFINE-CORBA-CLASS COSEVENTCHANNELADMIN:PROXYPUSHSUPPLIER-SERVANT630,25389
+(DEFINE-OPERATION COSEVENTCHANNELADMIN:PROXYPUSHSUPPLIER/CONNECT_PUSH_CONSUMER636,25630
+(DEFINE-METHOD "CONNECT_PUSH_CONSUMER"649,26170
+(DEFMETHOD OMG.ORG/FEATURES:CONNECT_PUSH_CONSUMER657,26465
+(DEFINE-USER-EXCEPTION EVENT:NAMEALREADYUSED662,26698
+(DEFINE-USER-EXCEPTION EVENT:EVENTCHANNELNOTFOUND669,26874
+(DEFINE-INTERFACE EVENT:EVENTCHANNELFACTORY 676,27065
+(DEFINE-CORBA-CLASS EVENT:EVENTCHANNELFACTORY-SERVANT684,27367
+(DEFINE-OPERATION EVENT:EVENTCHANNELFACTORY/CREATE_CHANNEL689,27558
+(DEFINE-METHOD "CREATE_CHANNEL"700,27973
+(DEFMETHOD OMG.ORG/FEATURES:CREATE_CHANNEL706,28214
+(DEFINE-OPERATION EVENT:EVENTCHANNELFACTORY/JOIN_CHANNEL711,28427
+(DEFINE-METHOD "JOIN_CHANNEL"722,28841
+(DEFMETHOD OMG.ORG/FEATURES:JOIN_CHANNEL728,29078
+(DEFINE-ALIAS COSLIFECYCLE:KEY733,29289
+(DEFINE-ALIAS COSLIFECYCLE:FACTORY739,29446
+(DEFINE-ALIAS COSLIFECYCLE:FACTORIES745,29597
+(DEFINE-STRUCT COSLIFECYCLE:NVP751,29795
+(DEFINE-ALIAS COSLIFECYCLE:NAMEVALUEPAIR757,29986
+(DEFINE-ALIAS COSLIFECYCLE:CRITERIA763,30177
+(DEFINE-USER-EXCEPTION COSLIFECYCLE:NOFACTORY770,30410
+(DEFINE-USER-EXCEPTION COSLIFECYCLE:NOTCOPYABLE777,30634
+(DEFINE-USER-EXCEPTION COSLIFECYCLE:NOTMOVABLE784,30848
+(DEFINE-USER-EXCEPTION COSLIFECYCLE:NOTREMOVABLE791,31059
+(DEFINE-USER-EXCEPTION COSLIFECYCLE:INVALIDCRITERIA798,31276
+(DEFINE-USER-EXCEPTION COSLIFECYCLE:CANNOTMEETCRITERIA805,31529
+(DEFINE-INTERFACE COSLIFECYCLE:FACTORYFINDER 812,31789
+(DEFINE-CORBA-CLASS COSLIFECYCLE:FACTORYFINDER-SERVANT820,32093
+(DEFINE-OPERATION COSLIFECYCLE:FACTORYFINDER/FIND_FACTORIES825,32286
+(DEFINE-METHOD "FIND_FACTORIES"836,32701
+(DEFMETHOD OMG.ORG/FEATURES:FIND_FACTORIES842,32942
+(DEFINE-INTERFACE COSLIFECYCLE:LIFECYCLEOBJECT 847,33156
+(DEFINE-CORBA-CLASS COSLIFECYCLE:LIFECYCLEOBJECT-SERVANT855,33472
+(DEFINE-OPERATION COSLIFECYCLE:LIFECYCLEOBJECT/COPY861,33690
+(DEFINE-METHOD "COPY"877,34368
+(DEFMETHOD OMG.ORG/FEATURES:COPY884,34635
+(DEFINE-OPERATION COSLIFECYCLE:LIFECYCLEOBJECT/MOVE889,34841
+(DEFINE-METHOD "MOVE"905,35492
+(DEFMETHOD OMG.ORG/FEATURES:MOVE912,35759
+(DEFINE-OPERATION COSLIFECYCLE:LIFECYCLEOBJECT/REMOVE917,35965
+(DEFINE-METHOD "REMOVE"928,36285
+(DEFMETHOD OMG.ORG/FEATURES:REMOVE932,36436
+(DEFINE-INTERFACE COSLIFECYCLE:GENERICFACTORY 937,36644
+(DEFINE-CORBA-CLASS COSLIFECYCLE:GENERICFACTORY-SERVANT945,36954
+(DEFINE-OPERATION COSLIFECYCLE:GENERICFACTORY/SUPPORTS951,37170
+(DEFINE-METHOD "SUPPORTS"962,37522
+(DEFMETHOD OMG.ORG/FEATURES:SUPPORTS966,37681
+(DEFINE-OPERATION COSLIFECYCLE:GENERICFACTORY/CREATE_OBJECT971,37890
+(DEFINE-METHOD "CREATE_OBJECT"985,38475
+(DEFMETHOD OMG.ORG/FEATURES:CREATE_OBJECT992,38750
+(DEFINE-ALIAS FT:STATE997,38964
+(DEFINE-USER-EXCEPTION FT:NOSTATEAVAILABLE1003,39113
+(DEFINE-USER-EXCEPTION FT:INVALIDSTATE1010,39279
+(DEFINE-USER-EXCEPTION FT:NOUPDATEAVAILABLE1017,39433
+(DEFINE-USER-EXCEPTION FT:INVALIDUPDATE1024,39602
+(DEFINE-INTERFACE FT:PULLMONITORABLE 1031,39759
+(DEFINE-CORBA-CLASS FT:PULLMONITORABLE-SERVANT1038,39981
+(DEFINE-OPERATION FT:PULLMONITORABLE/IS_ALIVE1043,40158
+(DEFINE-METHOD "IS_ALIVE"1054,40433
+(DEFMETHOD OMG.ORG/FEATURES:IS_ALIVE1058,40568
+(DEFINE-INTERFACE FT:CHECKPOINTABLE 1063,40768
+(DEFINE-CORBA-CLASS FT:CHECKPOINTABLE-SERVANT1070,40985
+(DEFINE-OPERATION FT:CHECKPOINTABLE/GET_STATE1075,41160
+(DEFINE-METHOD "GET_STATE"1086,41456
+(DEFMETHOD OMG.ORG/FEATURES:GET_STATE1090,41591
+(DEFINE-OPERATION FT:CHECKPOINTABLE/SET_STATE1095,41791
+(DEFINE-METHOD "SET_STATE"1106,42119
+(DEFMETHOD OMG.ORG/FEATURES:SET_STATE1110,42260
+(DEFINE-INTERFACE FT:UPDATEABLE 1115,42460
+(DEFINE-CORBA-CLASS FT:UPDATEABLE-SERVANT1122,42672
+(DEFINE-OPERATION FT:UPDATEABLE/GET_UPDATE1127,42834
+(DEFINE-METHOD "GET_UPDATE"1138,43122
+(DEFMETHOD OMG.ORG/FEATURES:GET_UPDATE1142,43251
+(DEFINE-OPERATION FT:UPDATEABLE/SET_UPDATE1147,43448
+(DEFINE-METHOD "SET_UPDATE"1158,43768
+(DEFMETHOD OMG.ORG/FEATURES:SET_UPDATE1162,43903
+(DEFINE-INTERFACE OMNIEVENTS:EVENTCHANNEL 1167,44100
+(DEFINE-CORBA-CLASS OMNIEVENTS:EVENTCHANNEL-SERVANT1177,44556
+(DEFINE-INTERFACE OMNIEVENTS:EVENTCHANNELFACTORY 1184,44823
+(DEFINE-CORBA-CLASS OMNIEVENTS:EVENTCHANNELFACTORY-SERVANT1196,45477
+
+omn.lisp,60
+(defparameter *nameservice-loc*30,824
+(defvar *orb*33,899
+
+orbit.lisp,31
+(defparameter *principal*4,22
+
+pns-server.lisp,1450
+(defvar *naming-ior-file* 7,123
+(defvar *naming-base-path* 8,155
+(defvar *naming-start-time*15,373
+(defvar *naming-seqno* 18,441
+(defun generate-id 20,468
+(defvar *naming-poa* 36,1053
+(defclass NAMING-CONTEXT 38,1080
+(define-method _default_POA 42,1240
+(defmethod stored-string-id 46,1313
+(defmethod stored-string-id 49,1412
+(defparameter +safe-characters-extra+ 53,1483
+(defun encode-name 55,1530
+(defun decode-name 63,1808
+(defun not-found 82,2365
+(define-method new_context 91,2626
+(defun pns-path 97,2897
+(defun pns-bind 105,3133
+(defun resolve1 124,3971
+(defun opt-local 144,4708
+(defun pns-step 159,5153
+(defun pns-step-do 170,5409
+(define-method bind_context 178,5611
+(define-method bind_new_context 185,5861
+(define-method bind 193,6129
+(define-method rebind 198,6322
+(define-method rebind_context 203,6521
+(define-method resolve 210,6777
+(define-method list 219,7117
+(define-method unbind 245,8164
+(define-method to_string 261,8598
+(defun print-escape-name 272,8968
+(define-method to_name 283,9196
+(define-method resolve_str 297,9538
+(defclass BINDING-ITERATOR 305,9666
+(defvar *null-binding* 309,9804
+(define-method next_one 313,9938
+(define-method next_n 319,10130
+(define-method destroy 330,10512
+(defclass NAMING-MANAGER 339,10782
+(define-method incarnate 343,10849
+(defun setup-naming-poa 353,11234
+(defvar *root-context* 365,11843
+(defun setup-pns 367,11872
+(defun pns-initial-ref 389,12665
+
+purge.lisp,85
+(defun delete-swap 5,25
+(define-modify-macro purge 8,115
+(defmacro deletef 11,177
+
+run-services.lisp,111
+(defparameter *ns*16,380
+(defparameter *repository*19,419
+(defun export-services 25,650
+(defun run 34,1020
+
+support-test.lisp,1356
+(defun ensure-typecode 5,79
+(defmethod match 16,383
+(defclass DEF-PATTERN 23,525
+(defun def-pattern 26,604
+(defmethod match 29,696
+(defclass REPOSITORY-PATTERN 40,951
+(defun repository-pattern 43,997
+(defmethod match 46,1087
+(defclass STRUCT-PATTERN 60,1612
+(defun struct-pattern 63,1654
+(defmethod match 66,1736
+(defun struct-class-name 71,1889
+(defclass isa-pattern 77,1977
+(defun isa 80,2016
+(defmethod print-object 83,2078
+(defmethod match 87,2212
+(defun std-minor 93,2368
+(defmacro ensure-repository 96,2436
+(defvar *test-sink-stream*)105,2605
+(defvar *test-response-desc*)106,2633
+(defvar *test-out-conn* 108,2715
+(defvar *test-in-conn*)112,2776
+(defvar *test-response-sink*)113,2800
+(defvar *test-request-desc*)114,2830
+(defclass test-connection 119,2879
+(defmethod connection-write-ready 130,3302
+(defmethod print-object 138,3616
+(defmethod validate 143,3774
+(defun make-test-connection 150,3910
+(defun setup-test-out 167,4679
+(defun setup-test-in 172,4827
+(defclass null-servant 181,5042
+(defmethod interface-name 182,5094
+(defun test-object 184,5158
+(defun test-read-request 199,5831
+(defun test-write-response 241,7705
+(defun test-system-exception-message 262,8688
+(defun enum-integer 271,9039
+(defun test-write-request 275,9172
+(defun test-read-response 308,10685
+(defun test-request-response 334,11966
+
+test-aom.lisp,33
+(define-test-suite "Active 3,21
+
+test-client-request.lisp,175
+(define-operation test-op-14,22
+(define-operation test-op-211,175
+(define-attribute test-at-119,355
+(defmacro with-hidden-events 26,470
+(define-test-suite "Client 30,533
+
+test-codec.lisp,40
+(define-test-suite "Codec&Factory"5,86
+
+test-idef-read.lisp,64
+(defmacro test-idef-read 3,21
+(define-test-suite "IDEF 11,231
+
+test-idef-write.lisp,31
+(define-test-suite "IDEF 3,21
+
+test-idlcomp.lisp,144
+(defvar *temporary-directory*5,45
+(defun repository-from-string 14,281
+(defmacro define-idl-test 24,659
+(define-test-suite "idlcomp"34,1017
+
+test-idlcpp.lisp,115
+(defparameter *cpp-test-source-1*5,82
+(defparameter *cpp-test-source-2*17,414
+(define-test-suite "IDLCPP"33,807
+
+test-idllexer.lisp,95
+(defmacro with-test-lex 3,21
+(defmacro with-test-lex* 12,315
+(define-test-suite "IDL 24,782
+
+test-iiop.lisp,31
+(define-test-suite "Misc 3,21
+
+test-iir.lisp,30
+(define-test-suite "IIR 3,21
+
+test-local-ifr.lisp,32
+(define-test-suite "Local 3,21
+
+test-marshal.lisp,34
+(define-test-suite "Marshal 3,21
+
+test-mt.lisp,29
+(define-test-suite "mt 3,21
+
+test-orb.lisp,87
+(defclass test-orb 3,21
+(defmethod orb-resolve 6,91
+(define-test-suite "Test 13,263
+
+test-poa.lisp,266
+(defun test-poa-invoke 6,39
+(defun test-poa-dispatch 21,588
+(defclass mock-activator 40,1308
+(define-method incarnate 47,1572
+(define-method etherealize 54,1892
+(defclass mock-dsi-servant 64,2258
+(define-method invoke 69,2421
+(define-test-suite "POA 92,3365
+
+test-queue.lisp,32
+(define-test-suite "queue"6,63
+
+test-srv.lisp,35
+(define-test-suite "Server 13,229
+
+test-target.lisp,33
+(define-test-suite "Target 5,39
+
+test-typecode.lisp,36
+(define-test-suite "Typecodes"4,23
+
+test-union.lisp,31
+(define-test-suite "Test 3,21
+
+test-util.lisp,32
+(define-test-suite "Clorb 6,44
+
+test-value.lisp,364
+(define-abstract-interface test-abint-1 3,21
+(define-value test-value-19,199
+(define-value test-value-215,352
+(defclass test-value-2-user 22,565
+(define-method "DEPTH" 25,615
+(define-value test-value-334,946
+(define-value-box test-box-1 42,1112
+(define-value-box test-box-248,1234
+(define-value test-box-in-value55,1371
+(define-test-suite "Value"62,1558
+
+work.lisp,164
+(ncl:deflexical jacorb-ns11,147
+(ncl:deflexical orbd-ns14,243
+(ncl:deflexical mcl-ns19,378
+(ncl:deflexical pentax-omni30,703
+(ncl:deflexical pentax-omni33,807
+
+x-call.lisp,176
+(defun force 5,32
+(defmacro delay 12,226
+(defun compute-result-delays 15,295
+(defun deferred-request 29,832
+(defmacro delayed-call 33,885
+(defmacro deferred-call 39,1072
+
+x-dump-ifr.lisp,177
+(defvar *testrep* 3,23
+(defvar *tc-dumped* 5,91
+(defun ifr-dump 7,117
+(defun ifr-dump-1 11,218
+(defun id-info 51,1847
+(defun kind-has-id-p 55,1896
+(defun tc-dump 62,2112
+
+x-package-prefix.lisp,55
+(defmethod package-prefix 3,21
+(defmethod (setf 6,78
+
+x-vtest.lisp,538
+(defvar *v-ifr*3,21
+(defparameter *vtest-ref*11,272
+(defun pprint-toplevel-expr 14,385
+(defclass vtest::Access 68,1696
+(DEFINE-VALUE VTEST:NODE71,1748
+(DEFINE-VALUE VTEST:TREE81,2011
+(defclass vtest::Node 96,2443
+(define-method op::name 105,2861
+(defmethod shared-initialize 108,2932
+(define-value-box vtest::VBox136,3615
+(define-value-box text-long-box142,3736
+(define-corba-class value-box 148,3808
+(defclass text-long-box 151,3866
+(defun text-long-box 154,3909
+(defmethod any-typecode 157,3977
+(defvar *vtest* 163,4061
+
+redpas/lexer.lisp,748
+(defgeneric token 7,161
+(defgeneric token-value 8,188
+(defgeneric next-token 9,221
+(defgeneric lexer-print-pos 10,253
+(defclass lexer 12,298
+(defmethod token-value 15,345
+(defmethod lexer-print-pos 18,402
+(defvar *lexer-read-table* 24,563
+(defun single-char-macro 28,668
+(defclass readtable-lexer 38,879
+(defmethod next-token 51,1165
+(defmethod lexer-print-pos 58,1439
+(defclass streamchar-lexer 64,1664
+(defmethod next-token 69,1762
+(defmethod lexer-print-pos 73,1899
+(define-condition alt-error 78,2124
+(defun alt-error-print 83,2300
+(define-condition failed-match 89,2539
+(defun failed-match-print 99,2953
+(defvar *failable* 113,3467
+(defvar *failed-tokens* 114,3491
+(defun match-token 116,3521
+(defun match-pred 128,3870
+
+redpas/package.lisp,34
+(defpackage "NET.CDDR.REDPAS"1,0
+
+redpas/parsys.lisp,287
+(defvar *lexer*)7,162
+(defun wrap-match 9,180
+(defmacro seq 15,352
+(defmacro mv-or 19,422
+(defmacro mv2-or 28,709
+(defmacro alt 46,1125
+(defmacro opt 64,1756
+(defmacro repeat 70,1868
+(defmacro seq+ 77,2117
+(defmacro seq* 80,2182
+(defmacro action 84,2248
+(defmacro -> 87,2311
+
+luna/package.lisp,33
+(defpackage "NET.CDDR.LUNA"5,56
+
+luna/pattern.lisp,704
+(define-condition match-fail 7,108
+(defun print-match-fail 13,413
+(defvar *failed-match-warning* 19,626
+(defun fail-match 21,661
+(defgeneric match 30,890
+(defun boolean-match 32,927
+(defmethod match 36,1056
+(defclass PATTERN 41,1155
+(defun pattern 44,1227
+(defmethod match 47,1295
+(defclass SEQUENCE-PATTERN 68,2140
+(defun sequence-pattern 71,2184
+(defmethod match 74,2270
+(defclass SEXP-PATTERN 94,2922
+(defun sexp-pattern 97,2962
+(defmethod match 100,3034
+(defun match-sexp 103,3130
+(defun match-keys 124,3945
+(defclass EVAL-TO-PATTERN 146,4762
+(defun eval-to 149,4805
+(defmethod match 152,4875
+(defclass or-pattern 159,5003
+(defun or-pattern 162,5041
+(defmethod match 165,5123
+
+luna/tests.lisp,31
+(define-test-suite "Test 3,30
+
+luna/testsuite.lisp,838
+(defvar *test-suite-debug* 3,30
+(defvar *test-suite-result* 4,62
+(defvar *tc-current* 5,95
+(defvar *tc-current-sub*)6,121
+(defvar *temporary-suite-variables* 7,147
+(defgeneric add-error 14,254
+(defgeneric start-test-case 17,311
+(defgeneric end-test-case 20,428
+(defclass test-result 23,489
+(defmethod add-error 36,820
+(defmethod start-test-case 40,929
+(defmethod end-test-case 46,1119
+(defmethod print-result 48,1167
+(defun tc-report 56,1437
+(defmacro ensure 64,1712
+(defun ensure-eql 72,1970
+(defun ensure-equalp 77,2098
+(defun ensure-typep 82,2232
+(defun ensure-pattern 87,2384
+(defmacro ensure-pattern* 92,2504
+(defmacro ensure-values 95,2591
+(defmacro ensure-exception 100,2708
+(defmacro define-test-suite 110,3016
+(defmacro with-sub-test 140,4409
+(defmacro define-test 144,4503
+(defmacro variables 149,4664
+
+loadupx.lisp,0
+
+loadup.lisp,0
+
+iop-idl.lisp,0
+
+ifr-idl.lisp,0
+
+cosnaming-skel.lisp,0
+
+cosnaming-idump.lisp,0
+
+cosnaming-idl.lisp,0
+
+all-test.lisp,0

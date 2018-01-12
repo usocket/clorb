@@ -1,0 +1,25 @@
+Subject: [ANN] CLORB 0.7 - A Common Lisp implementation of CORBA
+
+I have put version 0.7 of CLORB on Source Forge. CLORB is an
+implementation of CORBA 2 in Common Lisp.
+
+<URL:http://clorb.sourceforge.net/>
+<URL:http://sourceforge.net/projects/clorb/>
+
+
+New in 0.7:
+
+   * Multi-Threading support for MCL, OpenMCL and SBCL.
+   * OpenMCL: real select
+
+Ports:
+
+   MCL 5        only tested with Max OS X native
+   OpenMCL      working (1.1) (Mac OS X)
+   SBCL         working on Mac OS X and Debian GNU/Linux (i386)
+   CLISP        works (2.38)
+   CMUCL        ?
+   ACL          ?
+
+
+//Lennart Staflin
