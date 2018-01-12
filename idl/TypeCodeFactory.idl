@@ -1,0 +1,110 @@
+#pragma prefix "omg.org"
+
+#include <orb.idl>
+//#include "orb.idl"
+
+module CORBA {
+
+    typedef short ValueModifier;                        // PIDL
+    const ValueModifier VM_NONE         = 0;
+    const ValueModifier VM_CUSTOM       = 1;
+    const ValueModifier VM_ABSTRACT     = 2;
+    const ValueModifier VM_TRUNCATABLE  = 3;
+
+  interface TypeCodeFactory {
+    
+        // Type code creation operations
+
+        TypeCode create_struct_tc (
+            in RepositoryId             id,
+            in Identifier               name,
+            in StructMemberSeq          members
+        );
+
+        TypeCode create_union_tc (
+            in RepositoryId             id,
+            in Identifier               name,
+            in TypeCode                 discriminator_type,
+            in UnionMemberSeq           members
+        );
+
+        TypeCode create_enum_tc (
+            in RepositoryId             id,
+            in Identifier               name,
+            in EnumMemberSeq            members
+        );
+
+        TypeCode create_alias_tc (
+            in RepositoryId             id,
+            in Identifier               name,
+            in TypeCode                 original_type
+        );
+
+        TypeCode create_exception_tc (
+            in RepositoryId             id,
+            in Identifier               name,
+            in StructMemberSeq          members
+        );
+
+        TypeCode create_interface_tc (
+            in RepositoryId             id,
+            in Identifier               name
+        );
+
+        TypeCode create_string_tc (
+            in unsigned long            bound
+        );
+
+        TypeCode create_wstring_tc (
+            in unsigned long            bound
+        );
+
+        TypeCode create_fixed_tc (
+            in unsigned short           digits,
+            in short                    scale
+        );
+        TypeCode create_sequence_tc (
+            in unsigned long            bound,
+            in TypeCode                 element_type
+        );
+
+        TypeCode create_recursive_sequence_tc( // deprecated
+            in unsigned long            bound,
+            in unsigned long            offset
+        );
+
+        TypeCode create_array_tc (
+            in unsigned long            length,
+            in TypeCode                 element_type
+        );
+
+        TypeCode create_value_tc (
+            in RepositoryId             id,
+            in Identifier               name,
+            in ValueModifier            type_modifier,
+            in TypeCode                 concrete_base,
+            in ValueMemberSeq          members
+        );
+
+        TypeCode create_value_box_tc (
+            in RepositoryId             id,
+            in Identifier               name,
+            in TypeCode                 boxed_type
+        );
+
+        TypeCode create_native_tc (
+            in RepositoryId             id,
+            in Identifier               name
+        );
+
+        TypeCode create_abstract_interface_tc (
+            in RepositoryId             id,
+            in Identifier               name
+        );
+
+        TypeCode create_recursive_tc (
+            in RepositoryId             id
+        );
+
+  };
+};

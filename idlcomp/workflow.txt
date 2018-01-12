@@ -1,0 +1,456 @@
+// Updated:  April 2000
+// This file contains OMG IDL from Workflow Management 1.2.
+
+
+#ifndef _WF_BASE_
+#define _WF_BASE_
+#include <orb.idl>
+#pragma prefix "omg.org"
+
+module WfBase {
+
+
+//  DataTypes
+
+	struct NameValueInfo{
+		string attribute_name;
+		string type_name;
+	};
+	typedef sequence<NameValueInfo> NameValueInfoSequence;
+
+	struct NameValue{
+		string the_name;
+		any the_value;
+	};
+	typedef sequence <NameValue> NameValueSequence;
+
+	typedef sequence <string> NameSequence;
+
+	struct BaseError {
+		long exception_code;
+		string exception_source;
+		any exception_object;
+		string exception_reason;
+	};  
+	typedef sequence <BaseError> BaseErrorSequence;
+
+// Exceptions
+
+	exception BaseException {
+		BaseErrorSequence errors;
+	};
+	exception NameMismatch{};
+	exception InvalidQuery{};
+	exception GrammarNotSupported{};
+
+// Interfaces
+
+
+	interface BaseBusinessObject {};
+
+	interface BaseIterator {
+		
+		string query_expression()
+			raises(BaseException);
+		void set_query_expression(
+			in string query)
+			raises(BaseException, InvalidQuery);
+		
+		NameValueSequence names_in_expression()
+			raises(BaseException);
+		void set_names_in_expression(
+			in NameValueSequence query)
+			raises(BaseException, NameMismatch);
+			
+		string query_grammar()
+			raises(BaseException);
+		void set_query_grammar(
+			in string query_grammmar)
+			raises(BaseException, GrammarNotSupported);
+		
+		long how_many ()
+			raises(BaseException);
+		void goto_start() 
+			raises(BaseException);
+		void goto_end()
+			raises(BaseException);
+	};
+
+};
+#endif
+
+#ifndef _WORKFLOW_MODEL_
+#define _WORKFLOW_MODEL_
+//#include <WfBase.idl>
+//#include <TimeBase.idl>
+#pragma prefix "omg.org"
+
+module WorkflowModel{
+
+
+// Forward declarations
+	interface WfExecutionObject;
+	interface WfProcess;
+	interface WfProcessIterator;
+	interface WfRequester;
+	interface WfProcessMgr;
+	interface WfActivity;
+	interface WfActivityIterator;
+	interface WfResource;
+	interface WfAssignment;
+	interface WfAssignmentIterator;
+	interface WfEventAudit;
+	interface WfEventAuditIterator;
+	interface WfCreateProcessEventAudit;
+	interface WfStateEventAudit;
+	interface WfAssignmentEventAudit;
+
+// DataTypes
+	typedef sequence<WfProcess> WfProcessSequence;
+	typedef sequence<WfActivity> WfActivitySequence;
+	typedef sequence<WfAssignment> WfAssignmentSequence;
+	typedef sequence<WfEventAudit> WfEventAuditSequence;
+	typedef WfBase::NameValueInfoSequence ProcessDataInfo;
+	typedef WfBase::NameValueSequence ProcessData;
+
+	enum workflow_stateType{ open, closed };
+	enum while_openType{not_running, running };
+	enum why_not_runningType{ not_started, suspended };
+	enum how_closedType{ completed, terminated, aborted };
+	enum process_mgr_stateType{enabled, disabled };
+
+// Exceptions
+	exception InvalidPerformer{};
+	exception InvalidState{};
+	exception InvalidData{};
+	exception TransitionNotAllowed{};
+	exception CannotResume{};
+	exception CannotSuspend{};
+	exception AlreadySuspended{};
+	exception CannotStop{};
+	exception NotRunning{};
+	exception HistoryNotAvailable{};
+	exception NotEnabled{};
+	exception AlreadyRunning{};
+	exception CannotStart{};
+	exception ResultNotAvailable{};
+	exception CannotComplete{};
+	exception NotAssigned{};
+	exception SourceNotAvailable{};
+	exception RequesterRequired{};
+	exception NotSuspended{};
+	exception CannotChangeRequester{};
+	exception InvalidResource{};
+	exception UpdateNotAllowed{};
+	exception InvalidRequester{};
+
+// Interfaces
+	interface WfRequester : WfBase::BaseBusinessObject{
+		long how_many_performer()
+			raises (WfBase::BaseException);
+
+		WfProcessIterator get_iterator_performer()
+			raises (WfBase::BaseException);
+
+		WfProcessSequence get_sequence_performer(
+			in long max_number )
+			raises (WfBase::BaseException);
+		boolean is_member_of_performer(
+			in WfProcess member )
+			raises (WfBase::BaseException);
+		void receive_event(
+			in WfEventAudit event)
+			raises (WfBase::BaseException, InvalidPerformer);
+	};
+	
+	interface WfExecutionObject : WfBase::BaseBusinessObject {
+		workflow_stateType workflow_state()
+			raises (WfBase::BaseException);
+		while_openType while_open()
+			raises (WfBase::BaseException);
+		why_not_runningType why_not_running()
+			raises (WfBase::BaseException);
+		how_closedType how_closed()
+			raises (WfBase::BaseException);
+		WfBase::NameSequence valid_states()
+			raises (WfBase::BaseException);
+		string state()
+			raises (WfBase::BaseException);
+		void change_state(
+			in string new_state)
+			raises (WfBase::BaseException, InvalidState,
+				TransitionNotAllowed);
+		string name()
+			raises(WfBase::BaseException);
+		void set_name( in string new_value)
+			raises (WfBase::BaseException);
+		string key()
+			raises(WfBase::BaseException);
+		string description()
+			raises(WfBase::BaseException);
+		void set_description(in string new_value)
+			raises (WfBase::BaseException);
+		ProcessData process_context()
+			raises(WfBase::BaseException);
+		void set_process_context(in ProcessData new_value)
+			raises (WfBase::BaseException, InvalidData,
+				UpdateNotAllowed);
+		unsigned short priority()
+			raises(WfBase::BaseException);
+		void set_priority(in unsigned short new_value)
+			raises (WfBase::BaseException);
+		void resume()
+			raises (WfBase::BaseException, CannotResume,
+				NotRunning, NotSuspended);
+		void suspend()
+			raises (WfBase::BaseException, CannotSuspend,
+				NotRunning, AlreadySuspended);
+		void terminate()
+			raises (WfBase::BaseException, CannotStop, NotRunning);
+		void abort()
+			raises (WfBase::BaseException, CannotStop, NotRunning);
+	
+		long how_many_history()	
+			raises (WfBase::BaseException, HistoryNotAvailable);
+		WfEventAuditIterator get_iterator_history(
+		        in string query,
+			  in WfBase::NameValueSequence names_in_query)
+			  raises(WfBase::BaseException, HistoryNotAvailable);
+	        WfEventAuditSequence get_sequence_history(
+			  in long max_number)
+			  raises(WfBase::BaseException, HistoryNotAvailable);
+		boolean is_member_of_history(in WfExecutionObject member)
+			raises(WfBase::BaseException);
+		TimeBase::UtcT last_state_time()
+			raises(WfBase::BaseException);
+	};
+
+	interface WfProcessMgr : WfBase::BaseBusinessObject {
+		long how_many_process()
+			raises (WfBase::BaseException);
+		WfProcessIterator get_iterator_process()
+			raises (WfBase::BaseException);
+		WfProcessSequence get_sequence_process(
+			in long max_number )
+			raises (WfBase::BaseException);
+		boolean is_member_of_process(
+			in WfProcess member )
+			raises (WfBase::BaseException);
+		process_mgr_stateType process_mgr_state()
+			raises(WfBase::BaseException);
+		void set_process_mgr_state(
+			in process_mgr_stateType new_state)
+			raises(WfBase::BaseException, TransitionNotAllowed);
+		string name()
+			raises(WfBase::BaseException);
+		string description()
+			raises(WfBase::BaseException);
+		string category()
+			raises(WfBase::BaseException);
+		string version()
+			raises(WfBase::BaseException);
+		ProcessDataInfo context_signature()
+			raises (WfBase::BaseException);
+		ProcessDataInfo result_signature()
+			raises (WfBase::BaseException);
+		WfProcess create_process(
+			in WfRequester requester)
+			raises (WfBase::BaseException, NotEnabled,
+				InvaildRequester, RequesterRequired);
+	};
+
+	interface WfProcess : WfExecutionObject {
+		WfRequester requester()
+			raises(WfBase::BaseException);
+		void set_requester( in WfRequester new_value)
+			raises (WfBase::BaseException, CannotChangeRequester);
+		long how_many_step()
+			raises (WfBase::BaseException);
+		WfActivityIterator get_iterator_step()
+			raises (WfBase::BaseException);
+		WfActivitySequence get_sequence_step(
+			in long max_number )
+			raises (WfBase::BaseException);
+		boolean is_member_of_step(
+			in WfActivity member )
+			raises (WfBase::BaseException);
+		WfProcessMgr manager()
+			raises(WfBase::BaseException);
+		ProcessData result()
+			raises (WfBase::BaseException, ResultNotAvailable);
+		void start()
+			raises (WfBase::BaseException, CannotStart,
+			AlreadyRunning);
+		WfActivityIterator get_activities_in_state(
+		        in string state)
+			raises(WfBase::BaseException, InvalidState);  
+	};
+
+	interface WfProcessIterator : WfBase::BaseIterator {
+		WfProcess get_next_object ()
+			raises (WfBase::BaseException);
+		WfProcess get_previous_object()
+			raises (WfBase::BaseException);
+		WfProcessSequence get_next_n_sequence(
+			in long max_number)
+			raises (WfBase::BaseException);
+		WfProcessSequence get_previous_n_sequence(
+			in long max_number)
+			raises (WfBase::BaseException);
+	};
+
+	interface WfActivity : WfExecutionObject {
+		long how_many_assignment()
+			raises (WfBase::BaseException);
+		WfAssignmentIterator get_iterator_assignment()
+			raises (WfBase::BaseException);
+		WfAssignmentSequence get_sequence_assignment(
+			in long max_number )
+			raises (WfBase::BaseException);
+		boolean is_member_of_assignment(
+			in WfAssignment member )
+			raises (WfBase::BaseException);
+		WfProcess container()
+			raises(WfBase::BaseException);
+		ProcessData result()
+			raises(WfBase::BaseException, ResultNotAvailable);
+		void set_result(
+			in ProcessData result)
+			raises (WfBase::BaseException, InvalidData);
+		void complete()
+			raises (WfBase::BaseException, CannotComplete);
+	};
+
+	interface WfActivityIterator : WfBase::BaseIterator{
+		WfActivity get_next_object ()
+			raises (WfBase::BaseException);
+		WfActivity get_previous_object()
+			raises (WfBase::BaseException);
+		WfActivitySequence get_next_n_sequence(
+			in long max_number)
+			raises (WfBase::BaseException);
+		WfActivitySequence get_previous_n_sequence(
+			in long max_number)
+			raises (WfBase::BaseException);
+	};
+	
+	interface WfAssignment : WfBase::BaseBusinessObject{
+		WfActivity activity()
+			raises(WfBase::BaseException);
+		WfResource assignee()
+			raises(WfBase::BaseException);
+		void set_assignee(
+			in WfResource new_value)
+			raises (WfBase::BaseException, InvalidResource);
+	};
+
+	interface WfAssignmentIterator : WfBase::BaseIterator{
+		WfAssignment get_next_object ()
+			raises (WfBase::BaseException);
+		WfAssignment get_previous_object()
+			raises (WfBase::BaseException);
+		WfAssignmentSequence get_next_n_sequence(
+			in long max_number)
+			raises (WfBase::BaseException);
+		WfAssignmentSequence get_previous_n_sequence(
+			in long max_number)
+			raises (WfBase::BaseException);
+	};
+	
+	interface WfResource : WfBase::BaseBusinessObject{
+		long how_many_work_item()
+			raises (WfBase::BaseException);
+		WfAssignmentIterator get_iterator_work_item()
+			raises (WfBase::BaseException);
+		WfAssignmentSequence get_sequence_work_item(
+			in long max_number )
+			raises (WfBase::BaseException);
+		boolean is_member_of_work_items(
+			in WfAssignment member )
+			raises (WfBase::BaseException);
+		string resource_key()
+			raises(WfBase::BaseException);
+		string resource_name()
+			raises(WfBase::BaseException);
+		void release(
+			in WfAssignment from_assigment,
+			in string release_info)
+			raises (WfBase::BaseException, NotAssigned);
+	};
+
+	interface WfEventAudit : WfBase::BaseBusinessObject{
+		WfExecutionObject source()
+			raises(WfBase::BaseException, SourceNotAvailable);
+		TimeBase::UtcT time_stamp()
+			raises(WfBase::BaseException);
+		string event_type()
+			raises(WfBase::BaseException);
+		string activity_key()
+			raises(WfBase::BaseException);
+		string activity_name()
+			raises(WfBase::BaseException);
+		string process_key()
+			raises(WfBase::BaseException);
+		string process_name()
+			raises(WfBase::BaseException);
+		string process_mgr_name()
+			raises(WfBase::BaseException);
+		string process_mgr_version()
+			raises(WfBase::BaseException);
+	};
+
+	interface WfEventAuditIterator : WfBase::BaseIterator{
+		WfEventAudit get_next_object ()
+			raises (WfBase::BaseException);
+		WfEventAudit get_previous_object()
+			raises (WfBase::BaseException);
+		WfEventAuditSequence get_next_n_sequence(
+			in long max_number)
+			raises (WfBase::BaseException);
+		WfEventAuditSequence get_previous_n_sequence(
+			in long max_number)
+			raises (WfBase::BaseException);
+	};
+
+	interface WfCreateProcessEventAudit : WfEventAudit{
+		string p_activity_key()
+			raises(WfBase::BaseException);
+		string p_process_key()
+			raises(WfBase::BaseException);
+		string p_process_name()
+			raises(WfBase::BaseException);
+		string p_process_mgr_name()
+			raises(WfBase::BaseException);
+		string p_process_mgr_version()
+			raises(WfBase::BaseException);
+	};
+
+	interface WfStateEventAudit : WfEventAudit {
+		string old_state()
+			raises(WfBase::BaseException);
+		string new_state()
+			raises(WfBase::BaseException);
+	};
+
+	interface WfDataEventAudit : WfEventAudit {
+		ProcessData old_data()
+			raises(WfBase::BaseException);
+		ProcessData new_data()
+			raises(WfBase::BaseException);
+	};
+
+	interface WfAssignmentEventAudit : WfEventAudit{
+		string old_resource_key()
+			raises(WfBase::BaseException);
+		string old_resource_name()
+			raises(WfBase::BaseException);
+		string new_resource_key()
+			raises(WfBase::BaseException);
+		string new_resource_name()
+			raises(WfBase::BaseException);
+	};
+
+
+};
+#endif
+

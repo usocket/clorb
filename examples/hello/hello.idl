@@ -1,0 +1,5 @@
+module CLORB_EX {
+  interface HelloWorld {
+    string greet ();
+  };
+};

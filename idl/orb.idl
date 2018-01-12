@@ -1,0 +1,274 @@
+#ifndef __ORB_IDL__
+#define __ORB_IDL__
+
+#include "TypeCode.idl"
+#include "interface-repository.idl"
+#include "corba-misc.idl"
+
+#define GIOP_1_1
+
+#pragma prefix "omg.org"
+
+#ifdef _CLORB_IDLCOMP
+#define local
+#endif
+
+module CORBA {
+
+  // interface for the Current object
+  interface Current {
+  };
+
+  typedef unsigned long PolicyType;
+
+  // Basic IDL definition
+  interface Policy {
+    readonly attribute PolicyType policy_type;
+    Policy copy();
+    void destroy();
+  };
+
+  typedef sequence <Policy> PolicyList;
+
+  typedef short PolicyErrorCode;
+  exception PolicyError {PolicyErrorCode reason;};
+
+  const PolicyErrorCode BAD_POLICY = 0;
+  const PolicyErrorCode UNSUPPORTED_POLICY = 1;
+  const PolicyErrorCode BAD_POLICY_TYPE = 2;
+  const PolicyErrorCode BAD_POLICY_VALUE = 3;
+  const PolicyErrorCode UNSUPPORTED_POLICY_VALUE = 4;
+
+};
+
+
+module IOP {
+
+  // Standard Protocol Profile tag values
+  typedef unsigned long ProfileId;
+  const ProfileId TAG_INTERNET_IOP        = 0;
+  const ProfileId TAG_MULTIPLE_COMPONENTS = 1;
+
+  struct TaggedProfile {
+    ProfileId	 tag;
+    sequence <octet> profile_data;
+  };
+  // an Interoperable Object Reference is a sequence of
+  // object-specific protocol profiles, plus a type ID.
+  struct IOR {
+    string		         type_id;
+    sequence <TaggedProfile> profiles;
+  };
+  // Standard way of representing multicomponent profiles.
+  // This would be encapsulated in a TaggedProfile.
+  typedef unsigned long ComponentId;
+  struct TaggedComponent {
+    ComponentId	 tag;
+    sequence <octet> component_data;
+  };
+
+  typedef sequence <TaggedComponent> MultipleComponentProfile;
+  typedef sequence <TaggedComponent> TaggedComponentSeq;
+
+  const ComponentId TAG_ORB_TYPE  = 0;
+  const ComponentId TAG_CODE_SETS = 1;
+  const ComponentId TAG_POLICIES  = 2;
+
+  const ComponentId TAG_ALTERNATE_IIOP_ADDRESS   = 3;
+  const ComponentId TAG_ASSOCIATION_OPTIONS      = 13;
+  const ComponentId TAG_SEC_NAME                 = 14;
+  const ComponentId TAG_SPKM_1_SEC_MECH          = 15;
+  const ComponentId TAG_SPKM_2_SEC_MECH          = 16;
+  const ComponentId TAG_KerberosV5_SEC_MECH      = 17;
+  const ComponentId TAG_CSI_ECMA_Secret_SEC_MECH = 18;
+  const ComponentId TAG_CSI_ECMA_Hybrid_SEC_MECH = 19;
+  const ComponentId TAG_SSL_SEC_TRANS            = 20;
+  const ComponentId TAG_CSI_ECMA_Public_SEC_MECH = 21;
+  const ComponentId TAG_GENERIC_SEC_MECH         = 22;
+  const ComponentId TAG_JAVA_CODEBASE            = 25;
+
+  const ComponentId TAG_COMPLETE_OBJECT_KEY  = 5;
+  const ComponentId TAG_ENDPOINT_ID_POSITION = 6;
+  const ComponentId TAG_LOCATION_POLICY      = 12;
+  const ComponentId TAG_DCE_STRING_BINDING   = 100;
+  const ComponentId TAG_DCE_BINDING_NAME     = 101;
+  const ComponentId TAG_DCE_NO_PIPES         = 102;
+  const ComponentId TAG_DCE_SEC_MECH         = 103; // Security Service
+
+  const ComponentId TAG_FT_GROUP             = 27;
+
+  typedef unsigned long ServiceId;
+  struct ServiceContext {
+    ServiceId	  context_id;
+    sequence <octet>  context_data;
+  };
+
+  typedef sequence <ServiceContext> ServiceContextList;
+  const ServiceId TransactionService    = 0;
+  const ServiceId CodeSets              = 1;
+  const ServiceId ChainBypassCheck      = 2;
+  const ServiceId ChainBypassInfo       = 3;
+  const ServiceId LogicalThreadId       = 4;
+  const ServiceId BI_DIR_IIOP           = 5;
+  const ServiceId SendingContextRunTime = 6;
+  const ServiceId INVOCATION_POLICIES   = 7;
+  const ServiceId FORWARDED_IDENTITY    = 8;
+  const ServiceId UnknownExceptionInfo  = 9;
+
+  local interface Codec {
+    exception InvalidTypeForEncoding {};
+    exception FormatMismatch {};
+    exception TypeMismatch {};
+    CORBA::OctetSeq encode (in any data)
+      raises (InvalidTypeForEncoding);
+    any decode (in CORBA::OctetSeq data)
+      raises (FormatMismatch);
+    CORBA::OctetSeq encode_value (in any data)
+      raises (InvalidTypeForEncoding);
+    any decode_value (in CORBA::OctetSeq data,
+                      in CORBA::TypeCode tc)
+      raises (FormatMismatch, TypeMismatch);
+  };
+
+  typedef short EncodingFormat;
+  const EncodingFormat ENCODING_CDR_ENCAPS = 0;
+  struct Encoding {
+    EncodingFormat format;
+    octet major_version;
+    octet minor_version;
+  };
+
+  local interface CodecFactory {
+    exception UnknownEncoding {};
+    Codec create_codec (in Encoding enc)
+      raises (UnknownEncoding);
+  };
+
+};
+
+
+module GIOP {                   // IDL extended for version 1.1
+
+  struct Version {
+    octet major;
+    octet minor;
+  };
+
+#ifndef GIOP_1_1
+  // GIOP 1.0
+  enum MsgType_1_0{ 	// rename from MsgType
+    Request, Reply, CancelRequest,
+    LocateRequest, LocateReply,
+    CloseConnection, MessageError
+  };
+
+#else
+  // GIOP 1.1
+  enum MsgType_1_1{
+    Request, Reply, CancelRequest,
+    LocateRequest, LocateReply,
+    CloseConnection, MessageError,
+    Fragment			// GIOP 1.1 addition
+  };
+#endif
+
+  // GIOP 1.0
+  struct MessageHeader_1_0 { // Renamed from MessageHeader
+    char		magic [4];
+    Version		GIOP_version;
+    boolean		byte_order;
+    octet		message_type;
+    unsigned long	message_size;
+  };
+
+  // GIOP 1.1
+  struct MessageHeader_1_1 {
+    char		magic [4];
+    Version		GIOP_version;
+    octet		flags;			 // GIOP 1.1 change
+    octet		message_type;
+    unsigned long	message_size;
+  };
+
+  typedef sequence<octet> Principal;  // really a primitive
+
+  struct RequestHeader_1_0 {
+    IOP::ServiceContextList service_context;
+    unsigned long	    request_id;
+    boolean		    response_expected;
+    sequence <octet>	    object_key;
+    string		    operation;
+    Principal		    requesting_principal;
+  };
+
+  // GIOP 1.1
+  struct RequestHeader_1_1 {
+    IOP::ServiceContextList service_context;
+    unsigned long	    request_id;
+    boolean		    response_expected;
+    octet 		    reserved[3]; // Added in GIOP 1.1
+    sequence <octet>	    object_key;
+    string		    operation;
+    Principal		    requesting_principal;
+  };
+
+  enum ReplyStatusType {
+    NO_EXCEPTION,
+    USER_EXCEPTION,
+    SYSTEM_EXCEPTION,
+    LOCATION_FORWARD
+  };
+
+  struct ReplyHeader {
+    IOP::ServiceContextList service_context;
+    unsigned long 	    request_id;
+    ReplyStatusType	    reply_status;
+  };
+
+  struct CancelRequestHeader {
+    unsigned long request_id;
+  };
+
+  struct LocateRequestHeader {
+    unsigned long request_id;
+    sequence <octet> object_key;
+  };
+
+  enum LocateStatusType {
+    UNKNOWN_OBJECT,
+    OBJECT_HERE,
+    OBJECT_FORWARD
+  };
+
+  struct LocateReplyHeader {
+    unsigned long    request_id;
+    LocateStatusType locate_status;
+  };
+};
+
+
+
+module IIOP {				// IDL extended for version 1.1
+
+  struct Version {
+    octet			major;
+    octet			minor;
+  };
+
+  struct ProfileBody_1_0 { // renamed from ProfileBody
+    Version			iiop_version;
+    string			host;
+    unsigned short		port;
+    sequence <octet>		object_key;
+  };
+
+  struct ProfileBody_1_1 {
+    Version			iiop_version;
+    string			host;
+    unsigned short		port;
+    sequence <octet>		object_key;
+    sequence <IOP::TaggedComponent> components;
+  };
+};
+
+#endif

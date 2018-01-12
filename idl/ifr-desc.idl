@@ -1,0 +1,104 @@
+struct FullInterfaceDescription {
+  Identifier name;
+  RepositoryId id;
+  RepositoryId defined_in;
+  VersionSpec version;
+  OpDescriptionSeq operations;
+  AttrDescriptionSeq attributes;
+  RepositoryIdSeq base_interfaces;
+  TypeCode type;
+};
+struct Description {
+  Contained contained_object;
+  DefinitionKind kind;
+  any value;
+};
+struct ModuleDescription {
+  Identifier name;
+  RepositoryId id;
+  RepositoryId defined_in;
+  VersionSpec version;
+};
+struct ConstantDescription {
+  Identifier name;
+  RepositoryId id;
+  RepositoryId defined_in;
+  VersionSpec version;
+  TypeCode type;
+  any value;
+};
+struct TypeDescription {
+  Identifier name;
+  RepositoryId id;
+  RepositoryId defined_in;
+  VersionSpec version;
+  TypeCode type;
+};
+struct ExceptionDescription {
+  Identifier name;
+  RepositoryId id;
+  RepositoryId defined_in;
+  VersionSpec version;
+  TypeCode type;
+};
+struct AttributeDescription {
+  Identifier name;
+  RepositoryId id;
+  RepositoryId defined_in;
+  VersionSpec version;
+  TypeCode type;
+  AttributeMode mode;
+};
+struct ParameterDescription {
+  Identifier name;
+  TypeCode type;
+  IDLType type_def;
+  ParameterMode mode;
+};
+struct OperationDescription {
+  Identifier name;
+  RepositoryId id;
+  RepositoryId defined_in;
+  VersionSpec version;
+  TypeCode result;
+  OperationMode mode;
+  ContextIdSeq contexts;
+  ParDescriptionSeq parameters;
+  ExcDescriptionSeq exceptions;
+};
+struct InterfaceDescription {
+  Identifier name;
+  RepositoryId id;
+  RepositoryId defined_in;
+  VersionSpec version;
+  RepositoryIdSeq base_interfaces;
+};
+struct FullValueDescription {
+  Identifier name;
+  RepositoryId id;
+  boolean is_abstract;
+  boolean is_custom;
+  RepositoryId defined_in;
+  VersionSpec version;
+  OpDescriptionSeq operations;
+  AttrDescriptionSeq attributes;
+  ValueMemberSeq members;
+  InitializerSeq initializers;
+  RepositoryIdSeq supported_interfaces;
+  RepositoryIdSeq abstract_base_values;
+  boolean is_truncatable;
+  RepositoryId base_value;
+  TypeCode type;
+};
+struct ValueDescription {
+  Identifier name;
+  RepositoryId id;
+  boolean is_abstract;
+  boolean is_custom;
+  RepositoryId defined_in;
+  VersionSpec version;
+  RepositoryIdSeq supported_interfaces;
+  RepositoryIdSeq abstract_base_values;
+  boolean is_truncatable;
+  RepositoryId base_value;
+};

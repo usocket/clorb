@@ -1,0 +1,9 @@
+These examples no longer works with the latest version of CLORB
+
+examples/event/ec-factory-idl.lisp
+examples/event/ec-factory-impl.lisp
+
+Example of using the macros from idef-macros to define an
+interface and then to implement it. The interface is to a
+Factory object to create Event Channel objects using the
+ec-server implementation.

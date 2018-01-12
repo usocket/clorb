@@ -1,0 +1,140 @@
+// The contents of this file are subject to the Mozilla Public License
+// Version 1.0 (the "License"); you may not use this file except in
+// compliance with the License. You may obtain a copy of the License in
+// the file "LICENSE" included with this distribution, or at:
+//
+// http://www.mozilla.org/MPL/
+// 
+// Software distributed under the License is distributed on an "AS IS"
+// basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+// License for the specific language governing rights and limitations
+// under the License.
+// 
+// The Original Code is mod_corba-0.1.
+// 
+// The Initial Developer of the Original Code is Michael Robinson 
+// (robinson@netrinsics.com).  Portions created by Michael Robinson are
+// Copyright (C) 1999 Netrinsics (http://www.netrinsics.com).
+// All Rights Reserved.
+// 
+// Contributor(s): 
+//
+
+module Apache {
+	struct FileInfo {
+		long	inode;
+		long	mode;
+		long	uid;
+		long	gid;
+		long	atime;
+		long	mtime;
+		long	ctime;
+		long	size;
+
+		////// For use in the less bogus future //////
+		//long long	inode;
+		//long long	mode;
+		//long long	uid;
+		//long long	gid;
+		//long long	atime;
+		//long long	mtime;
+		//long long	ctime;
+		//long long	size;
+	};
+
+	// The ten phases of Apache request processing
+	enum Phase {
+		post_read_request,
+		translate_handler,
+		header_parser,
+		access_checker,
+		check_user_id,
+		auth_checker,
+		type_checker,
+		fixer_upper,
+		content_handler,
+		logger
+	};
+
+	typedef sequence <octet> buffer;
+
+	interface Request {
+		// URI
+		string get_uri();
+		void set_uri(in string uri);
+		string get_path_info();
+		void set_path_info(in string path);
+		string get_args();
+		void set_args(in string args);
+
+		// HTTP request
+		string get_request();
+		string get_protocol();
+		string get_method();
+		short get_method_number();
+		boolean is_header_only();
+		string get_content_type();
+		void set_content_type(in string mimetype);
+		string get_content_encoding();
+		void set_content_encoding(in string encoding);
+		long set_content_length(in long length);
+		void set_no_cache(in boolean value);
+
+		string get_headers_in(in string attr);
+		void set_headers_in(in string attr, in string val);
+		string get_headers_out(in string attr);
+		void set_headers_out(in string attr, in string val);
+		string get_err_headers_out(in string attr);
+		void set_err_headers_out(in string attr, in string val);
+		string get_notes(in string attr);
+		void set_notes(in string attr, in string val);
+
+		// Connection
+		string get_remote_ip();
+		string get_remote_host();
+		string get_remote_logname();
+		string get_user();
+		string get_auth_name();
+		string get_auth_type();
+		string get_basic_auth_pw();
+		void note_auth_failure();
+		string get_server_name();
+		unsigned short get_server_port();
+		long get_bytes_sent();
+		short set_keepalive();
+		void finalize_request_protocol();
+
+		// Stream Ops
+		long bread(inout buffer buf, in long nbyte);
+		long rwrite(in buffer buf, in long nbyte);
+		long rputc(in char c);
+		long rputs(in string s);
+		long rflush();
+		void send_http_header();
+
+		// Server
+		string get_filename();
+		void set_filename(in string filename);
+		FileInfo get_fileinfo();
+		long get_limit_req_body();
+		string get_subprocess_env(in string attr);
+		void set_subprocess_env(in string attr, in string val);
+		void internal_redirect(in string uri);
+		void log_rerror(in string file, in long line, in long level, in string msg);
+		Request sub_req_lookup_uri(in string uri);
+		Request sub_req_lookup_file(in string file);
+		short run_sub_req(in Request req);
+		void destroy_sub_req(in Request req);
+
+		// mod_corba
+		string get_module_env(in string attr);
+		////// A potential performance hack //////
+		// boolean set_mmap(in string pathname);
+		// long write_mmap(in long start, in long length);
+		// long writev_mmap(in sequence long iovec);
+	};
+
+	interface Handler {
+		short handle(in Request req, in Phase p);
+	};
+};

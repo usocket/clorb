@@ -1,0 +1,8 @@
+// PIDL
+#ifndef _TYPECODE_IDL_
+#define _TYPECODE_IDL_
+#pragma prefix "omg.org"
+module CORBA {
+  interface TypeCode;
+};
+#endif // _TYPECODE_IDL_

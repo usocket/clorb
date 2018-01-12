@@ -1,0 +1,42 @@
+#include <orb.idl>
+
+module MacOSX {
+
+  valuetype PList {
+  };
+
+  typedef sequence<PList> PListSeq;
+
+  valuetype Dictionary : PList {
+    PList lookup (in PList key);
+    void add (in PList key, in PList value);
+  };
+
+  valuetype StringKeyDictionary : Dictionary {
+    public CORBA::StringSeq keys;
+    public PListSeq values;
+    PList lookup_string (in string key);
+  };
+
+  valuetype PlistArray : PList {
+    public PListSeq values;    
+  };
+
+  valuetype PListNumber : PList {
+    public long value;
+  };
+
+  valuetype PListBoolean : PList {
+    public boolean value;
+  };
+
+  valuetype PListString : PList {
+    public string value;
+  };
+
+
+  interface Host {
+    PList read_plist (in string pathname);
+  };
+
+};

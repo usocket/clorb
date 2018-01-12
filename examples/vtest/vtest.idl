@@ -1,0 +1,15 @@
+module CLORB_EX {
+  valuetype Fox {
+    public string name;
+    public long value;
+  };
+  valuetype LongBox long;
+  interface VTest {
+    Fox read (in string name);
+    void write (in Fox box);
+    string repr (in Fox box);
+    string write2 (in Fox box1, in Fox box2);
+    string longs (in LongBox box1, in LongBox box2);
+    boolean is_same (in ValueBase v1, in ValueBase v2);
+  };
+};

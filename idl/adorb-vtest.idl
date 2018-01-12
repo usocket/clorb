@@ -1,0 +1,101 @@
+
+#pragma prefix "adorb.org"
+
+
+module vtest {
+
+    abstract interface Access{
+         string get_name();
+         double get_weight();
+    };
+
+    struct Box {
+        string name;
+        double width;
+        double height;
+    };
+    
+    valuetype VBox Box;
+    
+    valuetype Node supports Access
+    {
+        private string name;
+    };
+    
+    valuetype Link:Node
+    {
+        public double weight;
+    };
+
+    
+    valuetype Tree:Node
+    {
+        public VBox box;
+        private Node up;
+        private Node left;
+        private Node right;
+        readonly attribute long depth;
+    };
+
+    valuetype WTree:Tree
+    {
+        public double weight;
+    };
+
+    valuetype VLong long;
+    valuetype VDouble double;
+    valuetype VString wstring;
+    valuetype VBoolean boolean;
+    valuetype VChar char;
+    valuetype VLongSeq sequence<long>;
+    
+    interface ValueTest: Access{
+        VBox get_box(in string name, in double width, in double height);
+        Node get_node(in string name);
+        Node get_link(in string name, in double weight);
+
+// ADORB defines macro __ADORB__
+
+#ifdef __ADORB__
+        CORBA::ValueBase get_tree();
+        CORBA::AbstractBase get_access();
+        CORBA::AbstractBase get_object_access();
+        boolean get_multi(out CORBA::ValueBase value, out sequence<Box> boxes); //checks end-tag
+#else
+        ValueBase get_tree();
+        //AbstractBase get_access();
+        //AbstractBase get_object_access();
+        typedef sequence<Box> SeqBox;
+        boolean get_multi(out ValueBase value, out SeqBox boxes); //checks end-tag
+#endif
+       
+        Node echo_node(in Node node);
+        
+        any get_any1(); // valuetype
+        any get_any2(); // IOR
+        any get_any3(); // abstract interface
+        any get_any4(); // not implemented
+        any get_any_box(); // VBox
+        
+        any echo_any(in any value);
+        
+        VLong echo_long(in VLong value);
+        VDouble echo_double(in VDouble value);
+        VString echo_string(in VString value);
+        VBoolean echo_bool(in VBoolean value);
+        VChar echo_char(in VChar value);
+        VLongSeq echo_long_seq(in VLongSeq value);
+        
+        // If sending a valuetype and #pragma class is not set for that valuetype 
+        // the server will raise marshal exception because it cannot know which valuetype 
+        // to use to marshal the return value
+#ifdef __ADORB__
+        CORBA::AbstractBase echo_abstract(in CORBA::AbstractBase value);
+        CORBA::ValueBase echo_value(in CORBA::ValueBase value);
+#else
+        ValueBase echo_value(in ValueBase value);
+#endif
+        VBox echo_box(in VBox box);
+    };
+
+};

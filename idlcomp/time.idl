@@ -1,0 +1,1010 @@
+// Updated: May 2000
+
+// This file contains OMG IDL from Internationalization & Time V1.0.
+
+
+
+module CfI18N
+
+{
+
+
+
+  /********************************************************/
+
+/* Data Types 											*/
+
+/********************************************************/
+
+
+
+  typedef sequence<any> ParameterList;
+
+  typedef long DateTimeFieldValue;
+
+  typedef wstring LocaleKey;
+
+  
+
+  enum TextComparisonResult {
+
+    source_equal,
+
+    source_primary_less,
+
+    source_secondary_less,
+
+    source_tertiary_less,
+
+    source_primary_greater,
+
+    source_secondary_greater,
+
+    source_tertiary_greater
+
+  };
+
+
+
+  enum DifferenceLevel {
+
+    primary,
+
+    secondary,
+
+    tertiary
+
+  };
+
+
+
+  enum MatchType {
+
+    standard,
+
+    inclusive,
+
+    exclusive,
+
+    boundary
+
+  };
+
+
+
+  enum ConfidenceLevel {
+
+    perfect,
+
+    minor_error,
+
+    recognizable,
+
+    unsatisfactory
+
+  };
+
+
+
+  enum RoundingType {
+
+    round_down,
+
+    round_up,
+
+    round_even
+
+  };
+
+
+
+
+
+enum MantissaType {
+
+						less_than_1,
+
+						less_than_10
+
+};
+
+
+
+  enum RomanNumeralCase {
+
+    upper,
+
+    lower
+
+  };
+
+
+
+  enum RomanNumeralType {
+
+    short_all,
+
+    long4_long8,
+
+    long4_short8,
+
+    short4_long8,
+
+    short4_short8,
+
+    long_all
+
+  };
+
+
+
+  enum HanSimplification {
+
+    simplified,
+
+    traditional
+
+  };
+
+
+
+  enum HanNumberType {
+
+    han_calendar,
+
+    standard_han,
+
+    xiadeng,
+
+    zhongdeng,
+
+    shangdeng
+
+  };
+
+
+
+  enum DateTimeFieldType {
+
+    era,
+
+    year_in_era,
+
+    month_in_year,
+
+    day_in_month,
+
+    hour_in_day,
+
+    minute_in_hour,
+
+    second_in_minute,
+
+    half_day_in_day,
+
+    hour_in_half_day,
+
+    week_in_year,
+
+    day_in_week,
+
+    day_in_year,
+
+    max_fields
+
+  };
+
+
+
+  struct TextRange {
+
+    unsigned long offset;
+
+    unsigned long length;
+
+};
+
+
+
+  struct ScanResult {
+
+    any result;
+
+    unsigned long chars_processed;
+
+    ConfidenceLevel accuracy;
+
+    sequence<any> additional_info;
+
+  };
+
+
+
+  struct FormatResult {
+
+    wstring result;
+
+    ConfidenceLevel accuracy;
+
+    sequence<any> additional_info;
+
+  };
+
+
+
+  interface Collation;
+
+
+
+  interface AbstractFormatter : LifeCycleObject
+
+  {
+
+    FormatResult Format (in any source);
+
+    ScanResult Scan (in wstring source);
+
+    attribute Collation comparator;
+
+  };
+
+
+
+  struct Substitution {
+
+    TextRange range;
+
+    unsigned short parameter_num;
+
+    AbstractFormatter formatter;
+
+  };
+
+
+
+  struct AlternativeMatch {
+
+    TextRange range;
+
+    unsigned short parameter_num;
+
+    wstring match;
+
+  };
+
+
+
+  struct NumeralPair {
+
+    wchar ch;
+
+    long value;
+
+  };
+
+
+
+  /**********************************************************/
+
+  /* Constants                                              */
+
+  /**********************************************************/
+
+
+
+  const unsigned long ul_infinity = 4294967295; /* = (2**32) -1, the maximum unsigned long. */
+
+  const LocaleKey default_locale = "SYSTEM_DEFAULT";
+
+  const LocaleKey null_locale = "NULL";
+
+  const wstring match_cluster = ".";
+
+  const wstring match_word = "*";
+
+const DateTimeFieldValue seconds_in_minute = 60;
+
+  const DateTimeFieldValue seconds_in_hour = 60*60;
+
+  const DateTimeFieldValue seconds_in_day = 3600*24;
+
+
+
+  /**********************************************************/
+
+  /* Exceptions                                             */
+
+  /**********************************************************/
+
+
+
+  exception BadLocaleKey {};
+
+  exception UninitializedIterator{};
+
+  exception InvalidBoundaryPattern{};
+
+  exception NotEnoughNumerals{};
+
+
+
+  /**********************************************************/
+
+  /* Interface Definitions                                  */
+
+  /**********************************************************/
+
+
+
+  interface Collation : LifeCycleObject
+
+  {
+
+    TextComparisonResult compare
+
+       (in wstring source, in wstring target);
+
+    boolean text_is_greater_than
+
+       (in wstring source, in wstring target);
+
+    boolean text_is_less_than
+
+       (in wstring source, in wstring target);
+
+    boolean text_is_equal
+
+       (in wstring source, in wstring target);
+
+    attribute DifferenceLevel max_difference;
+
+  };
+
+
+
+  interface CollationFactory : LifeCycleObject
+
+  {
+
+       Collation create_collation (in LocaleKey locale)
+
+               raises(BadLocaleKey);
+
+  };
+
+
+
+  interface TextPatternIterator : LifeCycleObject
+
+  {
+
+    TextRange first ();
+
+    TextRange last ();
+
+    TextRange next ()
+
+       raises(UninitializedIterator);
+
+    TextRange previous ()
+
+       raises(UninitializedIterator);
+
+    attribute TextRange range;
+
+    attribute wstring pattern;
+
+    attribute wstring search_text;
+
+    attribute Collation comparator;
+
+    readonly attribute MatchType match_type;
+
+  };
+
+
+
+
+
+  interface TextIteratorFactory : LifeCycleObject
+
+  {
+
+    TextPatternIterator create_iterator
+
+       (in Collation tc,in wstring search_text,
+
+       in wstring pattern, in MatchType type)
+
+      raises(InvalidBoundaryPattern);
+
+  };
+
+
+
+
+
+  interface SimpleTextFormatter : AbstractFormatter
+
+  {
+
+    attribute wstring scan_terminator;
+
+    attribute TextRange format_bounds;
+
+  };
+
+
+
+  interface SimpleTextFormatterFactory : LifeCycleObject
+
+  {
+
+    SimpleTextFormatter create_simple_text_formatter
+
+       (in Collation tc);
+
+  };
+
+
+
+  interface ParameterFormatter : AbstractFormatter
+
+  {
+
+    attribute wstring template;
+
+    attribute sequence<Substitution> subst;
+
+    attribute sequence<AlternativeMatch> alt_match;
+
+  };
+
+
+
+  interface ParameterFormatterFactory : LifeCycleObject
+
+  {
+
+    SimpleTextFormatter create_parameter_formatter ();
+
+  };
+
+
+
+  interface ChoiceFormatter : AbstractFormatter
+
+  {
+
+    attribute sequence<wstring> choice;
+
+    attribute wstring default_choice;
+
+    attribute boolean use_longest_match;
+
+    attribute boolean valid_default;
+
+    void clear_choices();
+
+  };
+
+
+
+  interface ChoiceFormatterFactory : LifeCycleObject
+
+  {
+
+     ChoiceFormatter create_choice_formatter ();
+
+  };
+
+
+
+  interface Numerals : LifeCycleObject
+
+  {
+
+
+
+     boolean numeral_to_value (in wchar ch, out long value);
+
+     boolean value_to_numeral (in long value, out wchar ch);
+
+     attribute short max_base;
+
+     attribute short min_base;
+
+     attribute short base;
+
+  };
+
+
+
+  interface HybridNumerals : Numerals
+
+  {
+
+    unsigned short formatting_count();
+
+    unsigned short scanning_count();
+
+    void get_formatting_pair
+
+       (in unsigned short index, out wchar ch, out long value)
+
+       raises (NotEnoughNumerals);
+
+    void get_scanning_pair
+
+       (in unsigned short index, out wchar ch, out long value)
+
+       raises (NotEnoughNumerals);
+
+    void add_formatting_pair (in wchar ch, in long value);
+
+    void add_scanning_pair (in wchar ch, in long value);
+
+  };
+
+
+
+  interface HybridNumeralsFactory : LifeCycleObject
+
+  {
+
+    HybridNumerals create_hybrid_numerals
+
+      (in short min_base, in short max_base);
+
+  };
+
+
+
+  interface CodesetDecimalNumerals : Numerals
+
+  {
+
+    attribute wstring codeset_script;
+
+  };
+
+
+
+  interface CodesetDecimalNumeralsFactory : LifeCycleObject
+
+  {
+
+    CodesetDecimalNumerals create_codeset_decimal_numerals
+
+      (in wstring codeset_script);
+
+  };
+
+
+
+  interface NumberFormatter : LifeCycleObject
+
+  {
+
+    attribute double min_number;
+
+    attribute double max_number;
+
+    attribute unsigned short base;
+
+    attribute boolean plus_sign_enabled;
+
+    attribute wstring minus_prefix;
+
+    attribute wstring minus_suffix;
+
+    attribute wstring plus_prefix;
+
+    attribute wstring plus_suffix;
+
+    attribute wstring infinity_sign;
+
+    attribute wstring NaN_sign;
+
+
+
+    attribute Numerals numerals;
+
+    attribute NumberFormatter out_of_bounds_formatter;
+
+    boolean is_text_number (in wstring test_string);
+
+    boolean is_valid_number (in double test_num);
+
+    boolean is_numeral (in wchar test_char);
+
+  };
+
+
+
+  interface PositionalNumberFormatter : NumberFormatter
+
+  {
+
+    attribute wchar digit_group_separator;
+
+    attribute boolean use_dg_separator;
+
+    attribute unsigned short dg_separator_spacing;
+
+    attribute unsigned short precision_increment;
+
+    attribute RoundingType rounding_type;
+
+    attribute unsigned short min_integer_digits;
+
+  };
+
+
+
+  interface FloatingPointNumberFormatter :
+
+       PositionalNumberFormatter
+
+  {
+
+    attribute wchar decimal_separator;
+
+    attribute boolean decimal_with_integer;
+
+    attribute double upper_exponent_threshold;
+
+    attribute double lower_exponent_threshold;
+
+    attribute wchar exponent_separator_text;
+
+    attribute boolean fraction_separator;
+
+    attribute unsigned short min_fraction_digits;
+
+    attribute unsigned short max_fraction_digits;
+
+    attribute unsigned short exponent_phase;
+
+    attribute MantissaType mantissa_type;
+
+    attribute boolean show_base_type;
+
+  };
+
+  
+
+  interface RationalNumberFormatter : NumberFormatter
+
+  {
+
+    attribute double variance;
+
+    attribute wchar fraction_space;
+
+    attribute wchar fraction_sign;
+
+    attribute boolean proper;
+
+    attribute boolean numerator_first;
+
+    attribute boolean subscript_use;
+
+    attribute PositionalNumberFormatter integer_formatter;
+
+  };
+
+
+
+  interface AdditiveNumberFormatter : NumberFormatter
+
+  {
+
+};
+
+
+
+  interface RomanNumberFormatter : AdditiveNumberFormatter
+
+  {
+
+
+
+    attribute RomanNumeralCase numeralCase;
+
+    attribute RomanNumeralType type;
+
+    attribute boolean j_terminate;
+
+  };
+
+
+
+  interface HybridNumberFormatter : AdditiveNumberFormatter
+
+  {
+
+    attribute long multiplicative_threshold;
+
+  };
+
+
+
+  interface HanNumberFormatter : HybridNumberFormatter
+
+  {
+
+    attribute HanNumberType type;
+
+    attribute HanSimplification simplification;
+
+  };
+
+
+
+  interface OutlineNumberFormatter : NumberFormatter
+
+  {
+
+  };
+
+
+
+  interface NumberFormatterFactory : LifeCycleObject
+
+  {
+
+    attribute Numerals numerals;
+
+    attribute NumberFormatter out_of_bounds_formatter;
+
+    attribute double min_number;
+
+    attribute double max_number;
+
+    attribute unsigned short base;
+
+    attribute boolean plus_sign_enabled;
+
+    attribute wstring minus_prefix;
+
+    attribute wstring minus_suffix;
+
+    attribute wstring plus_prefix;
+
+    attribute wstring plus_suffix;
+
+    attribute wstring infinity_sign;
+
+    attribute wstring NaN_sign;
+
+    attribute wchar digit_group_separator;
+
+    attribute boolean use_dg_separator;
+
+    attribute unsigned short dg_separator_spacing;
+
+    attribute unsigned short precision_increment;
+
+    attribute RoundingType rounding_type;
+
+    attribute unsigned short min_integer_digits;
+
+    attribute wchar decimal_separator;
+
+    attribute boolean decimal_with_integer;
+
+    attribute double upper_exponent_threshold;
+
+    attribute double lower_exponent_threshold;
+
+    attribute wchar exponent_separator_text;
+
+    attribute boolean fraction_separator;
+
+    attribute unsigned short min_fraction_digits;
+
+    attribute unsigned short max_fraction_digits;
+
+    attribute unsigned short exponent_phase;
+
+    attribute MantissaType mantissa_type;
+
+
+
+    attribute boolean show_base_type;
+
+    attribute double variance;
+
+    attribute wchar fraction_space;
+
+    attribute wchar fraction_sign;
+
+    attribute boolean proper;
+
+    attribute boolean numerator_first;
+
+    attribute boolean subscript_use;
+
+    attribute PositionalNumberFormatter integer_formatter;
+
+    attribute RomanNumeralCase roman_numeral_case;
+
+    attribute RomanNumeralType roman_numeral_type;
+
+    attribute boolean j_terminate;
+
+    attribute long multiplicative_threshold;
+
+    attribute HanNumberType han_number_type;
+
+    attribute HanSimplification simplification;
+
+    PositionalNumberFormatter
+
+       create_positional_number_formatter ();
+
+    FloatingPointNumberFormatter
+
+       create_floating_point_number_formatter ();
+
+    RationalNumberFormatter
+
+       create_rational_number_formatter ();
+
+    AdditiveNumberFormatter
+
+       create_additive_number_formatter ();
+
+    RomanNumberFormatter
+
+       create_roman_number_formatter ();
+
+    HybridNumberFormatter
+
+       create_hybrid_number_formatter ();
+
+    HanNumberFormatter
+
+       create_han_number_formatter ();
+
+    OutlineNumberFormatter
+
+       create_outline_number_formatter ();
+
+  };
+
+
+
+  interface DateTimeFormatter : AbstractFormatter
+
+  {
+
+    attribute NumberFormatter number_formatter;
+
+    attribute ParameterFormatter parameter_formatter;
+
+    attribute boolean military_time;
+
+    attribute boolean zero_hour;
+
+    attribute boolean abbreviate_year;
+
+    attribute Calendar calendar;
+
+    attribute DateTimeFieldValue
+
+       field;
+
+  };
+
+
+
+  interface DateTimeFormatterFactory: LifeCycleObject
+
+  {
+
+    DateTimeFormatter create_date_time_formatter ();
+
+  };
+
+typedef unsigned long long UTCSSeconds;
+
+  interface Calendar : LifeCycleObject
+
+  {
+
+    attribute TimeBase::TdfT tz;
+
+    attribute UTCSSecond UTCS_seconds;
+
+    attribute boolean use_zero_hour;
+
+    attribute unsigned short first_day_of_the_week;
+
+    attribute DateTimeFieldValue
+
+       min_val;
+
+    attribute DateTimeFieldValue
+
+       lower_max_val;
+
+    attribute DateTimeFieldValue
+
+       upper_max_val;
+
+    void roll_field
+
+       (in DateTimeFieldType f, in DateTimeFieldValue v);
+
+    void shift_field
+
+       (in DateTimeFieldType f, in DateTimeFieldValue v);
+
+    void set_field
+
+       (in DateTimeFieldType f, in DateTimeFieldValue v);
+
+    DateTimeFieldValue get_field
+
+       (in DateTimeFieldType f);
+
+    void clear_all_fields ();
+
+    // Conversion function between TimeT and UTCSSeconds
+
+    TimeBase::TimeT get_timet	
+
+				// convert from UTCSSeconds to TimeT
+
+				// raises BAD_PARAM if UTCS_seconds
+
+				// is out of range of TimeT. This happens
+
+				// if UTCS_seconds represents time T such
+
+				// that T < 15 Oct 1582 00:00:00 or
+
+				//      T > ~1 Jan 30,000
+
+      	(in UTCSSecond UTCS_seconds);
+
+    UTCSSeconds get_UTCS_seconds 
+
+				// convert from TimeT to UTCSSeconds
+
+      (in TimeBase::TimeT time_t);
+
+    TimeBase::TimeT get_relative_timet 
+
+				// Convert relative time from
+
+				// UTCSSeconds form to TimeT form. Raises
+
+				// BAD_PARAM if UTCS_seconds is too large
+
+				// to represent as TimeT
+
+      (in UTCSSecond UTCS_seconds);
+
+    UTCSSeconds get_relative_UTCS_seconds 
+
+				// convert relative time
+
+				// from TimeT to UTCSSeconds
+
+      (in TimeBase::TimeT time_t);
+
+  };
+
+};
+
+
+
+
+
+ 
+
+
+

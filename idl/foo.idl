@@ -1,0 +1,8 @@
+
+#pragma prefix "omg.org"
+
+module CORBA_ {
+  interface Object_ {
+    boolean non_existent();
+  };
+};

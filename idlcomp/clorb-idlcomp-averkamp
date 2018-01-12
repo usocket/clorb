@@ -1,0 +1,52 @@
+
+From roland.averkamp@trivadis.com Wed Apr 25 00:11:54 2001
+Date: Sat, 24 Mar 2001 20:34:31 +0100
+From: Roland Averkamp <roland.averkamp@trivadis.com>
+To: Lennart Staflin <lenst@lysator.liu.se>
+Subject: Re: clorb
+
+Hello Mr. Stafflin,
+enclosed is the new  first pass of the idl compiler.
+this time I included the scanner generator and the parser generator with
+the input for scanner and parser.
+
+the system can be generated with
+
+(load "generate-all.lisp")
+
+currently it works only with clisp, 
+cmucl chokes when it tries to compile the parser procedure, the parser
+procedure has a labels statement with about 300 procedures and this is
+too much for cmucl and 64mb.
+(I could turn this labels statement into global procedures) 
+
+this loads also the idl-compiler.lisp
+If everything is generated then (load "idl-compiler.lisp") loads the
+idl-compiler.
+
+(save-idef file1 file2)
+
+compiles the idl in file1 and saves the result in file2
+this can then be loaded into clisp (simple idl only)
+
+I use the linux cpp preprocessor, the include directory is the variable
+*idl-include-dir*.
+The integration with the preprocessor could be better.
+
+concerning constants and a second pass, it occurred to me that second
+pass of the compiler is the idef reader.
+
+to make the compiler more functional, the idef side needs work:
+I saw that now there are constants and unions in the local interface
+repository,
+so I will try to figure out how I can hook this up to idef-read.
+
+I do not understand how to feed definitions from the local interface
+repository into the internal interface repository.
+Can you give me a hint?
+
+Roland Averkamp
+    [ Part 2, Application/OCTET-STREAM (Name: "idl-compiler.tar.gz")  ]
+    [ 57KB. ]
+    [ Unable to print this part. ]
+

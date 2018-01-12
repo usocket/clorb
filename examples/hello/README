@@ -1,0 +1,54 @@
+                         Hello World Example
+
+
+An interface is defined in hello.idl that answers a simple operation
+"greet" with a string. There is also some a Value Type "Fox", and
+some operations using this value type.
+
+auto.lisp - defines functions hh, and hhn that runs loads the client
+and server code and runs a simple exchange.
+
+loadup.lisp - loads the IDL, client and server.
+
+hello-client.lisp - defines a hello-client function.
+
+hello-server.lisp - defined the servant, and a setup-hello and
+run-hello functions.
+
+hello-dynserver.lisp - a sevant for hello::world using dynamic
+skeleton interface (DSI). Defines a setup-hellodyn function. (not
+loaded by loadup)
+
+hello-bridge.lisp - a servant for hello::world that delegates to
+another instance. (not loaded by loadup)
+
+
+Function: hello-client &key file name count
+Args: file - a pathname designator 
+      name - a string
+      count - an integer
+
+Function that calls the "greet" operation on a Hello::World object
+that it retrieves from the name service (if name is specified) or from
+a file (if file is specified). The file should contain a stringified
+object reference. The count parameter can be specified to run the
+opertation repeatedly (to test speed).
+
+
+Function: setup-hello &key file name
+Args: file - a pathname designator 
+      name - a string
+
+Function to initiate the servant. The resulting object reference will
+be registered with the name service if name is specified or written
+to a file if file is specified. After the functions as been called a
+servant object will be registered with the Root POA and the
+POAManager for the POA will be activated. 
+
+
+Function: run-hello &rest args
+
+Calls setup-hello with args if any args are given. The runs the orbs
+event loop (using op:run).
+
+

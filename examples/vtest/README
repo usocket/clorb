@@ -1,0 +1,138 @@
+
+                         CLORB Example VTest
+                     Examples of using valuetype
+
+
+This example was written to test the valuetype implementation in
+CLORB. Testing a simple concrete valuetype with a couple of members
+and a boxed valuetype. Demonstrate nil values and preservation of
+identity.
+
+The interface (vtest.idl):
+
+module CLORB_EX {
+  valuetype Fox {
+    public string name;
+    public long value;
+  };
+  valuetype LongBox long;
+  interface VTest {
+    Fox read (in string name);
+    void write (in Fox box);
+    string repr (in Fox box);
+    string write2 (in Fox box1, in Fox box2);
+    string longs (in LongBox box1, in LongBox box2);
+  };
+};
+
+
+The server in vtest-server implements the interface as described below.
+
++----------+-----------------------------------+
+|read      |Creates a Fox valuetype with the   |
+|          |argument as the name field and the |
+|          |length of the name as value.       |
++----------+-----------------------------------+
+|write     |Writes the argument to the server  |
+|          |log stream.                        |
++----------+-----------------------------------+
+|repr      |Returns a string representation of |
+|          |the argument.                      |
++----------+-----------------------------------+
+|write2    |Returns a string "They are the     |
+|          |same" if the two arguments are eql.|
+|          |Otherwise it returns a string      |
+|          |representing the two arguments.    |
++----------+-----------------------------------+
+|longs     |Kind of like write2 but for the    |
+|          |value box LongBox.                 |
++----------+-----------------------------------+
+
+
+After loading the example (loadup.lisp), start the server with 
+
+? (setup-vtest :name "vtest")
+#<VTEST-PROXY (1 . 1)@10.0.1.2:4711>
+
+I use a name server here, if you don't have a name server configured
+you could use a file instead (setup-vtest :file "vtest.ior").
+Setup-vtest only creates the servant and activates it. Here I test
+with the server and client in the same process. CLORB uses a shortcut
+bypassing the network in this case, but all the marshalling is done.
+If you want to run in two process start the server with run-vtest
+instead of setup-vtest.
+
+On the client side I do:
+
+? (defvar *vt* (clorb:resolve "vtest"))
+*VT*
+? *vt*
+#<VTEST-PROXY (1 . 1)@10.0.1.2:4711>
+
+Now *vt* is the proxy for the vtest server object. I can now create an
+instance of the Fox valuetype by calling the read operation:
+
+? (op:read *vt* "vtest example")
+#<FOX vtest example #14 #x28FEC06>
+? (op:name *)
+"vtest example"
+? (op:value **)
+14
+? (op:repr *vt* ***)
+"#<FOX vtest example #14 #x699C506>"
+
+The repr operation returns a string representation of the valuetype. A
+valuetype can also be nil:
+
+? (op:repr *vt* nil)
+"NIL"
+
+Sending two different Fox items to write2:
+
+? (op:write2 *vt* (make-instance 'CLORB_EX:Fox :name "x" :value 1)
+                  (op:read *vt* "yea"))
+"#<FOX x #1 #x69A6C3E> and #<FOX yea #4 #x69A67FE>"
+? (op:write2 *vt* (make-instance 'CLORB_EX:Fox :name "x" :value 1)
+                  (make-instance 'CLORB_EX:Fox :name "x" :value 1))
+"#<FOX x #1 #x6A02DFE> and #<FOX x #1 #x6A029BE>"
+
+Sending the same item as both arguments:
+
+? (let ((fox (make-instance 'CLORB_EX:Fox :name "x" :value 1)))
+    (op:write2 *vt* fox fox))
+"They are the same"
+
+The identity of the valuetype items are preserved within one request
+but no across requests.
+
+Creating an instance of a boxed type:
+
+? (make-instance 'clorb_ex:longbox :data 12)
+#<LONGBOX 12 #x2942C16>
+
+Calling longs with two boxed numbers:
+
+? (op:longs *vt* (make-instance 'clorb_ex:longbox :data 12)
+                 (make-instance 'clorb_ex:longbox :data 12))
+"#<LONGBOX 12 #x691D2A6> and #<LONGBOX 12 #x691D186>"
+? (op:longs *vt* (make-instance 'clorb_ex:longbox :data 12)
+                 (make-instance 'clorb_ex:longbox :data 13))
+"#<LONGBOX 12 #x693DF66> and #<LONGBOX 13 #x693DE46>"
+? (op:longs *vt* (make-instance 'clorb_ex:longbox :data 12) nil)
+"One or both is null"
+? (let ((box (make-instance 'clorb_ex:longbox :data 12)))
+    (op:longs *vt* box box))
+"They are the same"
+
+The last to examples demonstrating nil and indentity preserving.
+
+The box can also be implicit:
+
+? (op:longs *vt* 1 2)
+"#<LONGBOX 1 #x69DC806> and #<LONGBOX 2 #x69DC6E6>"
+? (op:longs *vt* 1 1)
+"They are the same"
+
+The last example above is a bit doubtful, perhaps they should be sent
+as distinct boxes.
+
