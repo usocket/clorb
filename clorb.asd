@@ -11,7 +11,7 @@
   :author "Lennart Staflin"
   :version (:read-file-form "version.sexp")
   :licence "LGPLv2"
-  :depends-on (:usocket)
+  :depends-on (:bordeaux-threads :usocket)
   :serial t
   :components
   ((:module "redpas"
