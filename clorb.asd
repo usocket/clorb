@@ -6,6 +6,12 @@
 (in-package :clorb.system)
 
 (defsystem :clorb
+  :name "CLORB"
+  :description "A Common Lisp implementation of CORBA"
+  :author "Lennart Staflin"
+  :version (:read-file-form "version.sexp")
+  :licence "LGPLv2"
+  :depends-on (:usocket)
   :serial t
   :components
   ((:module "redpas"
